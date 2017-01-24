@@ -13,8 +13,8 @@ matrix:
     - dotnet: 1.0.0-preview2-003131 # 
 install:
   - nuget restore $TRAVIS_SOLUTION
-  - nuget install NUnit.Runners -Version 3.4.1 -OutputDirectory testrunner
+  - nuget install NUnit.Runners -Version 3.6.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release $TRAVIS_SOLUTION
-  - if [ $DOTNETCORE == "1" ] ; then dotnet ./testrunner/NUnit.Runners.3.4.1/tools/nunit3-console.exe ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi
-  - if [ $DOTNETCORE != "1" ] ; then mono ./testrunner/NUnit.Runners.3.4.1/tools/nunit3-console.exe ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi  
+  - if [ $DOTNETCORE == "1" ] ; then dotnet ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi
+  - if [ $DOTNETCORE != "1" ] ; then mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi  
