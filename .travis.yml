@@ -10,7 +10,10 @@ matrix:
     - mono: 4.2.1 # this is the default on Ubuntu 16.04 LTS. And it's a 4.x release so it's dotnet profile 4.5
   allow_failures:
     - dotnet: 1.0.0-preview2-003131 # 
+install:
+  - nuget restore commercetools.NET-Net45.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
-  # TODO working dotnet core compatible build script command. 
-  # - dotnet build /p:Configuration=Release commercetools.NET-Net45.sln
+  - xbuild /p:Configuration=Release commercetools.NET-Net45.sln
+  - dotnet ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll
   
