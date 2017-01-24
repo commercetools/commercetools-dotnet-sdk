@@ -15,5 +15,5 @@ install:
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release commercetools.NET-Net45.sln
-  - dotnet ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll
-  
+  - if [ $DOTNETCORE == '1' ] ; then dotnet ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi
+  - if [ $DOTNETCORE != '1' ] ; then mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi  
