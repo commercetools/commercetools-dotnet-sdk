@@ -12,7 +12,8 @@ matrix:
   allow_failures:
     - dotnet: 1.0.0-preview2-003131 # 
 install:
-  - nuget restore $TRAVIS_SOLUTION
+  - if [ $DOTNETCORE == "1" ] ; then dotnet restore $TRAVIS_SOLUTION ; fi
+  - if [ $DOTNETCORE != "1" ] ; then nuget restore $TRAVIS_SOLUTION ; fi
   - nuget install NUnit.ConsoleRunner -Version 3.6.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release $TRAVIS_SOLUTION
