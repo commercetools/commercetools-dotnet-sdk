@@ -16,5 +16,5 @@ install:
   - nuget install NUnit.ConsoleRunner -Version 3.6.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release $TRAVIS_SOLUTION
-  - if [ $DOTNETCORE == "1" ] ; then dotnet ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi
-  - if [ $DOTNETCORE != "1" ] ; then mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi  
+  - if [ $DOTNETCORE == "1" ] ; then dotnet ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi
+  - if [ $DOTNETCORE != "1" ] ; then mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi  
