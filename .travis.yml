@@ -10,10 +10,11 @@ matrix:
     - mono: 4.2.1 # this is the default on Ubuntu 16.04 LTS. And it's a 4.x release so it's dotnet profile 4.5
   allow_failures:
     - dotnet: 1.0.0-preview2-003131 # 
+      env: DOTNETCORE=0
 install:
   - nuget restore $TRAVIS_SOLUTION
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release $TRAVIS_SOLUTION
-  - if [ $DOTNETCORE == '1' ] ; then dotnet ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi
-  - if [ $DOTNETCORE != '1' ] ; then mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi  
+  - if [ $DOTNETCORE == "1" ] ; then dotnet ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi
+  - if [ $DOTNETCORE != "1" ] ; then mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./commercetools.NET.Tests/bin/Release/commercetools.NET.Tests.dll; fi  
