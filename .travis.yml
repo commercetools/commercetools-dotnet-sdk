@@ -8,9 +8,9 @@ matrix:
       mono: none
       env: DOTNETCORE=1
     - mono: 4.2.1 # this is the default on Ubuntu 16.04 LTS. And it's a 4.x release so it's dotnet profile 4.5
+      env: DOTNETCORE=0
   allow_failures:
     - dotnet: 1.0.0-preview2-003131 # 
-      env: DOTNETCORE=0
 install:
   - nuget restore $TRAVIS_SOLUTION
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
