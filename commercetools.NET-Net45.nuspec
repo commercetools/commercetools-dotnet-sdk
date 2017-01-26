@@ -18,8 +18,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\LICENSE"/>
-    <file src="bin\Release\commercetools.NET.dll" target="lib\net45"/>
-    <file src="bin\Release\commercetools.NET.xml" target="lib\net45"/>
+    <file src="LICENSE"/>
+    <file src="commercetools.NET\bin\Release\commercetools.NET.dll" target="lib\net45"/>
+    <file src="commercetools.NET\bin\Release\commercetools.NET.xml" target="lib\net45"/>
   </files>
 </package>
