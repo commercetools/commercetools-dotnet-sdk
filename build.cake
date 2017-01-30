@@ -270,7 +270,7 @@ Task("PackageZip")
 
         var zipFiles =
             GetFiles(currentImageDir + "*.*") +
-            GetFiles(currentImageDir + "bin/net-4.5/*.*") +
+            GetFiles(currentImageDir + "bin/net-4.5/*.*");
         Zip(currentImageDir, File(ZIP_PACKAGE), zipFiles);
     });
 
