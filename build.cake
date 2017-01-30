@@ -457,8 +457,7 @@ Task("Travis")
 
 Task("Default")
     .Description("Builds all versions of the framework")
-    .IsDependentOn("Build")
-    .IsDependentOn("Package");
+    .IsDependentOn("Build");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
