@@ -189,7 +189,7 @@ Task("Test45")
     .Does(() =>
     {
         var runtime = "net-4.5";
-        var dir = BIN_DIR;
+        var dir = BIN_DIR + runtime + "/";
         RunNUnitTests(dir, SDK_TESTS, runtime, ref ErrorDetail);
     });
 
@@ -242,7 +242,7 @@ Task("CreateImage")
         }
     });
 
-Task("PackageFramework")
+Task("PackageSDK")
     .Description("Creates NuGet packages of the framework")
     .IsDependentOn("CreateImage")
     .Does(() =>
@@ -440,7 +440,7 @@ Task("Test")
 Task("Package")
     .Description("Packages all versions of the framework")
     .IsDependentOn("CheckForError")
-    .IsDependentOn("PackageFramework")
+    .IsDependentOn("PackageSDK")
     .IsDependentOn("PackageZip");
 
 Task("Appveyor")
@@ -458,7 +458,7 @@ Task("Travis")
 Task("Default")
     .Description("Builds all versions of the framework")
     .IsDependentOn("Build")
-    .IsDependentOn("Test");
+    .IsDependentOn("Package");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
