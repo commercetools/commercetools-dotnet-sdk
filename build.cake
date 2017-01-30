@@ -57,9 +57,6 @@ var PACKAGE_SOURCE = new string[]
 // Test Assemblies
 var SDK_TESTS = "commercetools.NET.Tests.dll";
 
-// Packages
-var ZIP_PACKAGE = PACKAGE_DIR + "commercetools.NET-" + packageVersion + ".zip";
-
 bool isDotNetCoreInstalled = false;
 
 var packages = new string[]{
@@ -267,11 +264,11 @@ Task("PackageZip")
         CreateDirectory(PACKAGE_DIR);
 
         var currentImageDir = IMAGE_DIR + "commercetools.NET-" + packageVersion + "/";
-
+		var zipPackage = PACKAGE_DIR + "commercetools.NET-" + packageVersion + ".zip";
         var zipFiles =
             GetFiles(currentImageDir + "*.*") +
             GetFiles(currentImageDir + "bin/net-4.5/*.*");
-        Zip(currentImageDir, File(ZIP_PACKAGE), zipFiles);
+        Zip(currentImageDir, File(zipPackage), zipFiles);
     });
 
 //////////////////////////////////////////////////////////////////////
@@ -457,7 +454,8 @@ Task("Travis")
 
 Task("Default")
     .Description("Builds all versions of the framework")
-    .IsDependentOn("Build");
+    .IsDependentOn("Build")
+	.IsDependentOn("Package");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
