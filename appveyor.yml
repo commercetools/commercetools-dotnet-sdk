@@ -3,3 +3,11 @@ build_script:
 
 # disable built-in tests.
 test: off
+
+deploy:
+- provider: NuGet
+  api_key:
+    secure: CoLKjU9tcopFdae1EWuP/uAsEX8NOQ6P5b+T+YOBLe25++Uc7GLWzYghhhUjfQ+1
+  skip_symbols: true
+  on:
+    branch: master

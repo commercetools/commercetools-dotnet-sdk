@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>commercetools.sdk.test</id>
+    <id>commercetools.NET.SDK</id>
     <version>$version$</version>
     <authors>Falcon-Software Company Inc.</authors>
     <owners>Falcon-Software Company Inc.</owners>
@@ -20,7 +20,7 @@
   <files>
     <file src="LICENSE"/>
     <file src="README.md"/>
-    <file src="bin\net-4.5\commercetools.NET.dll" target="lib\net45"/>
-    <file src="bin\net-4.5\commercetools.NET.xml" target="lib\net45"/>
+    <file src="bin/net-4.5/commercetools.NET.dll" target="lib/net45"/>
+    <file src="bin/net-4.5/commercetools.NET.xml" target="lib/net45"/>
   </files>
 </package>

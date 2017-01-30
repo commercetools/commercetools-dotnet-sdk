@@ -248,7 +248,7 @@ Task("PackageSDK")
 
         CreateDirectory(PACKAGE_DIR);
 
-        NuGetPack("commercetools.NET/commercetools.NET.nuspec", new NuGetPackSettings()
+        NuGetPack("commercetools.NET.nuspec", new NuGetPackSettings()
         {
             Version = packageVersion,
             BasePath = currentImageDir,
