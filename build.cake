@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
-#tool nuget:?package=commercetools.NET
+//#tool nuget:?package=commercetools.NET
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Debug");
@@ -44,9 +44,9 @@ var PACKAGE_DIR = PROJECT_DIR + "package/";
 var BIN_DIR = PROJECT_DIR + "bin/" + configuration + "/";
 var IMAGE_DIR = PROJECT_DIR + "images/";
 
-var SOLUTION_FILE = IsRunningOnWindows()
-    ? "./commercetools.NET-Net45.sln"
-    : "./commercetools.NET-Net45.sln";
+//var SOLUTION_FILE = IsRunningOnWindows()
+//    ? "./commercetools.NET-Net45.sln"
+//    : "./commercetools.NET-Net45.sln";
 
 // Package sources for nuget restore
 var PACKAGE_SOURCE = new string[]
@@ -63,6 +63,8 @@ var ZIP_PACKAGE = PACKAGE_DIR + "commercetools.NET-" + packageVersion + ".zip";
 bool isDotNetCoreInstalled = false;
 
 var packages = new string[]{
+    "commercetools.NET/packages.config",
+    "commercetools.NET.Tests/packages.config"
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -71,7 +73,7 @@ var packages = new string[]{
 
 Setup(context =>
 {
-    Information("Building version {0} of commercetools.NET.", packageVersion);
+    Information("Building version {0} of c.", packageVersion);
 
     isDotNetCoreInstalled = CheckIfDotNetCoreInstalled();
 });
@@ -427,12 +429,12 @@ Task("Rebuild")
 Task("Build")
     .Description("Builds all versions of the framework")
     .IsDependentOn("InitializeBuild")
-    .IsDependentOn("Build45")
+    .IsDependentOn("Build45");
 
 Task("Test")
     .Description("Builds and tests all versions of the framework")
     .IsDependentOn("Build")
-    .IsDependentOn("Test45")
+    .IsDependentOn("Test45");
 
 Task("Package")
     .Description("Packages all versions of the framework")
