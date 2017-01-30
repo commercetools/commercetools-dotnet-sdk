@@ -189,7 +189,7 @@ Task("Test45")
     .Does(() =>
     {
         var runtime = "net-4.5";
-        var dir = BIN_DIR + runtime + "/";
+        var dir = BIN_DIR;
         RunNUnitTests(dir, SDK_TESTS, runtime, ref ErrorDetail);
     });
 
@@ -364,6 +364,7 @@ void RunNUnitTests(DirectoryPath workingDir, string testAssembly, string framewo
     try
     {
         var path = workingDir.CombineWithFilePath(new FilePath(testAssembly));
+		Information("Test directory " + path);
         var settings = new NUnit3Settings();
         if(!IsRunningOnWindows())
             settings.Process = NUnit3ProcessOption.InProcess;
@@ -456,7 +457,8 @@ Task("Travis")
 
 Task("Default")
     .Description("Builds all versions of the framework")
-    .IsDependentOn("Build");
+    .IsDependentOn("Build")
+    .IsDependentOn("Test");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
