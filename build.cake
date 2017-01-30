@@ -16,7 +16,7 @@ var ErrorDetail = new List<string>();
 // SET PACKAGE VERSION
 //////////////////////////////////////////////////////////////////////
 
-var version = "0.1.0";
+var version = "1.0.0";
 var modifier = "";
 
 var isAppveyor = BuildSystem.IsRunningOnAppVeyor;
