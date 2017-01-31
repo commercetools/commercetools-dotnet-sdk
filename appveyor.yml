@@ -10,4 +10,4 @@ deploy:
     secure: D3Y47X7NR+ftXrvBnZtkOaDmSM8rr1UusqaIdJIO/9w2YVdnE/cDKdc+O99jbmpk
   skip_symbols: true
   on:
-    branch: nuget_test
+    branch: master
