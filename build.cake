@@ -1,7 +1,6 @@
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
-#addin nuget:?package=Cake.AppVeyor
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.6.0
 
 var target = Argument("target", "Default");
@@ -192,7 +191,7 @@ Task("Test45")
 		if (isAppveyor)
 		{
 			var wc = new System.Net.WebClient();
-			var jobId = new AppVeyorJob().JobId;
+			var jobId = AppVeyor.Environment.JobId;
 			Information("JobId:" + jobId);
 //			wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit3/" + jobId, "TestResults.xml");
 		}
