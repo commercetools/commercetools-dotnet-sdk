@@ -73,6 +73,12 @@ Setup(context =>
     Information("Building version {0} of c.", packageVersion);
 
     isDotNetCoreInstalled = CheckIfDotNetCoreInstalled();
+	
+	var nunit3 = PROJECT_DIR + "tools/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe";
+	if (FileExists(nunit3)) {
+		Information("Registering: " + nunit3);
+		context.Tools.RegisterFile(nunit3);
+	}
 });
 
 //////////////////////////////////////////////////////////////////////
