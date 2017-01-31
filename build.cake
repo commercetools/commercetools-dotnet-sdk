@@ -368,9 +368,8 @@ void RunNUnitTests(DirectoryPath workingDir, string testAssembly, string framewo
 		if (BuildSystem.IsRunningOnAppVeyor)
 		{
 			settings.ResultFormat = "AppVeyor";
-			settings.Results = "myresults.xml";
+			settings.Results = new FilePath("myresults.xml");
 		}
-		Information("Settings:" + settings.ResultFormat);
         NUnit3(path.ToString(), settings);
     }
     catch(CakeException ce)
