@@ -9,9 +9,5 @@ matrix:
     - mono: 4.2.1 # this is the default on Ubuntu 16.04 LTS. And it's a 4.x release so it's dotnet profile 4.5
   allow_failures:
     - dotnet: 1.0.0-preview2-003131 # 
-install:
-  - SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-  - TOOLS_DIR=$SCRIPT_DIR/tools
-  - nuget install NUnit.ConsoleRunner -Version 3.6.0 -OutputDirectory $TOOLS_DIR
 script:
   - ./build.sh --target "Travis"

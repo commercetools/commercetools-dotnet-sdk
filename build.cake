@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
-//#tool nuget:?package=NUnit.ConsoleRunner&version=3.6.0
+#tool nuget:?package=NUnit.ConsoleRunner&version=3.6.0
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Debug");
@@ -73,12 +73,6 @@ Setup(context =>
     Information("Building version {0} of c.", packageVersion);
 
     isDotNetCoreInstalled = CheckIfDotNetCoreInstalled();
-	
-	var nunit3 = PROJECT_DIR + "tools/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe";
-	if (FileExists(nunit3)) {
-		Information("Registering: " + nunit3);
-		context.Tools.RegisterFile(nunit3);
-	}
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -371,6 +365,11 @@ void RunNUnitTests(DirectoryPath workingDir, string testAssembly, string framewo
         var settings = new NUnit3Settings();
         if(!IsRunningOnWindows())
             settings.Process = NUnit3ProcessOption.InProcess;
+		if (BuildSystem.IsRunningOnAppVeyor)
+		{
+			settings.ResultFormat = "AppVeyor";
+		}
+		Information("Settings:" + settings.ResultFormat);
         NUnit3(path.ToString(), settings);
     }
     catch(CakeException ce)
