@@ -1,6 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
+#addin nuget:?package=Cake.AppVeyor
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.6.0
 
 var target = Argument("target", "Default");
@@ -188,6 +189,14 @@ Task("Test45")
         var runtime = "net-4.5";
         var dir = BIN_DIR + runtime + "/";
         RunNUnitTests(dir, SDK_TESTS, runtime, ref ErrorDetail);
+		if (isAppveyor)
+		{
+			var wc = new System.Net.WebClient();
+			var jobId = new AppVeyorJob().JobId;
+			Information("JobId:" + jobId);
+//			wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit3/" + jobId, "TestResults.xml");
+		}
+	
     });
 
 
@@ -365,11 +374,6 @@ void RunNUnitTests(DirectoryPath workingDir, string testAssembly, string framewo
         var settings = new NUnit3Settings();
         if(!IsRunningOnWindows())
             settings.Process = NUnit3ProcessOption.InProcess;
-		if (BuildSystem.IsRunningOnAppVeyor)
-		{
-			settings.ResultFormat = "nunit3";
-			settings.Results = new FilePath("myresults.xml");
-		}
         NUnit3(path.ToString(), settings);
     }
     catch(CakeException ce)
