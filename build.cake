@@ -367,8 +367,8 @@ void RunNUnitTests(DirectoryPath workingDir, string testAssembly, string framewo
             settings.Process = NUnit3ProcessOption.InProcess;
 		if (BuildSystem.IsRunningOnAppVeyor)
 		{
-			settings.ResultFormat = "AppVeyor";
-			settings.Results = new FilePath("./myresults.xml");
+			settings.ResultFormat = "nunit3";
+			settings.Results = new FilePath("myresults.xml");
 		}
         NUnit3(path.ToString(), settings);
     }
