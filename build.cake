@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
-//#tool nuget:?package=commercetools.NET
+#tool nuget:?package=NUnit.ConsoleRunner&version=3.6.0
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Debug");
@@ -454,8 +454,7 @@ Task("Travis")
 
 Task("Default")
     .Description("Builds all versions of the framework")
-    .IsDependentOn("Build")
-	.IsDependentOn("Package");
+    .IsDependentOn("Build");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
