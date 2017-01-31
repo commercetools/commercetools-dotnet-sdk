@@ -192,7 +192,6 @@ Task("Test45")
 		{
 			var wc = new System.Net.WebClient();
 			var jobId = AppVeyor.Environment.JobId;
-			Information("JobId:" + jobId);
 			wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit3/" + jobId, "TestResult.xml");
 		}
 	
