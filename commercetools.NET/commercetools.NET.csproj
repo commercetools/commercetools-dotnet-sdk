@@ -414,6 +414,15 @@
     <Compile Include="States\Enums.cs" />
     <Compile Include="States\State.cs" />
     <Compile Include="States\StateDraft.cs" />
+    <Compile Include="Subscriptions\AWSSNSDestination.cs" />
+    <Compile Include="Subscriptions\AWSSQSDestination.cs" />
+    <Compile Include="Subscriptions\ChangeSubscription.cs" />
+    <Compile Include="Subscriptions\Destination.cs" />
+    <Compile Include="Subscriptions\DestinationFactory.cs" />
+    <Compile Include="Subscriptions\IronMQDestination.cs" />
+    <Compile Include="Subscriptions\MessageSubscription.cs" />
+    <Compile Include="Subscriptions\Subscription.cs" />
+    <Compile Include="Subscriptions\SubscriptionDraft.cs" />
     <Compile Include="TaxCategories\Extensions.cs" />
     <Compile Include="TaxCategories\SubRate.cs" />
     <Compile Include="TaxCategories\TaxCategory.cs" />
