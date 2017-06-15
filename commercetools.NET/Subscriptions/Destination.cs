@@ -21,7 +21,7 @@ namespace commercetools.Subscriptions
 
         #endregion
 
-        #region Destination
+        #region Constructors
 
         /// <summary>
         /// Initializes this instance with JSON data from an API response.

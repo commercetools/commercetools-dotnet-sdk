@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\net-4.5\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,11 +28,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release\net-4.5\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\bin\Release\net-4.5\commercetools.NET.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\commercetools.NET.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
@@ -417,12 +417,23 @@
     <Compile Include="Subscriptions\AWSSNSDestination.cs" />
     <Compile Include="Subscriptions\AWSSQSDestination.cs" />
     <Compile Include="Subscriptions\ChangeSubscription.cs" />
+    <Compile Include="Subscriptions\DeliveryPayload.cs" />
     <Compile Include="Subscriptions\Destination.cs" />
     <Compile Include="Subscriptions\DestinationFactory.cs" />
+    <Compile Include="Subscriptions\Extensions.cs" />
     <Compile Include="Subscriptions\IronMQDestination.cs" />
     <Compile Include="Subscriptions\MessageSubscription.cs" />
+    <Compile Include="Subscriptions\MessageSubscriptionPayload.cs" />
+    <Compile Include="Subscriptions\ResourceCreatedPayload.cs" />
+    <Compile Include="Subscriptions\ResourceDeletedPayload.cs" />
+    <Compile Include="Subscriptions\ResourceUpdatedPayload.cs" />
     <Compile Include="Subscriptions\Subscription.cs" />
     <Compile Include="Subscriptions\SubscriptionDraft.cs" />
+    <Compile Include="Subscriptions\SubscriptionManager.cs" />
+    <Compile Include="Subscriptions\SubscriptionQueryResult.cs" />
+    <Compile Include="Subscriptions\UpdateActions\SetChangesAction.cs" />
+    <Compile Include="Subscriptions\UpdateActions\SetKeyAction.cs" />
+    <Compile Include="Subscriptions\UpdateActions\SetMessagesAction.cs" />
     <Compile Include="TaxCategories\Extensions.cs" />
     <Compile Include="TaxCategories\SubRate.cs" />
     <Compile Include="TaxCategories\TaxCategory.cs" />
