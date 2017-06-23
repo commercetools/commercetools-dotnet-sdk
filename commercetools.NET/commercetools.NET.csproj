@@ -103,6 +103,7 @@
     <Compile Include="Carts\TaxPortion.cs" />
     <Compile Include="Carts\TaxedPrice.cs" />
     <Compile Include="Carts\UpdateActions\AddPaymentAction.cs" />
+    <Compile Include="Carts\UpdateActions\AddShoppingListAction.cs" />
     <Compile Include="Carts\UpdateActions\ChangeCustomLineItemMoneyAction.cs" />
     <Compile Include="Carts\UpdateActions\ChangeCustomLineItemQuantityAction.cs" />
     <Compile Include="Carts\UpdateActions\ChangeLineItemQuantityAction.cs" />
@@ -122,8 +123,10 @@
     <Compile Include="Carts\UpdateActions\SetCustomLineItemTaxRateAction.cs" />
     <Compile Include="Carts\UpdateActions\SetCustomShippingMethodAction.cs" />
     <Compile Include="Carts\UpdateActions\SetCustomTypeAction.cs" />
+    <Compile Include="Carts\UpdateActions\SetDeleteDaysAfterLastModificationAction.cs" />
     <Compile Include="Carts\UpdateActions\SetLineItemCustomFieldAction.cs" />
     <Compile Include="Carts\UpdateActions\SetLineItemCustomTypeAction.cs" />
+    <Compile Include="Carts\UpdateActions\SetLineItemPriceAction.cs" />
     <Compile Include="Carts\UpdateActions\SetLineItemTaxRateAction.cs" />
     <Compile Include="Carts\UpdateActions\SetLineItemTotalPriceAction.cs" />
     <Compile Include="Carts\UpdateActions\SetLocaleAction.cs" />
