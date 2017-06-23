@@ -57,6 +57,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CartDiscounts\AbsoluteCartDiscountValue.cs" />
+    <Compile Include="CartDiscounts\CartDiscount.cs" />
+    <Compile Include="CartDiscounts\CartDiscountDraft.cs" />
+    <Compile Include="CartDiscounts\CartDiscountManager.cs" />
+    <Compile Include="CartDiscounts\CartDiscountQueryResult.cs" />
+    <Compile Include="CartDiscounts\CartDiscountTarget.cs" />
+    <Compile Include="CartDiscounts\CartDiscountValue.cs" />
+    <Compile Include="CartDiscounts\CartDiscountValueFactory.cs" />
+    <Compile Include="CartDiscounts\Enums.cs" />
+    <Compile Include="CartDiscounts\Extensions.cs" />
+    <Compile Include="CartDiscounts\GiftLineItemCartDiscountValue.cs" />
+    <Compile Include="CartDiscounts\RelativeCartDiscountValue.cs" />
+    <Compile Include="CartDiscounts\UpdateActions\ChangeCartPredicateAction.cs" />
+    <Compile Include="CartDiscounts\UpdateActions\ChangeIsActiveAction.cs" />
+    <Compile Include="CartDiscounts\UpdateActions\ChangeNameAction.cs" />
+    <Compile Include="CartDiscounts\UpdateActions\ChangeRequiresDiscountCodeAction.cs" />
+    <Compile Include="CartDiscounts\UpdateActions\ChangeSortOrderAction.cs" />
+    <Compile Include="CartDiscounts\UpdateActions\ChangeTargetAction.cs" />
+    <Compile Include="CartDiscounts\UpdateActions\ChangeValueAction.cs" />
+    <Compile Include="CartDiscounts\UpdateActions\SetDescriptionAction.cs" />
+    <Compile Include="CartDiscounts\UpdateActions\SetValidFromAction.cs" />
+    <Compile Include="CartDiscounts\UpdateActions\SetValidUntilAction.cs" />
     <Compile Include="Carts\ExternalLineItemTotalPrice.cs" />
     <Compile Include="Carts\UpdateActions\AddCustomLineItemAction.cs" />
     <Compile Include="Carts\UpdateActions\AddDiscountCodeAction.cs" />
@@ -166,6 +188,18 @@
     <Compile Include="Customers\UpdateActions\SetMiddleNameAction.cs" />
     <Compile Include="Customers\UpdateActions\SetTitleAction.cs" />
     <Compile Include="Customers\UpdateActions\SetVatIdAction.cs" />
+    <Compile Include="DiscountCodes\DiscountCode.cs" />
+    <Compile Include="DiscountCodes\DiscountCodeDraft.cs" />
+    <Compile Include="DiscountCodes\DiscountCodeManager.cs" />
+    <Compile Include="DiscountCodes\DiscountCodeQueryResult.cs" />
+    <Compile Include="DiscountCodes\Extensions.cs" />
+    <Compile Include="DiscountCodes\UpdateActions\ChangeCartDiscountsAction.cs" />
+    <Compile Include="DiscountCodes\UpdateActions\ChangeIsActiveAction.cs" />
+    <Compile Include="DiscountCodes\UpdateActions\SetCartPredicateAction.cs" />
+    <Compile Include="DiscountCodes\UpdateActions\SetMaxApplicationsAction.cs" />
+    <Compile Include="DiscountCodes\UpdateActions\SetMaxApplicationsPerCustomerAction.cs" />
+    <Compile Include="DiscountCodes\UpdateActions\SetDescriptionAction.cs" />
+    <Compile Include="DiscountCodes\UpdateActions\SetNameAction.cs" />
     <Compile Include="Messages\CategoryCreatedMessage.cs" />
     <Compile Include="Messages\CategorySlugChangedMessage.cs" />
     <Compile Include="Messages\CustomerCreatedMessage.cs" />
