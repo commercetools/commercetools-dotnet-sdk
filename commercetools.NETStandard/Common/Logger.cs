@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System;
+using System.IO;
+using System.Linq.Expressions;
+using System.Reflection;
 
 using log4net;
 
@@ -25,10 +28,11 @@ namespace commercetools.Common
 
                     try
                     {
-                        if (!log4net.LogManager.GetRepository().Configured)
+                        var logRepository = log4net.LogManager.GetRepository(typeof(Logger).GetTypeInfo().Assembly);
+                        if (!logRepository.Configured)
                         {
-                            log4net.Config.XmlConfigurator.Configure();
-                            _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+                            log4net.Config.XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+                            _log = LogManager.GetLogger(typeof(Logger));
                         }
                     }
                     catch
@@ -75,6 +79,12 @@ namespace commercetools.Common
             {
                 Log.Error(message);
             }
+        }
+
+        private static MethodInfo GetMethodInfoOf<T>(Expression<Func<T>> expression)
+        {
+            var body = (MethodCallExpression)expression.Body;
+            return body.Method;
         }
     }
 }

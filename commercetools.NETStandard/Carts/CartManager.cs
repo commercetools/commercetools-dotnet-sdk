@@ -100,7 +100,7 @@ namespace commercetools.Carts
         /// <see href="http://dev.commercetools.com/http-api-projects-carts.html#query-carts"/>
         public Task<Response<CartQueryResult>> QueryCartsAsync(string where = null, string sort = null, int limit = -1, int offset = -1)
         {
-            NameValueCollection values = new NameValueCollection();
+            var values = new NameValueCollection();
 
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -231,7 +231,7 @@ namespace commercetools.Carts
                 throw new ArgumentException("Version is required");
             }
 
-            var values = new NameValueCollection
+            var values = new NameValueCollection()
             {
                 { "version", version.ToString() }
             };

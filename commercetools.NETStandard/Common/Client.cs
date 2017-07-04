@@ -5,9 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -46,10 +46,10 @@ namespace commercetools.Common
         {
             this.Configuration = configuration;
 
-            Assembly assembly = Assembly.GetExecutingAssembly();
+            Assembly assembly = typeof(Client).GetTypeInfo().Assembly;
             string assemblyVersion = assembly.GetName().Version.ToString();
-            string dotNetVersion = Environment.Version.ToString();
-            this.UserAgent = string.Format("commercetools-dotnet-sdk/{0} .NET/{1}", assemblyVersion, dotNetVersion);
+            //FrameworkName dotNetFramework = PlatformServices.Default.Application.RuntimeFramework;
+            this.UserAgent = string.Format("commercetools-dotnet-sdk/{0} {1}/{2}", assemblyVersion, "test", "core");
         }
 
         #endregion
@@ -91,7 +91,7 @@ namespace commercetools.Common
 
                 HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, new Uri(url))
                 {
-                    Version = HttpVersion.Version10
+                    Version = new Version(1, 0)
                 };
 
                 HttpResponseMessage httpResponseMessage = await client.SendAsync(httpRequestMessage);
@@ -136,7 +136,7 @@ namespace commercetools.Common
 
                 HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, new Uri(url))
                 {
-                    Version = HttpVersion.Version10,
+                    Version = new Version(1,0),
                     Content = new StringContent(payload, Encoding.UTF8, "application/json")
                 };
 
@@ -182,8 +182,8 @@ namespace commercetools.Common
 
                 HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, new Uri(url))
                 {
-                    Version = HttpVersion.Version10
-                };
+                    Version = new Version(1, 0)
+            };
 
                 HttpResponseMessage httpResponseMessage = await client.SendAsync(httpRequestMessage);
                 response = await GetResponse<T>(httpResponseMessage);
@@ -247,7 +247,7 @@ namespace commercetools.Common
 
                 HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, new Uri(this.Configuration.OAuthUrl))
                 {
-                    Version = HttpVersion.Version10,
+                    Version = new Version(1, 0),
                     Content = new FormUrlEncodedContent(pairs)
                 };
 
@@ -285,7 +285,7 @@ namespace commercetools.Common
 
                 HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, new Uri(this.Configuration.OAuthUrl))
                 {
-                    Version = HttpVersion.Version10,
+                    Version = new Version(1, 0),
                     Content = new FormUrlEncodedContent(pairs)
                 };
 
@@ -310,7 +310,7 @@ namespace commercetools.Common
         {
             Response<T> response = new Response<T>();
             Type resultType = typeof(T);
-
+            TypeInfo resultTypeInfo = resultType.GetTypeInfo();
             response.StatusCode = (int)httpResponseMessage.StatusCode;
             response.ReasonPhrase = httpResponseMessage.ReasonPhrase;
 
@@ -318,7 +318,7 @@ namespace commercetools.Common
             {
                 response.Success = true;
 
-                if (resultType == typeof(JObject) || resultType == typeof(JArray) || resultType.IsArray || (resultType.IsGenericType && resultType.Name.Equals(typeof(List<>).Name)))
+                if (resultType == typeof(JObject) || resultType == typeof(JArray) || resultType.IsArray || (resultTypeInfo.IsGenericType && resultType.Name.Equals(typeof(List<>).Name)))
                 {
                     response.Result = JsonConvert.DeserializeObject<T>(await httpResponseMessage.Content.ReadAsStringAsync());
                 }

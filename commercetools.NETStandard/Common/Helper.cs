@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization;
-using System.Web;
+//using System.Web;
 
 using Newtonsoft.Json.Linq;
 
@@ -132,9 +133,10 @@ namespace commercetools.Common
             }
 
             List<T> list = new List<T>();
-            Type type = typeof(T);
+            var type = typeof(T);
+            var typeInfo = type.GetTypeInfo();
 
-            if (type.IsPrimitive || type == typeof(DateTime) || type == typeof(decimal) || type == typeof(string))
+            if (typeInfo.IsPrimitive || type == typeof(DateTime) || type == typeof(decimal) || type == typeof(string))
             {
                 foreach (dynamic data in jArray)
                 {
@@ -195,7 +197,7 @@ namespace commercetools.Common
         /// <returns>URL encoded string</returns>
         public static string UrlEncode(string str)
         {
-            str = HttpUtility.UrlEncode(str);
+            str = WebUtility.UrlEncode(str);
             str = str.Replace("(", "%28");
             str = str.Replace(")", "%29");
             return str;

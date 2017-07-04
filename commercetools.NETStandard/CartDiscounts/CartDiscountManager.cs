@@ -65,7 +65,7 @@ namespace commercetools.CartDiscounts
         /// <see href="https://dev.commercetools.com/http-api-projects-cartDiscounts.html#query-cartdiscounts"/>
         public Task<Response<CartDiscountQueryResult>> QueryCartDiscountsAsync(string where = null, string sort = null, int limit = -1, int offset = -1)
         {
-            NameValueCollection values = new NameValueCollection();
+            var values = new NameValueCollection();
 
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -132,7 +132,7 @@ namespace commercetools.CartDiscounts
                 throw new ArgumentException("Version is required");
             }
 
-            var values = new NameValueCollection
+            var values = new NameValueCollection()
             {
                 { "version", version.ToString() }
             };

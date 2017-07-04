@@ -64,7 +64,7 @@ namespace commercetools.Products
 
             if (Path.HasExtension(uri.AbsoluteUri))
             {
-                string path = String.Format("{0}{1}{2}{3}", uri.Scheme, Uri.SchemeDelimiter, uri.Authority, uri.AbsolutePath);
+                string path = String.Format("{0}{1}{2}{3}", uri.Scheme, "://", uri.Authority, uri.AbsolutePath);
                 string extension = Path.GetExtension(path);
 
                 this.ThumbUrl = this.Url.Replace(extension, string.Concat("-thumb", extension));
