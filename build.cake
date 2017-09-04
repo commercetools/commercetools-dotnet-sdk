@@ -77,6 +77,7 @@ Task("Default")
   .IsDependentOn("Clean")
   .IsDependentOn("Restore")
   .IsDependentOn("Build")
+  .IsDependentOn("Test")
   .IsDependentOn("Publish");
 
 RunTarget(Argument("target", "Default"));
