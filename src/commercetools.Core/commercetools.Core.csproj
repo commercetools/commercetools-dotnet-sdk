@@ -4,8 +4,8 @@
     <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
     <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
     <Description>.NET SDK for the commercetools platform.</Description>
-    <PackageId>commercetools.csharp</PackageId>
-    <AssemblyTitle>commercetools.net</AssemblyTitle>
+    <PackageId>commercetools.Core</PackageId>
+    <AssemblyTitle>commercetools.Core</AssemblyTitle>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Authors>Albelli</Authors>
     <PackageTags>e-Commerce;commercetools</PackageTags>

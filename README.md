@@ -9,7 +9,7 @@ For more documentation please see [the wiki](//github.com/albumprinter/commercet
 
 ## Supported Platforms
 
-* .NET Framework 4.6
+* .NET Framework 4.5 and .NET Standard 1.3
 
 ## Using the SDK
 
