@@ -25,3 +25,10 @@ deploy:
   skip_symbols: true
   on:
     branch: master
+- provider: NuGet
+  name: production
+  api_key:
+    secure: XYIxs6Rtb8KcG0alCgFV0CI2sF4E+w0fYas1Tvqu57EcTDmotvZksEeL0sh+Z59m
+  on:
+    branch: master
+    appveyor_repo_tag: true
