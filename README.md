@@ -1,16 +1,15 @@
 # commercetools-dotnet-sdk
 
-[![Travis Build Status](https://travis-ci.org/commercetools/commercetools-dotnet-sdk.svg?branch=master)](https://travis-ci.org/commercetools/commercetools-dotnet-sdk)
-[![AppVeyor Build Status](https://img.shields.io/appveyor/ci/commercetools/commercetools-dotnet-sdk.svg)](https://ci.appveyor.com/project/commercetools/commercetools-dotnet-sdk)
-[![NuGet Version and Downloads count](https://buildstats.info/nuget/commercetools.NET.SDK?includePreReleases=true)](https://www.nuget.org/packages/commercetools.NET.SDK)
+[![Travis Build Status](https://travis-ci.org/albumprinter/commercetools-dotnet-sdk.svg?branch=master)](https://travis-ci.org/albumprinter/commercetools-dotnet-sdk)
+[![AppVeyor Build Status](https://img.shields.io/appveyor/ci/albumprinter/commercetools-dotnet-sdk.svg)](https://ci.appveyor.com/project/albumprinter/commercetools-dotnet-sdk)
 
 The commercetools.NET SDK allows developers to work effectively with the commercetools platform in their .NET applications by providing typesafe access to the commercetools HTTP API.
 
-For more documentation please see [the wiki](//github.com/commercetools/commercetools-dotnet-sdk/wiki/commercetools-.NET-SDK-documentation)
+For more documentation please see [the wiki](//github.com/albumprinter/commercetools-dotnet-sdk/wiki/commercetools-.NET-SDK-documentation)
 
 ## Supported Platforms
 
-* .NET Framework 4.5 and 4.6
+* .NET Framework 4.6
 
 ## Using the SDK
 
