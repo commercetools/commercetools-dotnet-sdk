@@ -8,9 +8,9 @@
     <AssemblyTitle>commercetools.net</AssemblyTitle>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageTags>e-Commerce;commercetools</PackageTags>
-    <PackageIconUrl>https://commercetools.com/webfiles/1461141119840/images/ct-logo.svg</PackageIconUrl>
+    <PackageIconUrl>http://dev.commercetools.com/assets/img/CT-logo.svg</PackageIconUrl>
     <PackageProjectUrl>https://github.com/albumprinter/commercetools-dotnet-sdk</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/albumprinter/commercetools-dotnet-sdk/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/albumprinter/commercetools-dotnet-sdk/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>git://github.com/albumprinter/commercetools-dotnet-sdk</RepositoryUrl>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
