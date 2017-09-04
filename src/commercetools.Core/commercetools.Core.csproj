@@ -3,6 +3,16 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
     <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <Description>.NET SDK for the commercetools platform.</Description>
+    <PackageId>commercetools.csharp</PackageId>
+    <AssemblyTitle>commercetools.net</AssemblyTitle>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageTags>e-Commerce;commercetools</PackageTags>
+    <PackageIconUrl>https://commercetools.com/webfiles/1461141119840/images/ct-logo.svg</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/albumprinter/commercetools-dotnet-sdk</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/albumprinter/commercetools-dotnet-sdk/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/albumprinter/commercetools-dotnet-sdk</RepositoryUrl>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
