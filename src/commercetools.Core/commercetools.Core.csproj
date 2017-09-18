@@ -3,13 +3,14 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
     <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
-    <Description>.NET SDK for the commercetools platform.</Description>
+    <VersionPrefix>1.1.0</VersionPrefix>
+    <Description>.NET SDK for the commercetools platform. * Supports .NET Core 1.1 * Supports .NET 4.5 and above</Description>
     <PackageId>commercetools.Core</PackageId>
     <AssemblyTitle>commercetools.Core</AssemblyTitle>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Authors>Albelli</Authors>
     <PackageTags>e-Commerce;commercetools</PackageTags>
-    <PackageIconUrl>http://dev.commercetools.com/assets/img/CT-logo.svg</PackageIconUrl>
+    <PackageIconUrl>https://avatars3.githubusercontent.com/u/1084585?v=4</PackageIconUrl>
     <PackageProjectUrl>https://github.com/albumprinter/commercetools-dotnet-sdk</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/albumprinter/commercetools-dotnet-sdk/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
