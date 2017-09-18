@@ -199,8 +199,9 @@ namespace commercetools.Core.Common
         /// </summary>
         private async Task EnsureToken()
         {
-            if (this.Token == null)
+            if (this.Token == null || this.Token.IsExpired())
             {
+                this.Token = null;
                 Response<Token> tokenResponse = await GetTokenAsync();
 
                 if (tokenResponse.Success)
