@@ -26,6 +26,12 @@ namespace commercetools.Carts
         public int VariantId { get; set; }
 
         /// <summary>
+        /// SKU of an existing ProductVariant.
+        /// </summary>
+        [JsonProperty(PropertyName = "sku")]
+        public string Sku { get; set; }
+
+        /// <summary>
         /// Quantity - Defaults to 1
         /// </summary>
         [JsonProperty(PropertyName = "quantity")]

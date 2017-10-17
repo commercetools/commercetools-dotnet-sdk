@@ -74,6 +74,7 @@
     <Compile Include="CartDiscounts\UpdateActions\ChangeNameAction.cs" />
     <Compile Include="CartDiscounts\UpdateActions\ChangeRequiresDiscountCodeAction.cs" />
     <Compile Include="CartDiscounts\UpdateActions\ChangeSortOrderAction.cs" />
+    <Compile Include="CartDiscounts\UpdateActions\ChangeStackingModeAction.cs" />
     <Compile Include="CartDiscounts\UpdateActions\ChangeTargetAction.cs" />
     <Compile Include="CartDiscounts\UpdateActions\ChangeValueAction.cs" />
     <Compile Include="CartDiscounts\UpdateActions\SetDescriptionAction.cs" />
@@ -199,6 +200,8 @@
     <Compile Include="DiscountCodes\UpdateActions\ChangeCartDiscountsAction.cs" />
     <Compile Include="DiscountCodes\UpdateActions\ChangeIsActiveAction.cs" />
     <Compile Include="DiscountCodes\UpdateActions\SetCartPredicateAction.cs" />
+    <Compile Include="DiscountCodes\UpdateActions\SetCustomFieldAction.cs" />
+    <Compile Include="DiscountCodes\UpdateActions\SetCustomTypeAction.cs" />
     <Compile Include="DiscountCodes\UpdateActions\SetMaxApplicationsAction.cs" />
     <Compile Include="DiscountCodes\UpdateActions\SetMaxApplicationsPerCustomerAction.cs" />
     <Compile Include="DiscountCodes\UpdateActions\SetDescriptionAction.cs" />
@@ -230,10 +233,14 @@
     <Compile Include="Messages\PaymentTransactionAddedMessage.cs" />
     <Compile Include="Messages\PaymentTransactionStateChangedMessage.cs" />
     <Compile Include="Messages\ProductCreatedMessage.cs" />
+    <Compile Include="Messages\ProductDeletedMessage.cs" />
+    <Compile Include="Messages\ProductImageAddedMessage.cs" />
     <Compile Include="Messages\ProductPublishedMessage.cs" />
+    <Compile Include="Messages\ProductRevertedStagedChangesMessage.cs" />
     <Compile Include="Messages\ProductSlugChangedMessage.cs" />
     <Compile Include="Messages\ProductStateTransitionMessage.cs" />
     <Compile Include="Messages\ProductUnpublishedMessage.cs" />
+    <Compile Include="Messages\ProductVariantDeletedMessage.cs" />
     <Compile Include="Messages\ReturnInfoAddedMessage.cs" />
     <Compile Include="Messages\ReviewCreatedMessage.cs" />
     <Compile Include="Messages\ReviewRatingSetMessage.cs" />
