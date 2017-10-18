@@ -1,26 +1,24 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+
+using commercetools.Common;
+
+using Newtonsoft.Json;
 
 namespace commercetools.Carts
 {
     /// <summary>
     /// DiscountedLineItemPriceForQuantity
     /// </summary>
-    /// <see href="https://dev.commercetools.com/http-api-projects-carts.html#discountedlineitempriceforquantity"/>
+    /// <see href="http://dev.commercetools.com/http-api-projects-carts.html#discountedlineitempriceforquantity"/>
     public class DiscountedLineItemPriceForQuantity
     {
         #region Properties
 
-        /// <summary>
-        /// Quantity
-        /// </summary>
-        [JsonProperty(PropertyName = "quantity")]
-        public int Quantity { get; private set; }
+        [JsonProperty(PropertyName = "value")]
+        public Money Value { get; private set; }
 
-        /// <summary>
-        /// Discounted Line Item Price
-        /// </summary>
-        [JsonProperty(PropertyName = "discountedPrice")]
-        public DiscountedLineItemPrice DiscountedPrice { get; private set; }
+        [JsonProperty(PropertyName = "includedDiscounts")]
+        public List<DiscountedLineItemPortion> IncludedDiscounts { get; private set; }
 
         #endregion
 
@@ -37,8 +35,8 @@ namespace commercetools.Carts
                 return;
             }
 
-            this.Quantity = data.quantity;
-            this.DiscountedPrice = new DiscountedLineItemPrice(data.discountedPrice);
+            this.Value = new Money(data.discountedPrice.value);
+            this.IncludedDiscounts = Helper.GetListFromJsonArray<DiscountedLineItemPortion>(data.discountedPrice.includedDiscounts);
         }
 
         #endregion
