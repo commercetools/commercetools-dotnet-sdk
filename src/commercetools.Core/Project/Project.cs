@@ -13,6 +13,8 @@ namespace commercetools.Core.Project
     public class Project
     {
         #region Properties
+        [JsonProperty(PropertyName = "version")]
+        public int Version { get; private set; }
 
         [JsonProperty(PropertyName = "key")]
         public string Key { get; private set; }
@@ -52,7 +54,7 @@ namespace commercetools.Core.Project
             {
                 return;
             }
-
+            this.Version = data.version;
             this.Key = data.key;
             this.Name = data.name;
             this.Countries = Helper.GetStringListFromJsonArray(data.countries);

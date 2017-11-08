@@ -59,6 +59,17 @@ namespace commercetools.Core.Customers
             return _client.GetAsync<Customer>(endpoint);
         }
 
+        public Task<Response<Customer>> GetCustomerByKeyAsync(string key)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentException("key is required");
+            }
+
+            string endpoint = string.Concat(ENDPOINT_PREFIX, "/key=", key);
+            return _client.GetAsync<Customer>(endpoint);
+        }
+
         /// <summary>
         /// Queries for Customers.
         /// </summary>

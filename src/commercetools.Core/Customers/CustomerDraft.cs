@@ -29,6 +29,12 @@ namespace commercetools.Core.Customers
         public string Email { get; set; }
 
         /// <summary>
+        /// User-specific unique identifier for a customer. Must be unique across a project. The field can be reset using the Set Key UpdateAction.
+        /// </summary>
+        [JsonProperty(PropertyName = "key")]
+        public string Key { get; set; }
+
+        /// <summary>
         /// Password
         /// </summary>
         [JsonProperty(PropertyName = "password")]

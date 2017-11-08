@@ -335,7 +335,7 @@ namespace commercetools.Core.Tests
             // Arrange
             var discountCode = await Helper.CreateTestDiscountCode(this._project, this._client);
             var oldCartDiscountId = discountCode.CartDiscounts.First().Id;
-            var cartDiscount = await Helper.CreateTestCartDiscount(this._project, this._client);
+            var cartDiscount = await Helper.CreateTestCartDiscount(this._project, this._client, true);
             var reference = new List<Reference>()
             {
                 new Reference {ReferenceType = ReferenceType.CartDiscount, Id = cartDiscount.Id}
