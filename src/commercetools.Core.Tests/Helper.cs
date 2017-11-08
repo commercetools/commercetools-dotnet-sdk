@@ -286,7 +286,7 @@ namespace commercetools.Core.Tests
             customerDraft.Title = "API";
             customerDraft.FirstName = "Test";
             customerDraft.LastName = "Customer";
-
+            customerDraft.Key = Guid.NewGuid().ToString();
             return customerDraft;
         }
 
@@ -296,8 +296,8 @@ namespace commercetools.Core.Tests
 
         public static async Task<DiscountCode> CreateTestDiscountCode(Project.Project project, Client client)
         {
-            LocalizedString name = new LocalizedString();
-            LocalizedString description = new LocalizedString();
+            var name = new LocalizedString();
+            var description = new LocalizedString();
 
             foreach (string language in project.Languages)
             {
@@ -305,8 +305,8 @@ namespace commercetools.Core.Tests
                 name.SetValue(language, string.Concat("test-discount-code-name", language, " ", randomPostfix));
                 description.SetValue(language, string.Concat("test-discount-code-description", language, "-", randomPostfix));
             }
-            var cartDiscountDraft = await GetTestCartDiscountDraft(project, client);
-            var cartDiscountResponse = await client.CartDiscounts().CreateCartDiscountAsync(cartDiscountDraft);
+            CartDiscountDraft cartDiscountDraft = (await GetTestCartDiscountDraft(project, client)).WithRequiresDiscountCode(true);
+            Response<CartDiscount> cartDiscountResponse = await client.CartDiscounts().CreateCartDiscountAsync(cartDiscountDraft);
             var discountCodeDraft = new DiscountCodeDraft(
                 GetRandomString(10),
                 new List<Reference>
@@ -321,7 +321,7 @@ namespace commercetools.Core.Tests
                 MaxApplicationsPerCustomer = GetRandomNumber(100, 1000),
                 CartPredicate = "totalPrice.centAmount > 1000"
             };
-            var discountCode = await client.DiscountCodes().CreateDiscountCodeAsync(discountCodeDraft);
+            Response<DiscountCode> discountCode = await client.DiscountCodes().CreateDiscountCodeAsync(discountCodeDraft);
 
             return discountCode.Result;
         }

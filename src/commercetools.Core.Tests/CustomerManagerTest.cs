@@ -82,6 +82,17 @@ namespace commercetools.Core.Tests
             Assert.Equal(customer.Id, _testCustomer.Id);
         }
 
+        [Fact]
+        public async Task ShouldGetCustomerByKeyAsync()
+        {
+            Response<Customer> response = await _client.Customers().GetCustomerByKeyAsync(_testCustomer.Key);
+            Assert.True(response.Success);
+
+            Customer customer = response.Result;
+            Assert.NotNull(customer.Id);
+            Assert.Equal(customer.Id, _testCustomer.Id);
+        }
+
         /// <summary>
         /// Tests the CustomerManager.QueryCustomersAsync method.
         /// </summary>

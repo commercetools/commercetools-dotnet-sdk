@@ -22,6 +22,9 @@ namespace commercetools.Core.Customers
         [JsonProperty(PropertyName = "customerNumber")]
         public string CustomerNumber { get; private set; }
 
+        [JsonProperty(PropertyName = "key")]
+        public string Key { get; private set; }
+
         [JsonProperty(PropertyName = "createdAt")]
         public DateTime? CreatedAt { get; private set; }
 
@@ -103,6 +106,7 @@ namespace commercetools.Core.Customers
             this.Id = data.id;
             this.Version = data.version;
             this.CustomerNumber = data.customerNumber;
+            this.Key = data.key;
             this.CreatedAt = data.createdAt;
             this.LastModifiedAt = data.lastModifiedAt;
             this.Email = data.email;

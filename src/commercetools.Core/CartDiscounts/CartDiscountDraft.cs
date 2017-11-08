@@ -87,5 +87,11 @@ namespace commercetools.Core.CartDiscounts
             SortOrder = sortOrder;
             RequiresDiscountCode = requiresDiscountCode;
         }
+
+        public CartDiscountDraft WithRequiresDiscountCode(bool requiresDiscountCode)
+        {
+            this.RequiresDiscountCode = requiresDiscountCode;
+            return this;
+        }
     }
 }
