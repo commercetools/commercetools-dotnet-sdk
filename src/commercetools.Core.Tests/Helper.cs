@@ -175,10 +175,14 @@ namespace commercetools.Core.Tests
             };
         }
 
-        public static async Task<CartDiscount> CreateTestCartDiscount(Project.Project project, Client client)
+        public static async Task<CartDiscount> CreateTestCartDiscount(Project.Project project, Client client, bool requiresDiscountCode = false)
         {
-            var cartDiscountDraft = await GetTestCartDiscountDraft(project, client);
-            var cartDiscountResponse = await client.CartDiscounts().CreateCartDiscountAsync(cartDiscountDraft);
+            CartDiscountDraft cartDiscountDraft = await GetTestCartDiscountDraft(project, client);
+            if (requiresDiscountCode)
+            {
+                cartDiscountDraft = cartDiscountDraft.WithRequiresDiscountCode(true);
+            }
+            Response<CartDiscount> cartDiscountResponse = await client.CartDiscounts().CreateCartDiscountAsync(cartDiscountDraft);
 
             return cartDiscountResponse.Result;
         }
@@ -349,7 +353,7 @@ namespace commercetools.Core.Tests
                 name.SetValue(language, string.Concat("test-discount-code-name", language, " ", randomPostfix));
                 description.SetValue(language, string.Concat("test-discount-code-description", language, "-", randomPostfix));
             }
-            CartDiscount cartDiscount = await Helper.CreateTestCartDiscount(project, client);
+            CartDiscount cartDiscount = await Helper.CreateTestCartDiscount(project, client, true);
             var references = new List<Reference>
             {
                 new Reference {Id = cartDiscount.Id, ReferenceType = ReferenceType.CartDiscount}
