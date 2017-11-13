@@ -146,7 +146,7 @@ namespace commercetools.Core.Customers
         /// The custom fields.
         /// </summary>
         [JsonProperty(PropertyName = "custom")]
-        public CustomFields.CustomFields Custom { get; set; }
+        public CustomFields.CustomFieldsDraft Custom { get; set; }
 
         /// <summary>
         /// String conforming to IETF language tag.
