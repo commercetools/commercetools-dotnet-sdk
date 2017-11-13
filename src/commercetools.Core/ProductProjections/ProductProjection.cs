@@ -132,7 +132,7 @@ namespace commercetools.Core.ProductProjections
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            ProductProjection productProjection = obj as ProductProjection;
+            var productProjection = obj as ProductProjection;
 
             if (productProjection == null)
             {
