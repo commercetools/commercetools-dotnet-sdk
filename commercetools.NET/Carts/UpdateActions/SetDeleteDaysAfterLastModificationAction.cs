@@ -32,7 +32,14 @@ namespace commercetools.Carts.UpdateActions
         {
             this.Action = "setDeleteDaysAfterLastModification";
         }
-
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="deleteDaysAfterLastModification">The cart will be deleted automatically if it hasn’t been modified for the specified amount of days and it is in the Active CartState. If a ChangeSubscription for carts exists, a ResourceDeleted notification will be sent.</param>
+        public SetDeleteDaysAfterLastModificationAction(int? deleteDaysAfterLastModification) : this()
+        {
+            this.DeleteDaysAfterLastModification = deleteDaysAfterLastModification;
+        }
         #endregion
     }
 }
