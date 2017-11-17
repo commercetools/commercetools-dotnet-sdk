@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using commercetools.Common;
 
 namespace commercetools.Subscriptions
 {
-    class Extensions
+    /// <summary>
+    /// Extensions
+    /// </summary>
+    public static class Extensions
     {
+        /// <summary>
+        /// Creates an instance of the SubscriptionManager.
+        /// </summary>
+        /// <returns>SubscriptionManager</returns>
+        public static SubscriptionManager Subscriptions(this Client client)
+        {
+            return new SubscriptionManager(client);
+        }
     }
 }
