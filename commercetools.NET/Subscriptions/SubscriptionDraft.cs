@@ -46,10 +46,12 @@ namespace commercetools.Subscriptions
         /// <remarks>
         /// Either messages or changes need to be set.
         /// </remarks>
+        /// <param name="destination">The Message Queue into which the notifications are to be sent</param>
         /// <param name="messages">The messages to be subscribed to.</param>
         /// <param name="changes">The change notifications to be subscribed to.</param>
-        public SubscriptionDraft(List<MessageSubscription> messages = null, List<ChangeSubscription> changes = null)
+        public SubscriptionDraft(Destination destination, List<MessageSubscription> messages = null, List<ChangeSubscription> changes = null)
         {
+            this.Destination = destination;
             this.Messages = messages;
             this.Changes = changes;
         }
