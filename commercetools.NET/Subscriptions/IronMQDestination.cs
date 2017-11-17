@@ -22,6 +22,16 @@ namespace commercetools.Subscriptions
         #region Constructors
 
         /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="uri">The webhook URI of your IronMQ.</param>
+        public IronMQDestination(string uri)
+            : base("IronMQ")
+        {
+            this.Uri = uri;
+        }
+
+        /// <summary>
         /// Initializes this instance with JSON data from an API response.
         /// </summary>
         /// <param name="data">JSON object</param>
