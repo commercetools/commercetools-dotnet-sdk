@@ -18,7 +18,7 @@ namespace commercetools.Subscriptions
         #region Properties
 
         /// <summary>
-        /// ResourceTypeId
+        /// Resource Type ID
         /// </summary>
         [JsonProperty(PropertyName = "resourceTypeId")]
         public string ResourceTypeId { get; private set; }
@@ -32,6 +32,15 @@ namespace commercetools.Subscriptions
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="resourceTypeId">Resource Type ID</param>
+        public MessageSubscription(string resourceTypeId)
+        {
+            this.ResourceTypeId = resourceTypeId;
+        }
 
         /// <summary>
         /// Initializes this instance with JSON data from an API response.
