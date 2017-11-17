@@ -24,6 +24,14 @@ namespace commercetools.Subscriptions
         #region Constructors
 
         /// <summary>
+        /// Constructor.
+        /// </summary>
+        protected Destination(string type)
+        {
+            this.Type = type;
+        }
+
+        /// <summary>
         /// Initializes this instance with JSON data from an API response.
         /// </summary>
         /// <param name="data">JSON object</param>
