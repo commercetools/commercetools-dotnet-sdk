@@ -15,19 +15,19 @@ namespace commercetools.Subscriptions
         #region Properties
 
         /// <summary>
-        /// QueueUrl
+        /// Queue URL
         /// </summary>
-        [JsonProperty(PropertyName = "queueURL")]
+        [JsonProperty(PropertyName = "queueUrl")]
         public string QueueUrl { get; private set; }
 
         /// <summary>
-        /// AccessKey
+        /// Access key
         /// </summary>
         [JsonProperty(PropertyName = "accessKey")]
         public string AccessKey { get; private set; }
 
         /// <summary>
-        /// AccessSecret
+        /// Access secret
         /// </summary>
         [JsonProperty(PropertyName = "accessSecret")]
         public string AccessSecret { get; private set; }
@@ -41,6 +41,22 @@ namespace commercetools.Subscriptions
         #endregion
 
         #region Constructors
+        
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="queueUrl">Queue URL</param>
+        /// <param name="accessKey">Access key</param>
+        /// <param name="accessSecret">Access secret</param>
+        /// <param name="region">Region</param>
+        public AWSSQSDestination(string queueUrl, string accessKey, string accessSecret, string region)
+            : base("SQS")
+        {
+            this.QueueUrl = queueUrl;
+            this.AccessKey = accessKey;
+            this.AccessSecret = accessSecret;
+            this.Region = region;
+        }
 
         /// <summary>
         /// Initializes this instance with JSON data from an API response.
@@ -54,7 +70,7 @@ namespace commercetools.Subscriptions
                 return;
             }
 
-            this.QueueUrl = data.queueURL;
+            this.QueueUrl = data.queueUrl;
             this.AccessKey = data.accessKey;
             this.AccessSecret = data.accessSecret;
             this.Region = data.region;
