@@ -15,19 +15,19 @@ namespace commercetools.Subscriptions
         #region Properties
 
         /// <summary>
-        /// TopicArn
+        /// Topic Arn
         /// </summary>
         [JsonProperty(PropertyName = "topicArn")]
         public string TopicArn { get; private set; }
 
         /// <summary>
-        /// AccessKey
+        /// Access key
         /// </summary>
         [JsonProperty(PropertyName = "accessKey")]
         public string AccessKey { get; private set; }
 
         /// <summary>
-        /// AccessSecret
+        /// Access secret
         /// </summary>
         [JsonProperty(PropertyName = "accessSecret")]
         public string AccessSecret { get; private set; }
@@ -35,6 +35,20 @@ namespace commercetools.Subscriptions
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="topicArn">Topic Arn</param>
+        /// <param name="accessKey">Access key</param>
+        /// <param name="accessSecret">Access secret</param>
+        public AWSSNSDestination(string topicArn, string accessKey, string accessSecret)
+            : base("SNS")
+        {
+            this.TopicArn = topicArn;
+            this.AccessKey = accessKey;
+            this.AccessSecret = accessSecret;
+        }
 
         /// <summary>
         /// Initializes this instance with JSON data from an API response.
