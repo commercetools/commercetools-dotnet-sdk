@@ -129,7 +129,7 @@ namespace commercetools.Carts
         /// and it is in the Active CartState. If a ChangeSubscription for carts exists, a ResourceDeleted notification will be sent.
         /// </summary>
         [JsonProperty(PropertyName = "deleteDaysAfterLastModification")]
-        public int DeleteDaysAfterLastModification { get; set; }
+        public int? DeleteDaysAfterLastModification { get; set; }
 
         #endregion
 
