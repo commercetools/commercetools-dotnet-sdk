@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
-
+using commercetools.CartDiscounts;
 using commercetools.Carts;
 using commercetools.Categories;
 using commercetools.Customers;
@@ -125,6 +125,82 @@ namespace commercetools.Tests
                 ExternalTaxRate = taxMode != null && taxMode == TaxMode.External ? new ExternalTaxRateDraft("TestExternalTaxRate", project.Countries[0]) { Amount = 0 } : null 
             });
             return cartDraft;
+        }
+
+        #endregion
+
+        #region Cart Discounts
+
+        public static async Task<CartDiscountDraft> GetTestCartDiscountDraft(
+            Project.Project project,
+            Client client,
+            bool isActive,
+            bool requiresDiscountCode,
+            string cartPredicate,
+            string lineItemPredicate,
+            int perMyriadAmount,
+            bool targetCustomLineItem)
+        {
+            LocalizedString name = new LocalizedString();
+            LocalizedString description = new LocalizedString();
+
+            foreach (string language in project.Languages)
+            {
+                string randomPostfix = GetRandomString(10);
+                name.SetValue(language, string.Concat("test-cart-discount-name", language, " ", randomPostfix));
+                description.SetValue(language, string.Concat("test-cart-discount-description", language, "-", randomPostfix));
+            }
+
+            CartDiscountQueryResult queryResults;
+            string sortOrder;
+            do
+            {
+                sortOrder = GetRandomSortOrder();
+                var queryResultsResponse = await client.CartDiscounts().QueryCartDiscountsAsync($"sortOrder=\"{sortOrder}\"");
+                queryResults = queryResultsResponse.Result;
+            } while (queryResults.Results != null && queryResults.Count > 0);
+
+            return new CartDiscountDraft(
+                name,
+                new RelativeCartDiscountValue(perMyriadAmount),
+                cartPredicate,
+                sortOrder,
+                requiresDiscountCode)
+            {
+                Description = description,
+                IsActive = isActive,
+                ValidFrom = DateTime.UtcNow,
+                ValidUntil = GetRandomDateAfter(DateTime.UtcNow.AddDays(100)),
+                Target = targetCustomLineItem ?
+                            new CartDiscountTarget(CartDiscountTargetType.CustomLineItems, lineItemPredicate) :
+                            new CartDiscountTarget(CartDiscountTargetType.LineItems, lineItemPredicate)
+            };
+        }
+
+        public static async Task<CartDiscount> CreateTestCartDiscount(Project.Project project, Client client)
+        {
+
+            var cartDiscountDraft = await GetTestCartDiscountDraft(project, client, GetRandomBoolean(),
+                GetRandomBoolean(), "lineItemCount(1 = 1) > 0", "1=1", 5000, false);
+            var cartDiscountResponse = await client.CartDiscounts().CreateCartDiscountAsync(cartDiscountDraft);
+
+            return cartDiscountResponse.Result;
+        }
+
+        public static async Task<CartDiscount> CreateCartDiscountForCustomLineItems(
+            Project.Project project,
+            Client client,
+            bool isActive = true,
+            bool requiresDiscountCode = false,
+            string cartPredicate = "customLineItemCount(1=1) > 0",
+            string lineItemPredicate = "1=1",
+            int perMyriadAmount = 5000)
+        {
+            var cartDiscountDraft = await GetTestCartDiscountDraft(project, client, isActive, requiresDiscountCode,
+                cartPredicate, lineItemPredicate, 5000, true);
+            var cartDiscountResponse = await client.CartDiscounts().CreateCartDiscountAsync(cartDiscountDraft);
+
+            return cartDiscountResponse.Result;
         }
 
         #endregion
@@ -647,6 +723,33 @@ namespace commercetools.Tests
         public static int GetRandomNumber(int minValue, int maxValue)
         {
             return _random.Next(minValue, maxValue);
+        }
+
+        public static double GetRandomDouble(int minValue, int maxValue)
+        {
+            return _random.NextDouble();
+        }
+
+        public static string GetRandomSortOrder()
+        {
+            var order = GetRandomDouble(0, 2).ToString("0.000");
+            if (order.EndsWith("0"))
+            {
+                order = order.TrimEnd('0') + GetRandomNumber(1, 9);
+            }
+            return order;
+
+        }
+
+        public static DateTime GetRandomDateAfter(DateTime date)
+        {
+            int days = GetRandomNumber(1, 100);
+            return date.AddDays(days);
+        }
+
+        public static bool GetRandomBoolean()
+        {
+            return GetRandomDouble(0, 2) >= 0.5;
         }
 
         #endregion 

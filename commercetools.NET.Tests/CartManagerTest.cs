@@ -438,6 +438,7 @@ namespace commercetools.Tests
                 if (cart.TaxMode != null && cart.TaxMode == TaxMode.External)
                 {
                     addLineItemAction.ExternalTaxRate = new ExternalTaxRateDraft("TestTaxRate", _project.Countries[0]) { Amount = 0.1m };
+                    addLineItemAction.ExternalPrice = new Money() { CentAmount = 5, CurrencyCode = _project.Currencies[0] };
                 }
 
                 Response<Cart> response = await _client.Carts().UpdateCartAsync(cart, addLineItemAction);
@@ -457,12 +458,14 @@ namespace commercetools.Tests
                     Assert.AreEqual(cart.LineItems[0].TaxRate.Name, addLineItemAction.ExternalTaxRate.Name);
                     Assert.AreEqual(cart.LineItems[0].TaxRate.Country, addLineItemAction.ExternalTaxRate.Country);
                     Assert.AreEqual(cart.LineItems[0].TaxRate.Amount, addLineItemAction.ExternalTaxRate.Amount);
+                    Assert.AreEqual(cart.LineItems[0].Price.Value.CentAmount, addLineItemAction.ExternalPrice.CentAmount);
+                    Assert.AreEqual(cart.LineItems[0].Price.Value.CurrencyCode, addLineItemAction.ExternalPrice.CurrencyCode);
                 }
                 ChangeLineItemQuantityAction changeLineItemQuantityAction =
                    new ChangeLineItemQuantityAction(cart.LineItems[0].Id, newQuantity);
                 if (cart.TaxMode != null && cart.TaxMode == TaxMode.External)
                 {
-                    changeLineItemQuantityAction.ExternalPrice = new Money() { CentAmount = 5, CurrencyCode = _project.Currencies[0] };
+                    changeLineItemQuantityAction.ExternalPrice = new Money() { CentAmount = 10, CurrencyCode = _project.Currencies[0] };
                 }
 
                 response = await _client.Carts().UpdateCartAsync(cart, changeLineItemQuantityAction);
