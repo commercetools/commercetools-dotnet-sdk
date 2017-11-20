@@ -176,7 +176,6 @@ namespace commercetools.Tests
                             new CartDiscountTarget(CartDiscountTargetType.LineItems, lineItemPredicate)
             };
         }
-
         public static async Task<CartDiscount> CreateTestCartDiscount(Project.Project project, Client client)
         {
 
