@@ -8,6 +8,7 @@ using commercetools.Carts;
 using commercetools.Categories;
 using commercetools.Customers;
 using commercetools.Common;
+using commercetools.DiscountCodes;
 using commercetools.Orders;
 using commercetools.Payments;
 using commercetools.Products;
@@ -18,6 +19,7 @@ using commercetools.Types;
 using commercetools.Zones;
 
 using Configuration = commercetools.Common.Configuration;
+using ReferenceType = commercetools.Common.ReferenceType;
 using commercetools.Subscriptions;
 
 namespace commercetools.Tests
@@ -62,7 +64,7 @@ namespace commercetools.Tests
         /// <param name="project">Project</param>
         /// <param name="customerId">Customer ID</param>
         /// <returns>CartDraft</returns>
-        public static CartDraft GetTestCartDraft(Project.Project project, TaxMode? taxMode, string customerId = null)
+        public static CartDraft GetTestCartDraft(Project.Project project, string customerId = null)
         {
             Address shippingAddress = Helper.GetTestAddress(project);
             Address billingAddress = Helper.GetTestAddress(project);
@@ -75,8 +77,35 @@ namespace commercetools.Tests
             cartDraft.InventoryMode = InventoryMode.None;
             cartDraft.ShippingAddress = shippingAddress;
             cartDraft.BillingAddress = billingAddress;
-            cartDraft.TaxMode = taxMode;
-        
+            cartDraft.DeleteDaysAfterLastModification = GetRandomNumber(1, 10);
+            if (!string.IsNullOrWhiteSpace(customerId))
+            {
+                cartDraft.CustomerId = customerId;
+            }
+            return cartDraft;
+        }
+
+        /// <summary>
+        /// Gets a test cart draft using external tax mode.
+        /// </summary>
+        /// <param name="project">Project</param>
+        /// <param name="customerId">Customer ID</param>
+        /// <returns>CartDraft</returns>
+        public static CartDraft GetTestCartDraftUsingExternalTaxMode(Project.Project project, string customerId = null)
+        {
+            Address shippingAddress = Helper.GetTestAddress(project);
+            Address billingAddress = Helper.GetTestAddress(project);
+
+            string currency = project.Currencies[0];
+            string country = project.Countries[0];
+
+            CartDraft cartDraft = new CartDraft(currency);
+            cartDraft.Country = country;
+            cartDraft.InventoryMode = InventoryMode.None;
+            cartDraft.ShippingAddress = shippingAddress;
+            cartDraft.BillingAddress = billingAddress;
+            cartDraft.TaxMode = TaxMode.External;
+
             if (!string.IsNullOrWhiteSpace(customerId))
             {
                 cartDraft.CustomerId = customerId;
@@ -90,7 +119,7 @@ namespace commercetools.Tests
         /// <param name="project">Project</param>
         /// <param name="customerId">Customer ID</param>
         /// <returns>CartDraft</returns>
-        public static CartDraft GetTestCartDraftWithCustomLineItems(Project.Project project, TaxMode? taxMode, string customerId = null)
+        public static CartDraft GetTestCartDraftWithCustomLineItems(Project.Project project, string customerId = null)
         {
             var shippingAddress = GetTestAddress(project);
             var billingAddress = GetTestAddress(project);
@@ -105,7 +134,50 @@ namespace commercetools.Tests
                 InventoryMode = InventoryMode.None,
                 ShippingAddress = shippingAddress,
                 BillingAddress = billingAddress,
-                TaxMode = taxMode,
+                TaxMode = TaxMode.Disabled,
+                CustomLineItems = new List<CustomLineItemDraft>()
+            };
+            cartDraft.DeleteDaysAfterLastModification = GetRandomNumber(1, 10);
+
+            if (!string.IsNullOrWhiteSpace(customerId))
+            {
+                cartDraft.CustomerId = customerId;
+            }
+            cartDraft.CustomLineItems.Add(new CustomLineItemDraft(name)
+            {
+                Quantity = 40,
+                Money = new Money
+                {
+                    CentAmount = 30,
+                    CurrencyCode = currency
+                },
+                Slug = "Test-CustomLineItem-Slug",
+            });
+            return cartDraft;
+        }
+ 
+        /// <summary>
+        /// Gets a test cart draft with custom line items using external tax mode.
+        /// </summary>
+        /// <param name="project">Project</param>
+        /// <param name="customerId">Customer ID</param>
+        /// <returns>CartDraft</returns>
+        public static CartDraft GetTestCartDraftWithCustomLineItemsUsingExternalTaxMode(Project.Project project, string customerId = null)
+        {
+            var shippingAddress = GetTestAddress(project);
+            var billingAddress = GetTestAddress(project);
+            var name = new LocalizedString();
+            name.Values.Add("en", "Test-CustomLineItem");
+            var currency = project.Currencies[0];
+            var country = project.Countries[0];
+
+            var cartDraft = new CartDraft(currency)
+            {
+                Country = country,
+                InventoryMode = InventoryMode.None,
+                ShippingAddress = shippingAddress,
+                BillingAddress = billingAddress,
+                TaxMode = TaxMode.External,
                 CustomLineItems = new List<CustomLineItemDraft>()
             };
 
@@ -122,11 +194,10 @@ namespace commercetools.Tests
                     CurrencyCode = currency
                 },
                 Slug = "Test-CustomLineItem-Slug",
-                ExternalTaxRate = taxMode != null && taxMode == TaxMode.External ? new ExternalTaxRateDraft("TestExternalTaxRate", project.Countries[0]) { Amount = 0 } : null 
+                ExternalTaxRate = new ExternalTaxRateDraft("TestExternalTaxRate", project.Countries[0]) { Amount = 0 }
             });
             return cartDraft;
         }
-
         #endregion
 
         #region Cart Discounts
@@ -176,6 +247,7 @@ namespace commercetools.Tests
                             new CartDiscountTarget(CartDiscountTargetType.LineItems, lineItemPredicate)
             };
         }
+
         public static async Task<CartDiscount> CreateTestCartDiscount(Project.Project project, Client client)
         {
 
@@ -307,6 +379,82 @@ namespace commercetools.Tests
             customerDraft.LastName = "Customer";
 
             return customerDraft;
+        }
+
+        #endregion
+
+        #region Discount Codes
+
+        public static async Task<DiscountCode> CreateTestDiscountCode(Project.Project project, Client client)
+        {
+            LocalizedString name = new LocalizedString();
+            LocalizedString description = new LocalizedString();
+
+            foreach (string language in project.Languages)
+            {
+                string randomPostfix = GetRandomString(10);
+                name.SetValue(language, string.Concat("test-discount-code-name", language, " ", randomPostfix));
+                description.SetValue(language, string.Concat("test-discount-code-description", language, "-", randomPostfix));
+            }
+            var cartDiscountDraft = await GetTestCartDiscountDraft(project, client, GetRandomBoolean(),
+                GetRandomBoolean(), "lineItemCount(1 = 1) > 0", "1=1", 5000, false);
+            var cartDiscountResponse = await client.CartDiscounts().CreateCartDiscountAsync(cartDiscountDraft);
+            var discountCodeDraft = new DiscountCodeDraft(
+                GetRandomString(10),
+                new List<Reference>
+                {
+                    new Reference {Id = cartDiscountResponse.Result.Id, ReferenceType = ReferenceType.CartDiscount}
+                },
+                GetRandomBoolean())
+            {
+                Description = description,
+                Name = name,
+                MaxApplications = GetRandomNumber(100, 1000),
+                MaxApplicationsPerCustomer = GetRandomNumber(100, 1000),
+                CartPredicate = "totalPrice.centAmount > 1000"
+            };
+            var discountCode = await client.DiscountCodes().CreateDiscountCodeAsync(discountCodeDraft);
+
+            return discountCode.Result;
+        }
+
+        public static async Task<DiscountCode> DeleteDiscountCode(Client client, DiscountCode discountCode)
+        {
+            Response<DiscountCode> taskDeleteDiscountCode = await client.DiscountCodes().DeleteDiscountCodeAsync(discountCode);
+            var deletedDiscountCode = taskDeleteDiscountCode.Result;
+
+            foreach (var discountCodeCartDiscount in deletedDiscountCode.CartDiscounts)
+            {
+                await client.CartDiscounts().DeleteCartDiscountAsync(discountCodeCartDiscount.Id, 1);
+            }
+            return deletedDiscountCode;
+        }
+
+        public static async Task<DiscountCodeDraft> GetDiscountCodeDraft(Project.Project project, Client client)
+        {
+            var name = new LocalizedString();
+            var description = new LocalizedString();
+
+            foreach (string language in project.Languages)
+            {
+                string randomPostfix = Helper.GetRandomString(10);
+                name.SetValue(language, string.Concat("test-discount-code-name", language, " ", randomPostfix));
+                description.SetValue(language, string.Concat("test-discount-code-description", language, "-", randomPostfix));
+            }
+            CartDiscount cartDiscount = await Helper.CreateTestCartDiscount(project, client);
+            var references = new List<Reference>
+            {
+                new Reference {Id = cartDiscount.Id, ReferenceType = ReferenceType.CartDiscount}
+            };
+            var discountCodeDraft = new DiscountCodeDraft(Helper.GetRandomString(10), references, GetRandomBoolean())
+            {
+                Description = description,
+                Name = name,
+                MaxApplications = Helper.GetRandomNumber(100, 1000),
+                MaxApplicationsPerCustomer = Helper.GetRandomNumber(100, 1000)
+            };
+
+            return discountCodeDraft;
         }
 
         #endregion
@@ -537,7 +685,6 @@ namespace commercetools.Tests
         }
 
         #endregion
-
         #region Subscriptions 
         /// <summary>
         /// Gets a list of subscription drafts containing all current subscription destination types.
@@ -573,7 +720,7 @@ namespace commercetools.Tests
 
             if (!string.IsNullOrEmpty(configAWSSNSArn) &&
                 !string.IsNullOrEmpty(configAWSSNSKey) &&
-                !string.IsNullOrEmpty(configAWSSNSSecret)) 
+                !string.IsNullOrEmpty(configAWSSNSSecret))
             {
                 draftSubscription = new SubscriptionDraft(
                 new AWSSNSDestination(configAWSSNSArn, configAWSSNSKey, configAWSSNSSecret),
@@ -597,7 +744,6 @@ namespace commercetools.Tests
             return testSubscriptions;
         }
         #endregion
-
         #region Tax Categories
 
         /// <summary>
@@ -750,7 +896,6 @@ namespace commercetools.Tests
         {
             return GetRandomDouble(0, 2) >= 0.5;
         }
-
         #endregion 
     }
 }

@@ -83,7 +83,7 @@ namespace commercetools.Tests
 
                 _testCustomers.Add(customerCreatedMessage.Customer);
 
-                cartDraft = Helper.GetTestCartDraft(_project, null, customerCreatedMessage.Customer.Id);
+                cartDraft = Helper.GetTestCartDraft(_project, customerCreatedMessage.Customer.Id);
                 cartTask = _client.Carts().CreateCartAsync(cartDraft);
                 cartTask.Wait();
                 Assert.NotNull(cartTask.Result);
@@ -107,7 +107,7 @@ namespace commercetools.Tests
 
             _testCustomers.Add(customerCreatedMessage.Customer);
 
-            cartDraft = Helper.GetTestCartDraft(_project, TaxMode.External, customerCreatedMessage.Customer.Id);
+            cartDraft = Helper.GetTestCartDraftUsingExternalTaxMode(_project, customerCreatedMessage.Customer.Id);
             cartTask = _client.Carts().CreateCartAsync(cartDraft);
             cartTask.Wait();
             Assert.NotNull(cartTask.Result);
@@ -362,7 +362,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldCreateAndDeleteCartInExternalTaxModeWithCustomLineItemsHavingExternalTaxRate()
         {
-            CartDraft cartDraft = Helper.GetTestCartDraftWithCustomLineItems(_project, TaxMode.External);
+            CartDraft cartDraft = Helper.GetTestCartDraftWithCustomLineItemsUsingExternalTaxMode(_project);
             Response<Cart> response = await _client.Carts().CreateCartAsync(cartDraft);
             Assert.IsTrue(response.Success);
 
@@ -396,7 +396,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldCreateAndDeleteCartWithCustomLineItemsAsync()
         {
-            CartDraft cartDraft = Helper.GetTestCartDraftWithCustomLineItems(_project, TaxMode.Disabled);
+            CartDraft cartDraft = Helper.GetTestCartDraftWithCustomLineItems(_project);
             Response<Cart> response = await _client.Carts().CreateCartAsync(cartDraft);
             Assert.IsTrue(response.Success);
 

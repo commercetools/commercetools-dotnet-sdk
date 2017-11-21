@@ -75,7 +75,7 @@ namespace commercetools.Tests
 
             for (int i = 0; i < 5; i++)
             {
-                CartDraft cartDraft = Helper.GetTestCartDraft(_project, null, _testCustomers[i].Id);
+                CartDraft cartDraft = Helper.GetTestCartDraft(_project, _testCustomers[i].Id);
                 cartTask = _client.Carts().CreateCartAsync(cartDraft);
                 cartTask.Wait();
                 Assert.IsTrue(cartTask.Result.Success);
@@ -256,7 +256,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldCreateOrderFromCartAndDeleteOrderAsync()
         {
-            CartDraft cartDraft = Helper.GetTestCartDraft(_project, null, _testCustomers[0].Id);
+            CartDraft cartDraft = Helper.GetTestCartDraft(_project, _testCustomers[0].Id);
             Response<Cart> cartResponse = await _client.Carts().CreateCartAsync(cartDraft);
             Assert.IsTrue(cartResponse.Success);
 
