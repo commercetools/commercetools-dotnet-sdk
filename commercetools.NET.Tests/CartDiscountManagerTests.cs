@@ -44,7 +44,7 @@ namespace commercetools.Tests
 
             _testCartDiscount = cartDiscountTask.Result;
             Assert.NotNull(_testCartDiscount);
-            Assert.NotNull(_testCartDiscount.Id); 
+            Assert.NotNull(_testCartDiscount.Id);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace commercetools.Tests
         public void Dispose()
         {
             Task task = _client.CartDiscounts().DeleteCartDiscountAsync(_testCartDiscount);
-            task.Wait();         
+            task.Wait();
         }
 
         /// <summary>
@@ -80,7 +80,8 @@ namespace commercetools.Tests
         public async Task ShouldCreateCartDiscountAsync()
         {
             // Arrange
-            CartDiscountDraft cartDiscountDraft = await Helper.GetTestCartDiscountDraft(this._project, this._client);
+            CartDiscountDraft cartDiscountDraft = await Helper.GetTestCartDiscountDraft(this._project, this._client, Helper.GetRandomBoolean(),
+                Helper.GetRandomBoolean(), "lineItemCount(1 = 1) > 0", "1=1", 5000, false);
 
             // Act
             Response<CartDiscount> cartDiscountResponse = await _client.CartDiscounts().CreateCartDiscountAsync(cartDiscountDraft);
@@ -137,7 +138,7 @@ namespace commercetools.Tests
 
             // Act
             var updatedCartDiscountResponse = await this._client.CartDiscounts()
-                .UpdateCartDiscountAsync(cartDiscount, new List<UpdateAction> { changeActiveAction, changeRequiresDiscountCodeAction});
+                .UpdateCartDiscountAsync(cartDiscount, new List<UpdateAction> { changeActiveAction, changeRequiresDiscountCodeAction });
 
 
             // Assert
@@ -239,7 +240,7 @@ namespace commercetools.Tests
             var moneyList = new List<Money>();
             foreach (var currency in this._project.Currencies)
             {
-                moneyList.Add(new Money { CentAmount = Helper.GetRandomNumber(100, 1000), CurrencyCode = currency}); 
+                moneyList.Add(new Money { CentAmount = Helper.GetRandomNumber(100, 1000), CurrencyCode = currency });
             }
             var cartDiscount = await Helper.CreateTestCartDiscount(this._project, this._client);
             var changeValue = new ChangeValueAction(new AbsoluteCartDiscountValue(moneyList));
@@ -264,7 +265,8 @@ namespace commercetools.Tests
         {
             // Arrange            
             var cartDiscount = await Helper.CreateTestCartDiscount(this._project, this._client);
-            var cartDiscountDraft = await Helper.GetTestCartDiscountDraft(this._project, this._client);
+            var cartDiscountDraft = await Helper.GetTestCartDiscountDraft(this._project, this._client, Helper.GetRandomBoolean(),
+                Helper.GetRandomBoolean(), "lineItemCount(1 = 1) > 0", "1=1", 5000, false);
             var changeSortOrder = new ChangeSortOrderAction(cartDiscountDraft.SortOrder);
 
             // Act
