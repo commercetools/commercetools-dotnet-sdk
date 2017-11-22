@@ -56,9 +56,14 @@ namespace commercetools.Tests
         /// </summary>
         /// <see cref="SubscriptionManager.GetSubscriptionByIdAsync"/>
         [Test]
-        public async Task ShouldGetSubscriptionById()
+        public async Task ShouldGetSubscriptionByIdAsync()
         {
-            Assert.IsFalse(_testSubscriptions.Count == 0, "No valid subscriptions have been setup. Check that destination configuration(s) have been set up in App.Config.");
+            Assert.NotNull(_testSubscriptions);
+            if (_testSubscriptions.Count == 0)
+            {
+                Console.Error.WriteLine("WARNING: ShouldGetSubscriptionByIdAsync - No valid subscriptions have been setup. Check that destination configuration(s) have been set up in App.Config.");
+                return;
+            }
             SubscriptionManager manager = new SubscriptionManager(_client);
             foreach (var subscription in _testSubscriptions)
             {
@@ -108,7 +113,12 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldGetSubscriptionByKey()
         {
-            Assert.IsFalse(_testSubscriptions.Count == 0, "No valid subscriptions have been setup. Check that destination configuration(s) have been set up in App.Config.");
+            Assert.NotNull(_testSubscriptions);
+            if (_testSubscriptions.Count == 0)
+            {
+                Console.Error.WriteLine("WARNING: GetSubscriptionByKeyAsync - No valid subscriptions have been setup. Check that destination configuration(s) have been set up in App.Config.");
+                return;
+            }
             SubscriptionManager manager = new SubscriptionManager(_client);
             foreach (var subscription in _testSubscriptions)
             {
