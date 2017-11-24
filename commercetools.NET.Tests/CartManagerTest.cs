@@ -74,7 +74,6 @@ namespace commercetools.Tests
             {
                 customerDraft = Helper.GetTestCustomerDraft();
                 customerTask = _client.Customers().CreateCustomerAsync(customerDraft);
-
                 customerTask.Wait();
                 Assert.IsTrue(customerTask.Result.Success);
 
@@ -760,15 +759,13 @@ namespace commercetools.Tests
             var customLineItem = response.Result.CustomLineItems.First();
             customLineItem.DiscountedPricePerQuantity.Count.Should().BeGreaterThan(0);
             var discountedLineItemPrice = customLineItem.DiscountedPricePerQuantity.First();
-            discountedLineItemPrice.Value.CentAmount.Should().BeGreaterThan(1);
-            discountedLineItemPrice.Value.CurrencyCode.Should().Be("EUR");
-
-            var discountedLineItemPriceHasDiscounts = discountedLineItemPrice.IncludedDiscounts.TrueForAll(
-                portion => !string.IsNullOrWhiteSpace(portion.Discount?.Id) && portion.DiscountedAmount != null &&
-                           portion.DiscountedAmount.CentAmount != null &&
-                           !string.IsNullOrWhiteSpace(portion.DiscountedAmount.CurrencyCode));
-
-            discountedLineItemPriceHasDiscounts.Should().BeTrue();
+            discountedLineItemPrice.DiscountedPrice.Value.CentAmount.Should().BeGreaterThan(1);
+            discountedLineItemPrice.DiscountedPrice.Value.CurrencyCode.Should().Be("EUR");
+            Assert.NotNull(discountedLineItemPrice);
+            Assert.NotNull(discountedLineItemPrice.DiscountedPrice);
+            Assert.NotNull(discountedLineItemPrice.DiscountedPrice.Value);
+            Assert.NotNull(discountedLineItemPrice.DiscountedPrice.Value);
+            Assert.IsFalse(string.IsNullOrEmpty(discountedLineItemPrice.DiscountedPrice.Value.CurrencyCode));
 
             // Cleanup
             await this._client.CartDiscounts().DeleteCartDiscountAsync(cartDiscount.Id, 1);
