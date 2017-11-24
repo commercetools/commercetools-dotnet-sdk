@@ -34,7 +34,6 @@ namespace commercetools.Carts
             {
                 return;
             }
-
             this.Quantity = data.quantity;
             this.DiscountedPrice = new DiscountedLineItemPrice(data.discountedPrice);
         }

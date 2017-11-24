@@ -414,6 +414,7 @@ namespace commercetools.Tests
                 requiresDiscountCode = isActive.Value ? GetRandomBoolean() : false;
             }
             var cartDiscountDraft = await GetTestCartDiscountDraft(project, client, isActive.Value, requiresCartDiscount.Value, "lineItemCount(1 = 1) > 0", "1=1", 5000, false);
+
             var cartDiscountResponse = await client.CartDiscounts().CreateCartDiscountAsync(cartDiscountDraft);
             var discountCodeDraft = new DiscountCodeDraft(requiresDiscountCode.Value ? GetRandomString(10) : null,
                 new List<Reference>
