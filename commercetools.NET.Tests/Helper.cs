@@ -203,11 +203,11 @@ namespace commercetools.Tests
         #region Cart Discounts
 
         public static async Task<CartDiscountDraft> GetTestCartDiscountDraft(
-            Project.Project project,
-            Client client,
-            bool isActive,
+            Project.Project project, 
+            Client client, 
+            bool isActive, 
             bool requiresDiscountCode,
-            string cartPredicate,
+            string cartPredicate ,
             string lineItemPredicate,
             int perMyriadAmount,
             bool targetCustomLineItem)
@@ -248,18 +248,25 @@ namespace commercetools.Tests
             };
         }
 
-        public static async Task<CartDiscount> CreateTestCartDiscount(Project.Project project, Client client)
+        public static async Task<CartDiscount> CreateTestCartDiscount(Project.Project project, Client client, bool? isActive = null, bool? requiresDiscountCode = null)
         {
-
-            var cartDiscountDraft = await GetTestCartDiscountDraft(project, client, GetRandomBoolean(),
-                GetRandomBoolean(), "lineItemCount(1 = 1) > 0", "1=1", 5000, false);
+            if (isActive == null)
+            {
+                isActive = GetRandomBoolean();
+            }
+            if (requiresDiscountCode == null)
+            {
+                requiresDiscountCode = isActive.Value ? GetRandomBoolean() : false;
+            }
+            var cartDiscountDraft = await GetTestCartDiscountDraft(project, client, isActive.Value, requiresDiscountCode.Value, 
+                "lineItemCount(1 = 1) > 0", "1=1", 5000, false);
             var cartDiscountResponse = await client.CartDiscounts().CreateCartDiscountAsync(cartDiscountDraft);
 
             return cartDiscountResponse.Result;
         }
 
         public static async Task<CartDiscount> CreateCartDiscountForCustomLineItems(
-            Project.Project project,
+            Project.Project project, 
             Client client,
             bool isActive = true,
             bool requiresDiscountCode = false,
@@ -384,28 +391,36 @@ namespace commercetools.Tests
         #endregion
 
         #region Discount Codes
-
-        public static async Task<DiscountCode> CreateTestDiscountCode(Project.Project project, Client client)
+        public static async Task<DiscountCode> CreateTestDiscountCode(Project.Project project, Client client, bool? requiresCartDiscount = null, bool? isActive = null, bool? requiresDiscountCode = null)
         {
             LocalizedString name = new LocalizedString();
             LocalizedString description = new LocalizedString();
 
             foreach (string language in project.Languages)
             {
-                string randomPostfix = GetRandomString(10);
-                name.SetValue(language, string.Concat("test-discount-code-name", language, " ", randomPostfix));
-                description.SetValue(language, string.Concat("test-discount-code-description", language, "-", randomPostfix));
+                string randomStringValue = GetRandomString(10);
+                name.SetValue(language, string.Concat("test-discount-code-name-", language, " ", randomStringValue));
+                description.SetValue(language, string.Concat("test-discount-code-description-", language, "-", randomStringValue));
             }
-            var cartDiscountDraft = await GetTestCartDiscountDraft(project, client, GetRandomBoolean(),
-                GetRandomBoolean(), "lineItemCount(1 = 1) > 0", "1=1", 5000, false);
+            if (isActive == null) {
+                isActive = GetRandomBoolean();
+            }
+            if (requiresCartDiscount == null)
+            {
+                requiresCartDiscount = isActive.Value ? GetRandomBoolean() : false;
+            }
+            if (requiresDiscountCode == null)
+            {
+                requiresDiscountCode = isActive.Value ? GetRandomBoolean() : false;
+            }
+            var cartDiscountDraft = await GetTestCartDiscountDraft(project, client, isActive.Value, requiresCartDiscount.Value, "lineItemCount(1 = 1) > 0", "1=1", 5000, false);
             var cartDiscountResponse = await client.CartDiscounts().CreateCartDiscountAsync(cartDiscountDraft);
-            var discountCodeDraft = new DiscountCodeDraft(
-                GetRandomString(10),
+            var discountCodeDraft = new DiscountCodeDraft(requiresDiscountCode.Value ? GetRandomString(10) : null,
                 new List<Reference>
                 {
                     new Reference {Id = cartDiscountResponse.Result.Id, ReferenceType = ReferenceType.CartDiscount}
                 },
-                GetRandomBoolean())
+                isActive.Value)
             {
                 Description = description,
                 Name = name,
@@ -414,7 +429,6 @@ namespace commercetools.Tests
                 CartPredicate = "totalPrice.centAmount > 1000"
             };
             var discountCode = await client.DiscountCodes().CreateDiscountCodeAsync(discountCodeDraft);
-
             return discountCode.Result;
         }
 
@@ -430,7 +444,7 @@ namespace commercetools.Tests
             return deletedDiscountCode;
         }
 
-        public static async Task<DiscountCodeDraft> GetDiscountCodeDraft(Project.Project project, Client client)
+        public static async Task<DiscountCodeDraft> GetDiscountCodeDraft(Project.Project project, Client client, bool? isActive = null, bool? requiresDiscountCode = null)
         {
             var name = new LocalizedString();
             var description = new LocalizedString();
@@ -441,12 +455,20 @@ namespace commercetools.Tests
                 name.SetValue(language, string.Concat("test-discount-code-name", language, " ", randomPostfix));
                 description.SetValue(language, string.Concat("test-discount-code-description", language, "-", randomPostfix));
             }
-            CartDiscount cartDiscount = await Helper.CreateTestCartDiscount(project, client);
+            if (isActive == null)
+            {
+                isActive = GetRandomBoolean();
+            }
+            if (requiresDiscountCode == null)
+            {
+                requiresDiscountCode = isActive.Value ? GetRandomBoolean() : false;
+            }
+            CartDiscount cartDiscount = await Helper.CreateTestCartDiscount(project, client, isActive, requiresDiscountCode);
             var references = new List<Reference>
             {
                 new Reference {Id = cartDiscount.Id, ReferenceType = ReferenceType.CartDiscount}
             };
-            var discountCodeDraft = new DiscountCodeDraft(Helper.GetRandomString(10), references, GetRandomBoolean())
+            var discountCodeDraft = new DiscountCodeDraft(requiresDiscountCode.Value ? Helper.GetRandomString(10) : null, references, isActive.Value)
             {
                 Description = description,
                 Name = name,
