@@ -106,7 +106,7 @@ namespace commercetools.Common
                 }
                 else if (this.Configuration.InternalServerErrorRetryInterval > 0)
                 {
-                    Thread.Sleep(this.Configuration.InternalServerErrorRetryInterval);
+                    await Task.Delay(this.Configuration.InternalServerErrorRetryInterval);
                 }
             }
             return response;
@@ -160,7 +160,7 @@ namespace commercetools.Common
                     }
                     else if (this.Configuration.InternalServerErrorRetryInterval > 0)
                     {
-                        Thread.Sleep(this.Configuration.InternalServerErrorRetryInterval);
+                        await Task.Delay(this.Configuration.InternalServerErrorRetryInterval);
                     }
                 }
             }
@@ -216,7 +216,7 @@ namespace commercetools.Common
                 }
                 else if (this.Configuration.InternalServerErrorRetryInterval > 0)
                 {
-                    Thread.Sleep(this.Configuration.InternalServerErrorRetryInterval);
+                    await Task.Delay(this.Configuration.InternalServerErrorRetryInterval);
                 }
             }
             return response;
@@ -293,7 +293,7 @@ namespace commercetools.Common
                 }
                 else if (this.Configuration.InternalServerErrorRetryInterval > 0)
                 {
-                    Thread.Sleep(this.Configuration.InternalServerErrorRetryInterval);
+                    await Task.Delay(this.Configuration.InternalServerErrorRetryInterval);
                 }
             }
             return response;
@@ -341,7 +341,7 @@ namespace commercetools.Common
                 }
                 else if (this.Configuration.InternalServerErrorRetryInterval > 0)
                 {
-                    Thread.Sleep(this.Configuration.InternalServerErrorRetryInterval);
+                    await Task.Delay(this.Configuration.InternalServerErrorRetryInterval);
                 }
             }
             return response;
