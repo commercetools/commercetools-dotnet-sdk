@@ -1,5 +1,6 @@
 ﻿using System;
 using commercetools.Core.Common;
+using commercetools.Core.Common.Converters;
 using Newtonsoft.Json;
 
 namespace commercetools.Core.Customers.UpdateActions
@@ -16,7 +17,8 @@ namespace commercetools.Core.Customers.UpdateActions
         /// DateOfBirth
         /// </summary>
         [JsonProperty(PropertyName = "dateOfBirth")]
-        public DateTime DateOfBirth { get; set; }
+        [JsonConverter(typeof(IsoDateConverter))]
+        public DateTime? DateOfBirth { get; set; }
 
         #endregion
 
