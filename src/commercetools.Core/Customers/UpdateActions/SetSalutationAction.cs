@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace commercetools.Core.Customers.UpdateActions
 {
     /// <summary>
-    /// SetTitleAction
+    /// SetSalutationAction
     /// </summary>
     /// <see href="http://dev.commercetools.com/http-api-projects-customers.html#set-salutation"/>
     public class SetSalutationAction : UpdateAction
@@ -12,7 +12,7 @@ namespace commercetools.Core.Customers.UpdateActions
         #region Properties
 
         /// <summary>
-        /// Title
+        /// Salutation
         /// </summary>
         [JsonProperty(PropertyName = "salutation")]
         public string Salutation { get; set; }

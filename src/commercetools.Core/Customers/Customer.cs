@@ -51,6 +51,9 @@ namespace commercetools.Core.Customers
         [JsonProperty(PropertyName = "title")]
         public string Title { get; private set; }
 
+        [JsonProperty(PropertyName = "salutation")]
+        public string Salutation { get; private set; }
+
         [JsonProperty(PropertyName = "dateOfBirth")]
         [JsonConverter(typeof(IsoDateConverter))]
         public DateTime? DateOfBirth { get; private set; }
@@ -118,6 +121,7 @@ namespace commercetools.Core.Customers
             this.LastName = data.lastName;
             this.MiddleName = data.middleName;
             this.Title = data.title;
+            this.Salutation = data.salutation;
             this.DateOfBirth = data.dateOfBirth;
             this.CompanyName = data.companyName;
             this.VatId = data.vatId;
