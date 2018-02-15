@@ -86,6 +86,33 @@ namespace commercetools.Core.Tests
             Assert.Equal(1, discountCode.Count);
         }
 
+        [Fact]
+        public async Task ShouldQueryExpandedDiscountCodeByCodeAsync()
+        {
+            Response<DiscountCodeExpandedQueryResult> response = await _client.DiscountCodes().QueryExpandedDiscountCodesAsync("code=\"" + _testDiscountCode.Code + "\"");
+            Assert.True(response.Success);
+
+            DiscountCodeExpandedQueryResult discountCodePagedResult = response.Result;
+            
+            Assert.NotNull(discountCodePagedResult);
+            Assert.Equal(1, discountCodePagedResult.Count);
+
+            DiscountCodeExpanded discountCode = discountCodePagedResult.Results.First();
+            Assert.NotNull(discountCode);
+            Assert.Equal(_testDiscountCode.CartPredicate, discountCode.CartPredicate);
+            Assert.Equal(_testDiscountCode.Code, discountCode.Code);
+
+            List<CartDiscountExpandedReference> cartDiscounts = discountCode.CartDiscounts;
+            Assert.NotNull(cartDiscounts);
+            Assert.Equal(1, cartDiscounts.Count);
+
+            CartDiscountExpandedReference cartDiscount = cartDiscounts.First();
+            Assert.NotNull(cartDiscount.CartDiscount);
+            Assert.NotNull(cartDiscount.CartDiscount.CartPredicate);
+            Assert.NotNull(cartDiscount.CartDiscount.Target);
+
+        }
+
         /// <summary>
         /// Tests the DiscountCodeManager.CreateDiscountCodeAsync method.
         /// </summary>
@@ -117,7 +144,7 @@ namespace commercetools.Core.Tests
             {
                 var cartDiscount = discountCode.CartDiscounts[i];
                 var cartDiscountReference = cartDiscountReferences.ElementAt(i);
-;               Assert.Equal(cartDiscount.Id, cartDiscountReference.Id);
+                Assert.Equal(cartDiscount.Id, cartDiscountReference.Id);
                 Assert.Equal(cartDiscount.ReferenceType, cartDiscountReference.ReferenceType);
             }
             // Cleanup
@@ -355,7 +382,8 @@ namespace commercetools.Core.Tests
             {
                 var crtDiscount = updatedDiscountCode.CartDiscounts[i];
                 var cartDiscountReference = changeCartDiscounts.CartDiscounts[i];
-                ; Assert.Equal(crtDiscount.Id, cartDiscountReference.Id);
+                Assert.Equal(crtDiscount.Id, cartDiscountReference.Id);
+                
                 Assert.Equal(crtDiscount.ReferenceType, cartDiscountReference.ReferenceType);
             }
 

@@ -316,14 +316,15 @@ namespace commercetools.Core.Common
             if (response.StatusCode >= 200 && response.StatusCode < 300)
             {
                 response.Success = true;
+                string responseContent = await httpResponseMessage.Content.ReadAsStringAsync();
 
                 if (resultType == typeof(JObject) || resultType == typeof(JArray) || resultType.IsArray || (resultTypeInfo.IsGenericType && resultType.Name.Equals(typeof(List<>).Name)))
                 {
-                    response.Result = JsonConvert.DeserializeObject<T>(await httpResponseMessage.Content.ReadAsStringAsync());
+                    response.Result = JsonConvert.DeserializeObject<T>(responseContent);
                 }
                 else
                 {
-                    dynamic data = JsonConvert.DeserializeObject(await httpResponseMessage.Content.ReadAsStringAsync());
+                    dynamic data = JsonConvert.DeserializeObject(responseContent);
                     ConstructorInfo constructor = Helper.GetConstructorWithDataParameter(resultType);
 
                     if (constructor != null)
