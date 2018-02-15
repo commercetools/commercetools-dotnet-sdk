@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using commercetools.Core.Common;
+using commercetools.Core.Common.Converters;
+
 using Newtonsoft.Json;
 
 namespace commercetools.Core.Customers
@@ -50,6 +52,7 @@ namespace commercetools.Core.Customers
         public string Title { get; private set; }
 
         [JsonProperty(PropertyName = "dateOfBirth")]
+        [JsonConverter(typeof(IsoDateConverter))]
         public DateTime? DateOfBirth { get; private set; }
 
         [JsonProperty(PropertyName = "companyName")]
