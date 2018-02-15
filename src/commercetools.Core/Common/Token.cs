@@ -45,7 +45,6 @@ namespace commercetools.Core.Common
             this.AccessToken = data.access_token;
             int? expiresIn = data.expires_in;
             string scope = data.scope;
-            this.RefreshToken = data.refresh_token;
             this.TokenType = data.token_type;
 
             if (expiresIn.HasValue)
