@@ -87,7 +87,48 @@ namespace commercetools.Core.DiscountCodes
                 values.Add("offset", offset.ToString());
             }
 
+            values.Add("expand", "cartDiscounts[*]");
+
             return _client.GetAsync<DiscountCodeQueryResult>(ENDPOINT_PREFIX, values);
+        }
+
+
+        /// <summary>
+        /// Queries for DiscountCode.
+        /// </summary>
+        /// <param name="where">Where</param>
+        /// <param name="sort">Sort</param>
+        /// <param name="limit">Limit</param>
+        /// <param name="offset">Offset</param>
+        /// <returns>DiscountCodeQueryResult</returns>
+        /// <see href="https://dev.commercetools.com/http-api-projects-discountCodes.html#query-discountcodes"/>
+        public Task<Response<DiscountCodeExpandedQueryResult>> QueryExpandedDiscountCodesAsync(string where = null, string sort = null, int limit = -1, int offset = -1)
+        {
+            NameValueCollection values = new NameValueCollection();
+
+            if (!string.IsNullOrWhiteSpace(where))
+            {
+                values.Add("where", where);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sort))
+            {
+                values.Add("sort", sort);
+            }
+
+            if (limit > 0)
+            {
+                values.Add("limit", limit.ToString());
+            }
+
+            if (offset >= 0)
+            {
+                values.Add("offset", offset.ToString());
+            }
+
+            values.Add("expand", "cartDiscounts[*]");
+
+            return _client.GetAsync<DiscountCodeExpandedQueryResult>(ENDPOINT_PREFIX, values);
         }
 
         /// <summary>
