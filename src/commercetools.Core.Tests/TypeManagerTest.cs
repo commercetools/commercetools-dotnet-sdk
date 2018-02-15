@@ -72,106 +72,106 @@ namespace commercetools.Core.Tests
             }
         }
 
-        /// <summary>
-        /// Tests the TypeManager.GetTypeByIdAsync method.
-        /// </summary>
-        /// <see cref="TypeManager.GetTypeByIdAsync"/>
-        [Fact]
-        public async Task ShouldGetTypeByIdAsync()
-        {
-            Response<Type> response = await _client.Types().GetTypeByIdAsync(_testTypes[0].Id);
-            Assert.True(response.Success);
+        ///// <summary>
+        ///// Tests the TypeManager.GetTypeByIdAsync method.
+        ///// </summary>
+        ///// <see cref="TypeManager.GetTypeByIdAsync"/>
+        //[Fact]
+        //public async Task ShouldGetTypeByIdAsync()
+        //{
+        //    Response<Type> response = await _client.Types().GetTypeByIdAsync(_testTypes[0].Id);
+        //    Assert.True(response.Success);
 
-            Type type = response.Result;
-            Assert.NotNull(type.Id);
-            Assert.Equal(type.Id, _testTypes[0].Id);
-        }
+        //    Type type = response.Result;
+        //    Assert.NotNull(type.Id);
+        //    Assert.Equal(type.Id, _testTypes[0].Id);
+        //}
 
-        /// <summary>
-        /// Tests the TypeManager.QueryTypesAsync method.
-        /// </summary>
-        /// <see cref="TypeManager.QueryTypesAsync"/>
-        [Fact]
-        public async Task ShouldQueryShippingMethodsAsync()
-        {
-            Response<TypeQueryResult> response = await _client.Types().QueryTypesAsync();
-            Assert.True(response.Success);
+        ///// <summary>
+        ///// Tests the TypeManager.QueryTypesAsync method.
+        ///// </summary>
+        ///// <see cref="TypeManager.QueryTypesAsync"/>
+        //[Fact]
+        //public async Task ShouldQueryShippingMethodsAsync()
+        //{
+        //    Response<TypeQueryResult> response = await _client.Types().QueryTypesAsync();
+        //    Assert.True(response.Success);
 
-            TypeQueryResult typeQueryResult = response.Result;
-            Assert.NotNull(typeQueryResult.Results);
-            Assert.True(typeQueryResult.Results.Count >= 1);
+        //    TypeQueryResult typeQueryResult = response.Result;
+        //    Assert.NotNull(typeQueryResult.Results);
+        //    Assert.True(typeQueryResult.Results.Count >= 1);
 
-            int limit = 2;
-            response = await _client.Types().QueryTypesAsync(limit: limit);
-            Assert.True(response.Success);
+        //    int limit = 2;
+        //    response = await _client.Types().QueryTypesAsync(limit: limit);
+        //    Assert.True(response.Success);
 
-            typeQueryResult = response.Result;
-            Assert.NotNull(typeQueryResult.Results);
-            Assert.True(typeQueryResult.Results.Count <= limit);
-        }
+        //    typeQueryResult = response.Result;
+        //    Assert.NotNull(typeQueryResult.Results);
+        //    Assert.True(typeQueryResult.Results.Count <= limit);
+        //}
 
-        /// <summary>
-        /// Tests the TypeManager.CreateTypeAsync and TypeManager.DeleteTypeAsync methods.
-        /// </summary>
-        /// <see cref="TypeManager.CreateTypeAsync"/>
-        /// <seealso cref="TypeManager.DeleteTypeAsync(commercetools.Types.Type)"/>
-        [Fact]
-        public async Task ShouldCreateAndDeleteTypeAsync()
-        {
-            TypeDraft typeDraft = Helper.GetTypeDraft(_project);
-            Response<Type> typeResponse = await _client.Types().CreateTypeAsync(typeDraft);
-            Assert.True(typeResponse.Success);
+        ///// <summary>
+        ///// Tests the TypeManager.CreateTypeAsync and TypeManager.DeleteTypeAsync methods.
+        ///// </summary>
+        ///// <see cref="TypeManager.CreateTypeAsync"/>
+        ///// <seealso cref="TypeManager.DeleteTypeAsync(commercetools.Types.Type)"/>
+        //[Fact]
+        //public async Task ShouldCreateAndDeleteTypeAsync()
+        //{
+        //    TypeDraft typeDraft = Helper.GetTypeDraft(_project);
+        //    Response<Type> typeResponse = await _client.Types().CreateTypeAsync(typeDraft);
+        //    Assert.True(typeResponse.Success);
 
-            Type type = typeResponse.Result;
-            Assert.NotNull(type.Id);
+        //    Type type = typeResponse.Result;
+        //    Assert.NotNull(type.Id);
 
-            string deletedTypeId = type.Id;
+        //    string deletedTypeId = type.Id;
 
-            Response<JObject> deleteResponse = await _client.Types().DeleteTypeAsync(type);
-            Assert.True(deleteResponse.Success);
+        //    Response<JObject> deleteResponse = await _client.Types().DeleteTypeAsync(type);
+        //    Assert.True(deleteResponse.Success);
 
-            typeResponse = await _client.Types().GetTypeByIdAsync(deletedTypeId);
-            Assert.False(typeResponse.Success);
-        }
+        //    typeResponse = await _client.Types().GetTypeByIdAsync(deletedTypeId);
+        //    Assert.False(typeResponse.Success);
+        //}
 
-        /// <summary>
-        /// Tests the TypeManager.UpdateTypeAsync method.
-        /// </summary>
-        /// <see cref="TypeManager.UpdateTypeAsync(commercetools.Types.Type, System.Collections.Generic.List{UpdateAction})"/>
-        [Fact]
-        public async Task ShouldUpdateTypeAsync()
-        {
-            string randomPostfix = Helper.GetRandomString(10);
-            LocalizedString newName = new LocalizedString();
-            LocalizedString newDescription = new LocalizedString();
+        ///// <summary>
+        ///// Tests the TypeManager.UpdateTypeAsync method.
+        ///// </summary>
+        ///// <see cref="TypeManager.UpdateTypeAsync(commercetools.Types.Type, System.Collections.Generic.List{UpdateAction})"/>
+        //[Fact]
+        //public async Task ShouldUpdateTypeAsync()
+        //{
+        //    string randomPostfix = Helper.GetRandomString(10);
+        //    LocalizedString newName = new LocalizedString();
+        //    LocalizedString newDescription = new LocalizedString();
 
-            foreach (string language in _project.Languages)
-            {
-                newName[language] = string.Concat("Test Type ", language, " ", randomPostfix);
-                newDescription[language] = string.Concat("Test Description ", language, " ", randomPostfix);
-            }
+        //    foreach (string language in _project.Languages)
+        //    {
+        //        newName[language] = string.Concat("Test Type ", language, " ", randomPostfix);
+        //        newDescription[language] = string.Concat("Test Description ", language, " ", randomPostfix);
+        //    }
 
-            GenericAction changeNameAction = new GenericAction("changeName");
-            changeNameAction.SetProperty("name", newName);
+        //    GenericAction changeNameAction = new GenericAction("changeName");
+        //    changeNameAction.SetProperty("name", newName);
 
-            GenericAction setDescriptionAction = new GenericAction("setDescription");
-            setDescriptionAction.SetProperty("description", newDescription);
+        //    GenericAction setDescriptionAction = new GenericAction("setDescription");
+        //    setDescriptionAction.SetProperty("description", newDescription);
 
-            List<UpdateAction> actions = new List<UpdateAction>();
-            actions.Add(changeNameAction);
-            actions.Add(setDescriptionAction);
+        //    List<UpdateAction> actions = new List<UpdateAction>();
+        //    actions.Add(changeNameAction);
+        //    actions.Add(setDescriptionAction);
 
-            Response<Type> response = await _client.Types().UpdateTypeAsync(_testTypes[0], actions);
-            Assert.True(response.Success);
+        //    Response<Type> response = await _client.Types().UpdateTypeAsync(_testTypes[0], actions);
+        //    Assert.True(response.Success);
 
-            _testTypes[0] = response.Result;
-            Assert.NotNull(_testTypes[0].Id);
+        //    _testTypes[0] = response.Result;
+        //    Assert.NotNull(_testTypes[0].Id);
 
-            foreach (string language in _project.Languages)
-            {
-                Assert.Equal(_testTypes[0].Name[language], newName[language]);
-                Assert.Equal(_testTypes[0].Description[language], newDescription[language]);
-            }
-        }
+        //    foreach (string language in _project.Languages)
+        //    {
+        //        Assert.Equal(_testTypes[0].Name[language], newName[language]);
+        //        Assert.Equal(_testTypes[0].Description[language], newDescription[language]);
+        //    }
+        //}
     }
 }
