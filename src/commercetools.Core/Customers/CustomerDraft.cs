@@ -67,6 +67,12 @@ namespace commercetools.Core.Customers
         public string Title { get; set; }
 
         /// <summary>
+        /// Salutation
+        /// </summary>
+        [JsonProperty(PropertyName = "salutation")]
+        public string Salutation { get; set; }
+
+        /// <summary>
         /// Identifies a single cart that will be assigned to the new customer account.
         /// </summary>
         [JsonProperty(PropertyName = "anonymousCartId")]
