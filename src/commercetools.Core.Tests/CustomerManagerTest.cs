@@ -142,8 +142,12 @@ namespace commercetools.Core.Tests
         [Fact]
         public async Task ShouldUpdateCustomerAsync()
         {
+            string newKey = Helper.GetRandomString(15);
             string newEmail = string.Concat(Helper.GetRandomString(10), "@example.com");
             string newExternalId = Helper.GetRandomNumber(10000, 99999).ToString();
+
+            SetKeyAction setKeyAction = new SetKeyAction();
+            setKeyAction.Key = newKey;
 
             SetExternalIdAction setExternalIdAction = new SetExternalIdAction();
             setExternalIdAction.ExternalId = newExternalId;
@@ -152,6 +156,7 @@ namespace commercetools.Core.Tests
             changeEmailAction.SetProperty("email", newEmail);
 
             List<UpdateAction> actions = new List<UpdateAction>();
+            actions.Add(setKeyAction);
             actions.Add(setExternalIdAction);
             actions.Add(changeEmailAction);
             
@@ -160,6 +165,7 @@ namespace commercetools.Core.Tests
 
             _testCustomer = response.Result;
             Assert.NotNull(_testCustomer.Id);
+            Assert.Equal(_testCustomer.Key, newKey);
             Assert.Equal(_testCustomer.Email, newEmail);
             Assert.Equal(_testCustomer.ExternalId, newExternalId);
         }
