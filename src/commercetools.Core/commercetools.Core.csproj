@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
     <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
-    <VersionPrefix>1.2.5</VersionPrefix>
+    <VersionPrefix>1.2.6</VersionPrefix>
     <Description>.NET SDK for the commercetools platform. * Supports .NET Core 1.1 * Supports .NET 4.5 and above</Description>
     <PackageId>commercetools.Core</PackageId>
     <AssemblyTitle>commercetools.Core</AssemblyTitle>
