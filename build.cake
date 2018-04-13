@@ -135,13 +135,13 @@ Task("Build")
     {
         MSBuild(SOLUTION_FILE, CreateSettings());
 
-        Information("Publishing netcoreapp1.1 tests so that dependencies are present...");
+        // Information("Publishing netcoreapp1.1 tests so that dependencies are present...");
 
-        MSBuild("src/commercetools.NET.Tests/commercetools.NET.Tests.csproj", CreateSettings()
-            .WithTarget("Publish")
-            .WithProperty("TargetFramework", "netcoreapp1.1")
-            .WithProperty("NoBuild", "true") // https://github.com/dotnet/cli/issues/5331#issuecomment-338392972
-            .WithProperty("PublishDir", BIN_DIR + "netcoreapp1.1/");
+        // MSBuild("src/commercetools.NET.Tests/commercetools.NET.Tests.csproj", CreateSettings()
+        //     .WithTarget("Publish")
+        //     .WithProperty("TargetFramework", "netcoreapp1.1")
+        //     .WithProperty("NoBuild", "true") // https://github.com/dotnet/cli/issues/5331#issuecomment-338392972
+        //     .WithProperty("PublishDir", BIN_DIR + "netcoreapp1.1/"));
     });
 
 MSBuildSettings CreateSettings()
