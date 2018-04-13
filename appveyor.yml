@@ -1,5 +1,7 @@
-build_script: 
-  - ps: .\build.ps1 -Target "Appveyor"
+image: Visual Studio 2017
+
+build_script:
+  - ps: .\build.ps1 -Target "Appveyor" -Configuration "Debug"
 
 # disable built-in tests.
 test: off
