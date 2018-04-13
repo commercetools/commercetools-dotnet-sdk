@@ -1,5 +1,4 @@
 #tool nuget:https://www.myget.org/F/nunit/api/v3/index.json?package=NUnit.ConsoleRunner&version=3.9.0-dev-03938
-#tool GitLink
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -142,8 +141,7 @@ Task("Build")
             .WithTarget("Publish")
             .WithProperty("TargetFramework", "netcoreapp1.1")
             .WithProperty("NoBuild", "true") // https://github.com/dotnet/cli/issues/5331#issuecomment-338392972
-            .WithProperty("PublishDir", BIN_DIR + "netcoreapp1.1/")
-            .WithRawArgument("/nologo"));
+            .WithProperty("PublishDir", BIN_DIR + "netcoreapp1.1/");
     });
 
 MSBuildSettings CreateSettings()
@@ -233,12 +231,13 @@ Task("PackageSDK")
 
         CreateDirectory(PACKAGE_DIR);
 
-        NuGetPack("commercetools.NET.nuspec", new NuGetPackSettings()
+        var settings = new NuGetPackSettings
         {
             Version = packageVersion,
             BasePath = currentImageDir,
             OutputDirectory = PACKAGE_DIR
-        });
+        };
+        NuGetPack("commercetools.NET.nuspec", settings);
     });
 
 Task("PackageZip")
@@ -357,22 +356,6 @@ void RunDotnetCoreTests(FilePath exePath, DirectoryPath workingDir, string argum
         errorDetail.Add(string.Format("{0}: {1} tests failed", framework, rc));
     else if (rc < 0)
         errorDetail.Add(string.Format("{0} returned rc = {1}", exePath, rc));
-}
-
-public static T WithRawArgument<T>(this T settings, string rawArgument) where T : Cake.Core.Tooling.ToolSettings
-{
-    if (settings == null) throw new ArgumentNullException(nameof(settings));
-
-    if (!string.IsNullOrEmpty(rawArgument))
-    {
-        var previousCustomizer = settings.ArgumentCustomization;
-        if (previousCustomizer != null)
-            settings.ArgumentCustomization = builder => previousCustomizer.Invoke(builder).Append(rawArgument);
-        else
-            settings.ArgumentCustomization = builder => builder.Append(rawArgument);
-    }
-
-    return settings;
 }
 
 //////////////////////////////////////////////////////////////////////
