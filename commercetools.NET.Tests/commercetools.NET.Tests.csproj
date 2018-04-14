@@ -3,8 +3,8 @@
   <Import Project="..\packages\Microsoft.NET.Test.Sdk.15.5.0\build\net45\Microsoft.Net.Test.Sdk.props" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.15.5.0\build\net45\Microsoft.Net.Test.Sdk.props')" />
   <Import Project="..\packages\NUnit3TestAdapter.3.9.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.3.9.0\build\net35\NUnit3TestAdapter.props')" />
   <PropertyGroup>
+	<RuntimeIdentifier>win</RuntimeIdentifier>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-	<PlatformTarget>AnyCPU</PlatformTarget>
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6505D1C5-4DDC-4588-AA95-2194DB6BA0D6}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -23,7 +23,6 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
 	<DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -33,7 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
 	<DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
