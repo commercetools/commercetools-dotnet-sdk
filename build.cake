@@ -167,6 +167,17 @@ Task("CheckForError")
     .Description("Checks for errors running the test suites")
     .Does(() => CheckForError(ref ErrorDetail));
 
+Task("Test461Tests")
+    .Description("Tests the .NET Standard 2.0 version of the SDK with 4.6.1")
+    .IsDependentOn("Build")
+    .OnError(exception => { ErrorDetail.Add(exception.Message); })
+    .Does(() =>
+    {
+        var runtime = "net-4.61";
+        var dir = BIN_DIR + runtime + "/";
+        RunDotnetCoreTests(dir + NUNITLITE_RUNNER_DLL, dir, SDK_TESTS, runtime, ref ErrorDetail);
+    });
+
 Task("TestNetStandard20")
     .Description("Tests the .NET Standard 2.0 version of the SDK")
     .IsDependentOn("Build")
