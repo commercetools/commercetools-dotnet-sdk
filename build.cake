@@ -167,15 +167,21 @@ Task("CheckForError")
     .Description("Checks for errors running the test suites")
     .Does(() => CheckForError(ref ErrorDetail));
 
-Task("Test461Tests")
-    .Description("Tests the .NET Standard 2.0 version of the SDK with 4.6.1")
+Task("TestNetStandard20WithFramework461")
+    .Description("Tests the .NET Standard 2.0 version of the SDK with .NET Framework 4.6.1")
     .IsDependentOn("Build")
     .OnError(exception => { ErrorDetail.Add(exception.Message); })
     .Does(() =>
     {
         var runtime = "net-4.61";
         var dir = BIN_DIR + runtime + "/";
-        RunDotnetCoreTests(dir + NUNITLITE_RUNNER_DLL, dir, SDK_TESTS, runtime, ref ErrorDetail);
+        RunNUnitTests(dir, SDK_TESTS, runtime, ref ErrorDetail);
+		if (isAppveyor)
+		{
+			var wc = new System.Net.WebClient();
+			var jobId = AppVeyor.Environment.JobId;
+			wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit3/" + jobId, "TestResult.xml");
+		}
     });
 
 Task("TestNetStandard20")
@@ -381,7 +387,7 @@ Task("Rebuild")
 Task("Test")
     .Description("Builds and tests all versions of the framework")
     .IsDependentOn("Build")
-    .IsDependentOn("TestNetStandard20");
+    .IsDependentOn("TestNetStandard20WithFramework461");
 
 Task("Package")
     .Description("Packages all versions of the framework")
