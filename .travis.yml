@@ -7,10 +7,6 @@ mono: 5.10.0 # Need 5.2+ for the included MSBuild.
 solution: commercetools.NET.sln
 
 matrix:
-  include:
-    - dotnet: 2.1.4
-      env: DOTNETCORE=1
-    - mono: 5.10.0
   allow_failures:
     - mono: 5.10.0
 
