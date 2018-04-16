@@ -38,8 +38,12 @@ var AllFrameworks = new string[]
 //////////////////////////////////////////////////////////////////////
 
 var PROJECT_DIR = Context.Environment.WorkingDirectory.FullPath + "/";
+
+Information("Project dir {0}", PROJECT_DIR);
+
 var PACKAGE_DIR = PROJECT_DIR + "package/";
 var BIN_DIR = PROJECT_DIR + "bin/" + configuration + "/";
+var TEST_BIN_DIR = PROJECT_DIR + "commercetools.NET.Tests/bin/" + configuration + "/";
 var IMAGE_DIR = PROJECT_DIR + "images/";
 
 var SOLUTION_FILE = "./commercetools.NET.sln";
@@ -134,14 +138,6 @@ Task("Build")
     .Does(() =>
     {
         MSBuild(SOLUTION_FILE, CreateSettings());
-
-        // Information("Publishing netcoreapp1.1 tests so that dependencies are present...");
-
-        // MSBuild("src/commercetools.NET.Tests/commercetools.NET.Tests.csproj", CreateSettings()
-        //     .WithTarget("Publish")
-        //     .WithProperty("TargetFramework", "netcoreapp1.1")
-        //     .WithProperty("NoBuild", "true") // https://github.com/dotnet/cli/issues/5331#issuecomment-338392972
-        //     .WithProperty("PublishDir", BIN_DIR + "netcoreapp1.1/"));
     });
 
 MSBuildSettings CreateSettings()
@@ -167,23 +163,6 @@ Task("CheckForError")
     .Description("Checks for errors running the test suites")
     .Does(() => CheckForError(ref ErrorDetail));
 
-Task("TestNetStandard20WithFramework461")
-    .Description("Tests the .NET Standard 2.0 version of the SDK with .NET Framework 4.6.1")
-    .IsDependentOn("Build")
-    .OnError(exception => { ErrorDetail.Add(exception.Message); })
-    .Does(() =>
-    {
-        var runtime = "net-4.61";
-        var dir = BIN_DIR + runtime + "/";
-        RunNUnitTests(dir, SDK_TESTS, runtime, ref ErrorDetail);
-		if (isAppveyor)
-		{
-			var wc = new System.Net.WebClient();
-			var jobId = AppVeyor.Environment.JobId;
-			wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit3/" + jobId, "TestResult.xml");
-		}
-    });
-
 Task("TestNetStandard20")
     .Description("Tests the .NET Standard 2.0 version of the SDK")
     .IsDependentOn("Build")
@@ -192,7 +171,7 @@ Task("TestNetStandard20")
     {
         var runtime = "netcoreapp2.0";
         var dir = BIN_DIR + runtime + "/";
-        RunDotnetCoreTests(dir + NUNITLITE_RUNNER_DLL, dir, SDK_TESTS, runtime, ref ErrorDetail);
+        RunNUnitTests(dir, SDK_TESTS, runtime, ref ErrorDetail);
     });
 
 //////////////////////////////////////////////////////////////////////
@@ -387,7 +366,7 @@ Task("Rebuild")
 Task("Test")
     .Description("Builds and tests all versions of the framework")
     .IsDependentOn("Build")
-    .IsDependentOn("TestNetStandard20WithFramework461");
+    .IsDependentOn("TestNetStandard20");
 
 Task("Package")
     .Description("Packages all versions of the framework")
