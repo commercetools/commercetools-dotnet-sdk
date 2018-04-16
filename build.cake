@@ -43,6 +43,7 @@ Information("Project dir {0}", PROJECT_DIR);
 
 var PACKAGE_DIR = PROJECT_DIR + "package/";
 var BIN_DIR = PROJECT_DIR + "bin/" + configuration + "/";
+var SDK_BIN_DIR = PROJECT_DIR + "commercetools.NET/bin/" + configuration + "/";
 var TEST_BIN_DIR = PROJECT_DIR + "commercetools.NET.Tests/bin/" + configuration + "/";
 var IMAGE_DIR = PROJECT_DIR + "images/";
 
@@ -169,10 +170,11 @@ Task("TestNetStandard20")
     .OnError(exception => { ErrorDetail.Add(exception.Message); })
     .Does(() =>
     {
-        var runtime = "netcoreapp2.0";
-        var dir = BIN_DIR + runtime + "/";
+        var runtime = "netstandard2.0";
+        var dir = TEST_BIN_DIR + runtime + "/";
         RunNUnitTests(dir, SDK_TESTS, runtime, ref ErrorDetail);
     });
+
 
 //////////////////////////////////////////////////////////////////////
 // PACKAGE
@@ -186,8 +188,7 @@ var RootFiles = new FilePath[]
 
 var FrameworkFiles = new FilePath[]
 {
-    "commercetools.NET.dll",
-    "commercetools.NET.xml"
+    "commercetools.NET.dll"
 };
 
 Task("CreateImage")
@@ -207,7 +208,7 @@ Task("CreateImage")
         foreach (var runtime in AllFrameworks)
         {
             var targetDir = imageBinDir + Directory(runtime);
-            var sourceDir = BIN_DIR + Directory(runtime);
+            var sourceDir = SDK_BIN_DIR + Directory(runtime);			
             CreateDirectory(targetDir);
             foreach (FilePath file in FrameworkFiles)
             {
@@ -366,11 +367,13 @@ Task("Rebuild")
 Task("Test")
     .Description("Builds and tests all versions of the framework")
     .IsDependentOn("Build")
-    .IsDependentOn("TestNetStandard20");
+	.IsDependentOn("TestNetStandard20");
+
 
 Task("Package")
     .Description("Packages all versions of the framework")
-    .IsDependentOn("CheckForError")
+    .IsDependentOn("Build")
+	.IsDependentOn("CheckForError")
     .IsDependentOn("PackageSDK")
     .IsDependentOn("PackageZip");
 
