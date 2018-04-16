@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////
 
 var target = Argument("target", "Default");
-var configuration = Argument("configuration", "Debug");
+var configuration = Argument("configuration", "Release");
 
 //////////////////////////////////////////////////////////////////////
 // SET ERROR LEVELS
@@ -214,7 +214,7 @@ Task("CreateImage")
         foreach (var runtime in AllFrameworks)
         {
             var targetDir = imageBinDir + Directory(runtime);
-            var sourceDir = SDK_BIN_DIR + Directory(runtime);			
+            var sourceDir = SDK_BIN_DIR + Directory(runtime);
             CreateDirectory(targetDir);
             foreach (FilePath file in FrameworkFiles)
             {
