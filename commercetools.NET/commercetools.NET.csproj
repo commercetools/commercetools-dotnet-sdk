@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>commercetools</RootNamespace>
-    <AssemblyName>commerceTools.NET</AssemblyName>
+    <AssemblyName>commercetools.NET</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
