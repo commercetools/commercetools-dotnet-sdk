@@ -173,6 +173,12 @@ Task("TestNetStandard20")
         var runtime = "netstandard2.0";
         var dir = TEST_BIN_DIR + runtime + "/";
         RunNUnitTests(dir, SDK_TESTS, runtime, ref ErrorDetail);
+		if (isAppveyor)
+		{
+			var wc = new System.Net.WebClient();
+			var jobId = AppVeyor.Environment.JobId;
+			wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit3/" + jobId, "TestResult.xml");
+		}
     });
 
 
