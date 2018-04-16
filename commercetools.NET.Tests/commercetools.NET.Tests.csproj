@@ -27,6 +27,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\netstandard2.0\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -88,7 +89,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\commerceTools.NET\commercetools.NET.csproj">
+    <ProjectReference Include="..\commercetools.NET\commercetools.NET.csproj">
       <Project>{32e63a99-4a17-40a4-83b9-7afbf7b0c4d8}</Project>
       <Name>commercetools.NET</Name>
     </ProjectReference>

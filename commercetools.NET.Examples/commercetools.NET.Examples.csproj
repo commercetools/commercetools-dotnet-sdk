@@ -7,7 +7,7 @@
     <ProjectGuid>{A9DAB157-AE14-4B37-B9DB-BED230C45400}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>commercetools.Examples</RootNamespace>
-    <AssemblyName>commerceTools.NET.Examples</AssemblyName>
+    <AssemblyName>commercetools.NET.Examples</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -60,7 +60,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\commerceTools.NET\commercetools.NET.csproj">
+    <ProjectReference Include="..\commercetools.NET\commercetools.NET.csproj">
       <Project>{32e63a99-4a17-40a4-83b9-7afbf7b0c4d8}</Project>
       <Name>commercetools.NET</Name>
     </ProjectReference>
