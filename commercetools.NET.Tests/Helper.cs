@@ -599,7 +599,7 @@ namespace commercetools.Tests
         /// <param name="productTypeId">Product type ID</param>
         /// <param name="taxCategoryId">Tax category ID</param>
         /// <returns></returns>
-        public static ProductDraft GetTestProductDraft(Project.Project project, string productTypeId, string taxCategoryId)
+        public static ProductDraft GetTestProductDraft(Project.Project project, string productTypeId, string taxCategoryId, Image image = null)
         {
             List<PriceDraft> priceDrafts = new List<PriceDraft>();
 
@@ -616,7 +616,10 @@ namespace commercetools.Tests
             ProductVariantDraft productVariantDraft = new ProductVariantDraft();
             productVariantDraft.Sku = randomSku;
             productVariantDraft.Prices = priceDrafts;
-
+            if (image != null)
+            {
+                productVariantDraft.Images = new List<Image>() { image };
+            }
             ResourceIdentifier productType = new ResourceIdentifier();
             productType.Id = productTypeId;
             productType.TypeId = Common.ReferenceType.ProductType;
