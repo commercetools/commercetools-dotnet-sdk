@@ -17,7 +17,7 @@ namespace commercetools.Common
     /// <summary>
     /// A client for executing requests against the commercetools web service.
     /// </summary>
-    public class Client
+    public class Client : IClient
     {
         #region Properties
 
