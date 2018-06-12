@@ -111,6 +111,7 @@ namespace commercetools.Common
             string url = string.Concat(this.Configuration.ApiUrl, "/", this.Configuration.ProjectKey, endpoint, values.ToQueryString());
 
             HttpRequestMessage httpRequestMessage = CreateRequestMessage(url, HttpMethod.Get);
+            httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue(this.Token.TokenType, this.Token.AccessToken);
             response = await SendAsync<T>(httpRequestMessage);
             return response;
         }
@@ -142,6 +143,7 @@ namespace commercetools.Common
             string url = string.Concat(this.Configuration.ApiUrl, "/", this.Configuration.ProjectKey, endpoint);
 
             HttpRequestMessage httpRequestMessage = CreateRequestMessage(url, HttpMethod.Post, payload);
+            httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue(this.Token.TokenType, this.Token.AccessToken);
             response = await SendAsync<T>(httpRequestMessage);
             return response;
         }
@@ -173,6 +175,7 @@ namespace commercetools.Common
             string url = string.Concat(this.Configuration.ApiUrl, "/", this.Configuration.ProjectKey, endpoint, values.ToQueryString());
 
             HttpRequestMessage httpRequestMessage = CreateRequestMessage(url, HttpMethod.Delete);
+            httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue(this.Token.TokenType, this.Token.AccessToken);
             response = await SendAsync<T>(httpRequestMessage);
             return response;
         }
@@ -189,7 +192,6 @@ namespace commercetools.Common
             }
             httpRequestMessage.Headers.Accept.Clear();
             httpRequestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue(this.Token.TokenType, this.Token.AccessToken);
             httpRequestMessage.Headers.UserAgent.Clear();
             httpRequestMessage.Headers.UserAgent.ParseAdd(this.UserAgent);
             return httpRequestMessage;
