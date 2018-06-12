@@ -271,7 +271,7 @@ namespace commercetools.Common
 
             string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Concat(this.Configuration.ClientID, ":", this.Configuration.ClientSecret)));
             HttpRequestMessage httpRequestMessage = CreateRequestMessage(this.Configuration.OAuthUrl, HttpMethod.Post);
-            httpRequestMessage.Content = new FormUrlEncodedContent(pairs)
+            httpRequestMessage.Content = new FormUrlEncodedContent(pairs);
             httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", credentials);
 
             Response<Token> response = await SendAsync<Token>(httpRequestMessage);
@@ -296,7 +296,7 @@ namespace commercetools.Common
 
 
             HttpRequestMessage httpRequestMessage = CreateRequestMessage(this.Configuration.OAuthUrl, HttpMethod.Post);
-            httpRequestMessage.Content = new FormUrlEncodedContent(pairs)
+            httpRequestMessage.Content = new FormUrlEncodedContent(pairs);
             httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", credentials);
             Response<Token> response = await SendAsync<Token>(httpRequestMessage);
 
