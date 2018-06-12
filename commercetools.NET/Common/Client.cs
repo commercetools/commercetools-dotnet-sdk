@@ -113,16 +113,17 @@ namespace commercetools.Common
             using (LimitedPoolItem<HttpClient> poolItem = HttpClientInstance != null ? null : HttpClientPool.Get(this.Configuration.HttpClientPoolItemLifetime))
             {
                 HttpClient client = HttpClientInstance ?? poolItem.Value;
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(this.Token.TokenType, this.Token.AccessToken);
-                client.DefaultRequestHeaders.UserAgent.Clear();
-                client.DefaultRequestHeaders.UserAgent.ParseAdd(this.UserAgent);
 
                 HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, new Uri(url))
                 {
                     Version = HttpVersion.Version10
                 };
+                httpRequestMessage.Headers.Accept.Clear();
+                httpRequestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue(this.Token.TokenType, this.Token.AccessToken);
+                httpRequestMessage.Headers.UserAgent.Clear();
+                httpRequestMessage.Headers.UserAgent.ParseAdd(this.UserAgent);
+
 
                 for (int internalServerErrorRetries = -1; internalServerErrorRetries < this.Configuration.InternalServerErrorRetries; internalServerErrorRetries++)
                 {
@@ -170,17 +171,18 @@ namespace commercetools.Common
             using (LimitedPoolItem<HttpClient> poolItem = HttpClientInstance != null ? null : HttpClientPool.Get(this.Configuration.HttpClientPoolItemLifetime))
             {
                 HttpClient client = HttpClientInstance ?? poolItem.Value;
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(this.Token.TokenType, this.Token.AccessToken);
-                client.DefaultRequestHeaders.UserAgent.Clear();
-                client.DefaultRequestHeaders.UserAgent.ParseAdd(this.UserAgent);
 
                 HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, new Uri(url))
                 {
                     Version = HttpVersion.Version10,
                     Content = new StringContent(payload, Encoding.UTF8, "application/json")
                 };
+                httpRequestMessage.Headers.Accept.Clear();
+                httpRequestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue(this.Token.TokenType, this.Token.AccessToken);
+                httpRequestMessage.Headers.UserAgent.Clear();
+                httpRequestMessage.Headers.UserAgent.ParseAdd(this.UserAgent);
+
                 for (int internalServerErrorRetry = -1; internalServerErrorRetry < this.Configuration.InternalServerErrorRetries; internalServerErrorRetry++)
                 {
                     HttpResponseMessage httpResponseMessage = await client.SendAsync(httpRequestMessage);
@@ -227,16 +229,16 @@ namespace commercetools.Common
             using (LimitedPoolItem<HttpClient> poolItem = HttpClientInstance != null ? null : HttpClientPool.Get(this.Configuration.HttpClientPoolItemLifetime))
             {
                 HttpClient client = HttpClientInstance ?? poolItem.Value;
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(this.Token.TokenType, this.Token.AccessToken);
-                client.DefaultRequestHeaders.UserAgent.Clear();
-                client.DefaultRequestHeaders.UserAgent.ParseAdd(this.UserAgent);
-
+                
                 HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, new Uri(url))
                 {
                     Version = HttpVersion.Version10
                 };
+                httpRequestMessage.Headers.Accept.Clear();
+                httpRequestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue(this.Token.TokenType, this.Token.AccessToken);
+                httpRequestMessage.Headers.UserAgent.Clear();
+                httpRequestMessage.Headers.UserAgent.ParseAdd(this.UserAgent);
 
                 for (int internalServerErrorRetries = -1; internalServerErrorRetries < this.Configuration.InternalServerErrorRetries; internalServerErrorRetries++)
                 {
