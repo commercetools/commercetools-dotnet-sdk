@@ -39,8 +39,12 @@ namespace commercetools.Common
         /// <summary>
         /// The HttpClient to utilize in all API requests.
         /// </summary>
-        public RestClient HttpClientInstance { get; set; }
+        private RestClient RestClientInstance { get; set; }
 
+        public HttpClient HttpClientInstance {
+            get { return RestClientInstance.Client; }
+            set { RestClientInstance = new RestClient(value); }
+        }
         #endregion
 
         #region Constructors
@@ -51,7 +55,7 @@ namespace commercetools.Common
         public Client(Configuration configuration, HttpClient httpClientInstance = null)
         {
             this.Configuration = configuration;
-            this.HttpClientInstance = new RestClient(httpClientInstance);
+            this.HttpClientInstance = httpClientInstance;
             Assembly assembly = Assembly.GetExecutingAssembly();
             string assemblyVersion = assembly.GetName().Version.ToString();
             string dotNetVersion = Environment.Version.ToString();
@@ -187,7 +191,7 @@ namespace commercetools.Common
 
             for (int internalServerErrorRetries = -1; internalServerErrorRetries < this.Configuration.InternalServerErrorRetries; internalServerErrorRetries++)
             {
-                HttpResponseMessage httpResponseMessage = await HttpClientInstance.SendAsync(httpRequestMessage);
+                HttpResponseMessage httpResponseMessage = await RestClientInstance.SendAsync(httpRequestMessage);
                 response = await GetResponse<T>(httpResponseMessage);
                 if (response.StatusCode < 500)
                 {

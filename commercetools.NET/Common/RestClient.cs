@@ -43,6 +43,7 @@ namespace commercetools.Common
     /// </summary>
     public sealed class RestClient
     {
+        public HttpClient Client { get { return _client; } }
         private readonly HttpClient _client;
         private readonly HashSet<Uri> _endpoints;
         private readonly TimeSpan _connectionCloseTimeoutPeriod;
