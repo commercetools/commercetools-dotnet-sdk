@@ -179,6 +179,11 @@ namespace commercetools.Common
             return httpRequestMessage;
         }
 
+        private HttpRequestMessage RecreateRequestMessage(HttpRequestMessage oldMessage)
+        {
+            return CreateRequestMessage(oldMessage.url, oldMessage.method, oldMessage.payload);
+        }
+
         /// <summary>
         /// Executes a request.
         /// </summary>
@@ -200,6 +205,7 @@ namespace commercetools.Common
                 else if (this.Configuration.InternalServerErrorRetryInterval > 0)
                 {
                     await Task.Delay(this.Configuration.InternalServerErrorRetryInterval);
+                    httpRequestMessage = RecreateRequestMessage(httpRequestMessage);
                 }
             }
             return response;
