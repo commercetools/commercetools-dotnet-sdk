@@ -86,7 +86,8 @@ namespace commercetools.Channels
                         this.GeoLocation = new Point(data.geoLocation);
                         break;
                     default:
-                        throw new NotImplementedException(string.Format("Unhandled GeoLocation Type: {0}", data.geoLocation.type));
+                        this.GeoLocation = new Geometry(data);
+                        break;
                 }
             }
             if (data.roles != null)

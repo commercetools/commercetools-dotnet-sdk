@@ -9,6 +9,7 @@ namespace commercetools.GeoLocation
     /// </summary>    
     public enum GeoLocationTypeEnum
     {
-        Point
+        Point,
+        Unknown
     }
 }
