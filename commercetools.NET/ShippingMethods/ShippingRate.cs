@@ -1,4 +1,5 @@
-﻿using commercetools.Common;
+﻿using System.Collections.Generic;
+using commercetools.Common;
 
 using Newtonsoft.Json;
 
@@ -17,6 +18,9 @@ namespace commercetools.ShippingMethods
 
         [JsonProperty(PropertyName = "freeAbove")]
         public Money FreeAbove { get; set; }
+
+        [JsonProperty(PropertyName = "tiers")]
+        public List<Tier> Tiers { get; set; }
 
         #endregion
 
@@ -42,6 +46,7 @@ namespace commercetools.ShippingMethods
 
             this.Price = new Money(data.price);
             this.FreeAbove = new Money(data.freeAbove);
+            this.Tiers = Helper.GetListFromJsonArray<Tier>(data.tiers);
         }
 
         #endregion
