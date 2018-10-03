@@ -128,6 +128,29 @@ namespace commercetools.Customers
             this.Locale = data.locale;
         }
 
+        /// <summary>
+        /// Initializes a customer from custom data
+        /// </summary>
+        /// <param name="id">The unique ID of the customer.</param>
+        /// <param name="version">The current version of the customer.</param>
+        /// <param name="createdAt">The datetime when the customer was created.</param>
+        /// <param name="lastModifiedAt">The datetime when the customer was last modified.</param>
+        /// <param name="email">The customer’s email address is unique across a project.</param>
+        /// <param name="password">The customer's password.</param>
+        /// <param name="addresses">The addresses have unique IDs in the addresses list.</param>
+        /// <param name="isEMailVerified">Whether the e-mail was verified.</param>
+        public Customer(string id, int version, DateTime? createdAt, DateTime? lastModifiedAt, string email,
+            string password, List<Address> addresses, bool isEMailVerified)
+        {
+            this.Id = id;
+            this.Version = version;
+            this.CreatedAt = createdAt;
+            this.LastModifiedAt = lastModifiedAt;
+            this.Email = email;
+            this.Password = password;
+            this.Addresses = addresses;
+            this.IsEmailVerified = isEMailVerified;
+        }
         #endregion
 
         #region Public Methods
@@ -139,7 +162,7 @@ namespace commercetools.Customers
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            Customer customer = obj as Customer;
+            var customer = obj as Customer;
 
             if (customer == null)
             {
