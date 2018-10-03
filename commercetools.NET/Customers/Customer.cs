@@ -162,7 +162,7 @@ namespace commercetools.Customers
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            var customer = obj as Customer;
+            Customer customer = obj as Customer;
 
             if (customer == null)
             {
