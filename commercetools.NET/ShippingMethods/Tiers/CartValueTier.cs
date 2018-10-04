@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace commercetools.ShippingMethods.Tiers
 {
+    /// <inheritdoc />
     public sealed class CartValueTier : Tier
     {
         [JsonProperty(PropertyName = "minimumCentAmount")]
