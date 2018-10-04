@@ -305,11 +305,11 @@ namespace commercetools.Common
                 response.Success = true;
                 if (resultType == typeof(JObject) || resultType == typeof(JArray) || resultType.IsArray || (resultType.IsGenericType && resultType.Name.Equals(typeof(List<>).Name)))
                 {
-                    response.Result = JsonConvert.DeserializeObject<T>(await httpResponseMessage.Content.ReadAsStringAsync(), Helper.DefaultJsonSerializerSettings);
+                    response.Result = JsonConvert.DeserializeObject<T>(await httpResponseMessage.Content.ReadAsStringAsync());
                 }
                 else
                 {
-                    dynamic data = JsonConvert.DeserializeObject(await httpResponseMessage.Content.ReadAsStringAsync(), Helper.DefaultJsonSerializerSettings);
+                    dynamic data = JsonConvert.DeserializeObject(await httpResponseMessage.Content.ReadAsStringAsync());
                     ConstructorInfo constructor = Helper.GetConstructorWithDataParameter(resultType);
 
                     if (constructor != null)
@@ -321,7 +321,7 @@ namespace commercetools.Common
             }
             else
             {
-                JObject data = JsonConvert.DeserializeObject<JObject>(await httpResponseMessage.Content.ReadAsStringAsync(), Helper.DefaultJsonSerializerSettings);
+                JObject data = JsonConvert.DeserializeObject<JObject>(await httpResponseMessage.Content.ReadAsStringAsync());
 
                 response.Success = false;
                 response.Errors = new List<ErrorMessage>();

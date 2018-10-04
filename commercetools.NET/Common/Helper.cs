@@ -4,8 +4,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Web;
-using commercetools.ShippingMethods.Tiers;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace commercetools.Common
@@ -202,19 +200,6 @@ namespace commercetools.Common
             return str;
         }
 
-        #endregion
-
-        #region JsonSerializer
-        public static JsonSerializerSettings DefaultJsonSerializerSettings
-        {
-            get
-            {
-                return new JsonSerializerSettings()
-                {
-                    Converters = { new TierJsonConverter() }
-                };
-            }
-        }
         #endregion
     }
 }
