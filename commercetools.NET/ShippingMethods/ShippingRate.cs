@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using commercetools.Common;
-
+using commercetools.ShippingMethods.Tiers;
 using Newtonsoft.Json;
 
 namespace commercetools.ShippingMethods
