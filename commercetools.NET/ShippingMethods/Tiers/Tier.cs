@@ -1,4 +1,5 @@
 ﻿using commercetools.Common;
+using commercetools.Common.Converters;
 using Newtonsoft.Json;
 
 namespace commercetools.ShippingMethods.Tiers
@@ -7,6 +8,7 @@ namespace commercetools.ShippingMethods.Tiers
     /// The representation to be sent to the server when creating a new shipping rate price tier.
     /// </summary>
     /// <see href="https://docs.commercetools.com/http-api-projects-shippingMethods.html#shippingratepricetier"/>
+    [JsonConverter(typeof(TierJsonConverter))]
     public abstract class Tier
     {
         #region Properties
