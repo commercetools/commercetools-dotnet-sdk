@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Web;
-
 using Newtonsoft.Json.Linq;
 
 namespace commercetools.Common
