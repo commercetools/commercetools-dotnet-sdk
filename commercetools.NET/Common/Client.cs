@@ -193,7 +193,7 @@ namespace commercetools.Common
             {
                 HttpResponseMessage httpResponseMessage = await RestClientInstance.SendAsync(httpRequestMessage);
                 response = await GetResponse<T>(httpResponseMessage);
-                if (response.StatusCode < 500)
+                if (response.StatusCode != 503)
                 {
                     return response;
                 }
