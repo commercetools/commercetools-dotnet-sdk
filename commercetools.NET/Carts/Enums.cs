@@ -20,9 +20,11 @@ namespace commercetools.Carts
     public enum DiscountCodeState
     {
         NotActive,
+        NotValid,
         DoesNotMatchCart,
         MatchesCart,
-        MaxApplicationReached
+        MaxApplicationReached,
+        ApplicationStoppedByPreviousDiscount
     }
 
     /// <summary>
