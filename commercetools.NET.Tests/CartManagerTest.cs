@@ -22,6 +22,7 @@ using FluentAssertions;
 using NUnit.Framework;
 
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 using Type = commercetools.Types.Type;
 
@@ -686,6 +687,16 @@ namespace commercetools.Tests
             Assert.NotNull(_testCarts[3].ShippingInfo);
             Assert.NotNull(_testCarts[3].ShippingInfo.ShippingMethod);
             Assert.AreEqual(_testCarts[3].ShippingInfo.ShippingMethod.Id, _testShippingMethod.Id);
+        }
+
+        [Test]
+        public async Task ShouldGetDiscountCodeInfo()
+        {
+            string data = "{\"discountCodes\": [{ \"discountCode\": { \"typeId\": \"discount-code\", \"id\": \"123456\" }, \"state\": \"NotActive\" }]}";
+            Cart cart = JsonConvert.DeserializeObject<Cart>(data);
+            Assert.NotNull(cart.DiscountCodes[0].State);
+            Assert.AreEqual(DiscountCodeState.NotActive, cart.DiscountCodes[0].State);
+            Console.Error.WriteLine(string.Format("CartManagerTest - Information Only - Deserialize DiscountCodeInfo: {0}", cart.DiscountCodes[0].State));
         }
 
         /// <summary>
