@@ -692,7 +692,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldGetDiscountCodeInfo()
         {
-            string data = "\"discountCodes\": [{ \"discountCode\": { \"typeId\": \"discount-code\", \"id\": \"123456\" }, \"state\": \"NotActive\" }]";
+            string data = "{\"discountCodes\": [{ \"discountCode\": { \"typeId\": \"discount-code\", \"id\": \"123456\" }, \"state\": \"NotActive\" }]}";
             Cart cart = JsonConvert.DeserializeObject<Cart>(data);
             Assert.NotNull(cart.DiscountCodes[0].State);
             Assert.AreEqual(DiscountCodeState.NotActive, cart.DiscountCodes[0].State);
