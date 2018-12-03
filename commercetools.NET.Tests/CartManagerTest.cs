@@ -696,6 +696,7 @@ namespace commercetools.Tests
             Cart cart = JsonConvert.DeserializeObject<Cart>(data);
             Assert.NotNull(cart.DiscountCodes[0].State);
             Assert.AreEqual(DiscountCodeState.NotActive, cart.DiscountCodes[0].State);
+            Console.Error.WriteLine(string.Format("CartManagerTest - Information Only - Deserialize DiscountCodeInfo: {0}", cart.DiscountCodes[0].State));
         }
 
         /// <summary>
