@@ -37,7 +37,7 @@ namespace commercetools.Products.UpdateActions
         /// Value
         /// </summary>
         [JsonProperty(PropertyName = "value")]
-        public FieldType Value { get; set; }
+        public dynamic Value { get; set; }
 
         /// <summary>
         /// Staged
