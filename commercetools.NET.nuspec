@@ -14,7 +14,7 @@
     <copyright>Copyright Falcon-Software Company Inc. 2018</copyright>
     <tags>commercetools</tags>
     <dependencies>
-      <dependency id="log4net" version="2.0.5" />
+      <dependency id="log4net" version="2.0.8" />
       <dependency id="Newtonsoft.Json" version="9.0.1" />
     </dependencies>
   </metadata>
