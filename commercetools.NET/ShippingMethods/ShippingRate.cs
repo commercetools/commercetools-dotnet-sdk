@@ -46,7 +46,10 @@ namespace commercetools.ShippingMethods
 
             this.Price = new Money(data.price);
             this.FreeAbove = new Money(data.freeAbove);
-            this.Tiers = Helper.GetListFromJsonArray<Tier>(data.tiers);
+
+            // We do not use Helper.GetListFromJsonArray here, due to the JsonConverter property on Tier class.
+            // Using GetListFromJsonArray ignores the JsonConverter property and fails to deserialize properly.
+            this.Tiers = JsonConvert.DeserializeObject<List<Tier>>(data.tiers.ToString());
         }
 
         #endregion
