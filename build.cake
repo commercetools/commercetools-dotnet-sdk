@@ -1,4 +1,4 @@
-#tool nuget:https://www.myget.org/F/nunit/api/v3/index.json?package=NUnit.ConsoleRunner&version=3.10.0-dev-04086
+#tool nuget:https://www.myget.org/F/nunit/api/v3/index.json?package=NUnit.ConsoleRunner&version=3.10.0-dev-04322
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
