@@ -164,10 +164,7 @@ namespace commercetools.Common
 
         private HttpRequestMessage CreateRequestMessage(string url, HttpMethod method, string payload = null)
         {
-            HttpRequestMessage httpRequestMessage = new HttpRequestMessage(method, new Uri(url))
-            {
-                Version = HttpVersion.Version10
-            };
+            HttpRequestMessage httpRequestMessage = new HttpRequestMessage(method, new Uri(url));
             if (payload != null)
             {
                 httpRequestMessage.Content = new StringContent(payload, Encoding.UTF8, "application/json");
