@@ -11,6 +11,7 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the CustomerManager class.
     /// </summary>
+    [NonParallelizable]
     [TestFixture]
     public class SubscriptionManagerTest
     {
@@ -105,7 +106,7 @@ namespace commercetools.Tests
                 }
             }
         }
-        
+
         /// <summary>
         /// Tests the SubscriptionManager.GetSubscriptionByKeyAsync method.
         /// </summary>

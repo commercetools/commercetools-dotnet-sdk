@@ -17,6 +17,7 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the CustomerManager class.
     /// </summary>
+    [NonParallelizable]
     [TestFixture]
     public class CustomerManagerTest
     {
@@ -33,7 +34,7 @@ namespace commercetools.Tests
         {
             _client = new Client(Helper.GetConfiguration());
 
-            
+
 
             Task<Response<Project.Project>> projectTask = _client.Project().GetProjectAsync();
             projectTask.Wait();
@@ -150,7 +151,7 @@ namespace commercetools.Tests
             List<UpdateAction> actions = new List<UpdateAction>();
             actions.Add(setExternalIdAction);
             actions.Add(changeEmailAction);
-            
+
             Response<Customer> response = await _client.Customers().UpdateCustomerAsync(_testCustomer, actions);
             Assert.IsTrue(response.Success);
 

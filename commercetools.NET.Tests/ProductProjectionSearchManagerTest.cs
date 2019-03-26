@@ -17,6 +17,7 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the ProductProjectionSearchManager class.
     /// </summary>
+    [NonParallelizable]
     [TestFixture]
     public class ProductProjectionSearchManagerTest
     {
@@ -128,7 +129,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldGetSearchResultsAsync()
         {
-            Response<ProductProjectionQueryResult> response 
+            Response<ProductProjectionQueryResult> response
                 = await _client.ProductProjectionSearch().SearchProductProjectionsAsync("Test Product 1");
             Assert.IsTrue(response.Success);
 
@@ -148,7 +149,7 @@ namespace commercetools.Tests
                 "variants.price.centAmount:range(* to 50),(50 to 100),(100 to *)"
             };
 
-            Response<ProductProjectionQueryResult> response 
+            Response<ProductProjectionQueryResult> response
                 = await _client.ProductProjectionSearch().SearchProductProjectionsAsync("Test Product 1", facet: facet);
             Assert.IsTrue(response.Success);
 

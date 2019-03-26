@@ -12,6 +12,7 @@ namespace commercetools.Tests
     /// <see cref="CartValueTier"/>
     /// <see cref="CartClassificationTier"/>
     /// <see cref="CartScoreTier"/>
+    [NonParallelizable]
     [TestFixture]
     public class TierTests
     {

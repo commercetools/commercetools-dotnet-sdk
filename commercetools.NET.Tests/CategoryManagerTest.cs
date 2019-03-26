@@ -15,13 +15,14 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the CategoryManager class.
     /// </summary>
+    [NonParallelizable]
     [TestFixture]
     public class CategoryManagerTest
     {
         private Client _client;
         private Project.Project _project;
         private List<Category> _testCategories;
-        
+
         /// <summary>
         /// Test setup
         /// </summary>

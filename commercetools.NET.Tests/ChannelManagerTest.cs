@@ -13,13 +13,14 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the ChannelManager class.
     /// </summary>
+    [NonParallelizable]
     [TestFixture]
     public class ChannelManagerTest
     {
         private Client _client;
         private Project.Project _project;
         private List<Channel> _testChannels;
-        
+
         /// <summary>
         /// Test setup
         /// </summary>

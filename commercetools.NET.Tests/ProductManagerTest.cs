@@ -17,6 +17,7 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the ProductManager class.
     /// </summary>
+    [NonParallelizable]
     [TestFixture]
     public class ProductManagerTest
     {
@@ -103,7 +104,7 @@ namespace commercetools.Tests
             Response<Product> response = await _client.Products().GetProductByIdAsync(_testProducts[0].Id);
             Assert.IsTrue(response.Success);
 
-            Product product = response.Result; 
+            Product product = response.Result;
             Assert.NotNull(product.Id);
             Assert.AreEqual(product.Id, _testProducts[0].Id);
         }
@@ -118,7 +119,7 @@ namespace commercetools.Tests
             Response<Product> response = await _client.Products().GetProductByKeyAsync(_testProducts[1].Key);
             Assert.IsTrue(response.Success);
 
-            Product product = response.Result; 
+            Product product = response.Result;
             Assert.NotNull(product.Id);
             Assert.AreEqual(product.Key, _testProducts[1].Key);
         }

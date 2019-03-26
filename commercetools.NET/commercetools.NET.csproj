@@ -4,6 +4,7 @@
     <RootNamespace>commercetools</RootNamespace>
     <AssemblyName>commercetools.NET</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />

@@ -16,6 +16,7 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the TaxCategoryManager class.
     /// </summary>
+    [NonParallelizable]
     [TestFixture]
     public class TaxCategoryManagerTest
     {

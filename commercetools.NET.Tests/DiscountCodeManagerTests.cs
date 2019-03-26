@@ -13,6 +13,8 @@ using SetDescriptionAction = commercetools.DiscountCodes.UpdateActions.SetDescri
 
 namespace commercetools.Tests
 {
+    [NonParallelizable]
+
     public class DiscountCodeManagerTests
     {
         private Client _client;
@@ -132,7 +134,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldDeleteDiscountCodeAsync()
         {
-            // Arrange            
+            // Arrange
             var discountCode = await Helper.CreateTestDiscountCode(this._project, this._client, true, true, true);
 
             // Act

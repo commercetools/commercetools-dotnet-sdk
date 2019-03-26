@@ -18,6 +18,7 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the ShippingMethodManager class.
     /// </summary>
+    [NonParallelizable]
     [TestFixture]
     public class ShippingMethodManagerTest
     {
