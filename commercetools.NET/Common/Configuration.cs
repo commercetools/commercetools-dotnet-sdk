@@ -25,6 +25,9 @@ namespace commercetools.Common
 
         public Configuration()
         {
+            this.InternalServerErrorRetries = 1;
+            this.InternalServerErrorRetryInterval = 100;
+            this.HttpClientPoolItemLifetime = TimeSpan.FromHours(1);
         }
 
         /// <summary>

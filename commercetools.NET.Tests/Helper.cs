@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using commercetools.CartDiscounts;
 using commercetools.Carts;
@@ -35,6 +37,7 @@ namespace commercetools.Tests
     {
         private static Random _random = new Random();
         private static Configuration _configuration = null;
+        private static Client _client = null;
         private static IConfiguration appsettings =  new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .AddJsonFile("appsettings.Development.json", true)
@@ -56,6 +59,17 @@ namespace commercetools.Tests
             }
 
             return _configuration;
+        }
+
+        public static Client GetClient()
+        {
+            if (_client == null)
+            {
+                var configuration = GetConfiguration();
+                _client = new Client(configuration);
+            }
+
+            return _client;
         }
 
         #endregion

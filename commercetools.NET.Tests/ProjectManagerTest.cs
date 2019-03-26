@@ -22,7 +22,7 @@ namespace commercetools.Tests
         [OneTimeSetUp]
         public void Init()
         {
-            _client = new Client(Helper.GetConfiguration());
+            _client = Helper.GetClient();
         }
 
         /// <summary>

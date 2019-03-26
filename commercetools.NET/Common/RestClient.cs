@@ -59,7 +59,12 @@ namespace commercetools.Common
             TimeSpan? timeout = null,
             ulong? maxResponseContentBufferSize = null)
         {
-            _client = httpClient == null ? new HttpClient() : httpClient;
+            _client = httpClient == null
+                ? new HttpClient(new HttpClientHandler()
+                {
+                    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+                })
+                : httpClient;
 
             AddDefaultHeaders(defaultRequestHeaders);
             AddRequestTimeout(timeout);

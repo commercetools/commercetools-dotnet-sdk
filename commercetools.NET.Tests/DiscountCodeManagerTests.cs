@@ -14,7 +14,6 @@ using SetDescriptionAction = commercetools.DiscountCodes.UpdateActions.SetDescri
 namespace commercetools.Tests
 {
     [NonParallelizable]
-
     public class DiscountCodeManagerTests
     {
         private Client _client;
@@ -28,7 +27,7 @@ namespace commercetools.Tests
         [OneTimeSetUp]
         public void Init()
         {
-            _client = new Client(Helper.GetConfiguration());
+            _client = Helper.GetClient();
 
             Task<Response<Project.Project>> projectTask = _client.Project().GetProjectAsync();
             projectTask.Wait();

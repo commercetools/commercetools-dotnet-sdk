@@ -31,3 +31,4 @@ TestResult.xml
 *.nuget.targets
 packages/
 .vscode
+appsettings.Development.json
