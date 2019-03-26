@@ -10,7 +10,7 @@ before_build:
   - ps: dotnet restore --packages packages
   - ps: dotnet user-secrets set "commercetools:ClientId" $env:CTP_CLIENT_ID --project commercetools.NET.Tests >$null 2>&1
   - ps: dotnet user-secrets set "commercetools:ClientSecret" $env:CTP_CLIENT_SECRET --project commercetools.NET.Tests >$null 2>&1
-  - ps: dotnet user-secrets set "commercetools:ProjectKey" $env:CTP_PROJECTKEY --project commercetools.NET.Tests >$null 2>&1
+  - ps: dotnet user-secrets set "commercetools:ProjectKey" $env:CTP_PROJECT_KEY --project commercetools.NET.Tests >$null 2>&1
 
 build_script:
   - ps: dotnet build -c Release
