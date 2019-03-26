@@ -19,7 +19,7 @@ after_build:
   - ps: dotnet pack -c Release -o pack/
 
 test_script:
-  - ps: dotnet test commercetools.NET.Tests --no-build -c Release
+  - ps: dotnet test commercetools.NET.Tests --no-build -c Release --logger:Appveyor
 
 artifacts:
   - path: pack/*.nupkg
