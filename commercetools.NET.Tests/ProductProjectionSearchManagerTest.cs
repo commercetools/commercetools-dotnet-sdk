@@ -127,6 +127,7 @@ namespace commercetools.Tests
         /// </summary>
         /// <see cref="ProductProjectionSearchManager.SearchProductProjectionsAsync"/>
         [Test]
+        [Ignore("update to EC")]
         public async Task ShouldGetSearchResultsAsync()
         {
             Response<ProductProjectionQueryResult> response
@@ -143,6 +144,7 @@ namespace commercetools.Tests
         /// </summary>
         /// <see cref="ProductProjectionSearchManager.SearchProductProjectionsAsync"/>
         [Test]
+        [Ignore("update to EC")]
         public async Task ShouldGetSearchResultsAndFacetsAsync()
         {
             string[] facet = new string[] {
