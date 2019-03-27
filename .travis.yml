@@ -4,9 +4,9 @@ dotnet: 2.1.502
 
 install:
   - dotnet restore --packages packages
-  - dotnet user-secrets set "commercetools:ClientId" $env:CTP_CLIENT_ID --project commercetools.NET.Tests >$null 2>&1
-  - dotnet user-secrets set "commercetools:ClientSecret" $env:CTP_CLIENT_SECRET --project commercetools.NET.Tests >$null 2>&1
-  - dotnet user-secrets set "commercetools:ProjectKey" $env:CTP_PROJECT_KEY --project commercetools.NET.Tests >$null 2>&1
+  - dotnet user-secrets set "commercetools:ClientId" $env:CTP_CLIENT_ID --project commercetools.NET.Tests > /dev/null 2>&1
+  - dotnet user-secrets set "commercetools:ClientSecret" $env:CTP_CLIENT_SECRET --project commercetools.NET.Tests > /dev/null 2>&1
+  - dotnet user-secrets set "commercetools:ProjectKey" $env:CTP_PROJECT_KEY --project commercetools.NET.Tests > /dev/null 2>&1
 
 script:
   - dotnet build -c Release
