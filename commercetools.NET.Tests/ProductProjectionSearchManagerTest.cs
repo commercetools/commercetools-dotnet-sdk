@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using commercetools.Common;
@@ -19,6 +19,7 @@ namespace commercetools.Tests
     /// Test the API methods in the ProductProjectionSearchManager class.
     /// </summary>
     [TestFixture]
+    [NonParallelizable]
     public class ProductProjectionSearchManagerTest
     {
         private Client _client;
@@ -91,6 +92,7 @@ namespace commercetools.Tests
                 pt.Wait();
                 if (pt.Result.Result.Count > 4)
                 {
+                    Console.WriteLine("Product search returned " + pt.Result.Result.Count + " products");
                     break;
                 }
                 Task.Delay(10000).Wait();
