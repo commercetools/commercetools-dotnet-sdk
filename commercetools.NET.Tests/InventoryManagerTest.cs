@@ -24,14 +24,14 @@ namespace commercetools.Tests
         private Client _client;
         private Project.Project _project;
         private List<InventoryEntry> _testInventories;
-        
+
         /// <summary>
         /// Test setup
         /// </summary>
         [OneTimeSetUp]
         public void Init()
         {
-            _client = new Client(Helper.GetConfiguration());
+            _client = Helper.GetClient();
 
             Task<Response<Project.Project>> projectTask = _client.Project().GetProjectAsync();
             projectTask.Wait();
@@ -52,8 +52,8 @@ namespace commercetools.Tests
                 Assert.NotNull(inventory.Id);
 
                 _testInventories.Add(inventory);
-                
-            }            
+
+            }
 
         }
 
@@ -152,7 +152,7 @@ namespace commercetools.Tests
             _testInventories[0] = response.Result;
 
             Assert.AreEqual(_testInventories[0].QuantityOnStock, newQuantity);
-            
+
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace commercetools.Tests
             Assert.AreEqual(_testInventories[0].AvailableQuantity, currentInventoryQuantity - quantityToRemove);
 
         }
-           
+
 
         /// <summary>
         /// Tests the InventoryManager.ShouldSetExpectedDeliveryAsync method.
@@ -189,7 +189,7 @@ namespace commercetools.Tests
         {
             // Arrange
             System.DateTime dateExpectedDelivery = System.DateTime.UtcNow;
-            SetExpectedDeliveryAction setExpectedDeliveryAction = new SetExpectedDeliveryAction(dateExpectedDelivery); 
+            SetExpectedDeliveryAction setExpectedDeliveryAction = new SetExpectedDeliveryAction(dateExpectedDelivery);
             List<UpdateAction> actions = new List<UpdateAction>();
             actions.Add(setExpectedDeliveryAction);
 
@@ -282,7 +282,7 @@ namespace commercetools.Tests
             typeTask.Wait();
             Assert.IsTrue(typeTask.Result.Success, "CreateType failed");
             Type testType = typeTask.Result.Result;
-            
+
             ResourceIdentifier typeResourceIdentifier = new ResourceIdentifier
             {
                 Id = testType.Id,

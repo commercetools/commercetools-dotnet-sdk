@@ -1,15 +1,14 @@
 language: csharp
-sudo: false
+mono: none
+dotnet: 2.1.502
 
-dotnet: 2.1.4 # SDK version; includes runtime version 2.0.5. Need 2.0+ for netcoreapp2.0 tests.
-mono: 5.10.0 # Need 5.2+ for the included MSBuild.
-
-solution: commercetools.NET.sln
-
-matrix:
-  allow_failures:
-    - mono: 5.10.0
-
+install:
+  - dotnet restore --packages packages
+  - dotnet user-secrets set "commercetools:ClientId" ${CTP_CLIENT_ID} --project commercetools.NET.Tests > /dev/null 2>&1
+  - dotnet user-secrets set "commercetools:ClientSecret" ${CTP_CLIENT_SECRET} --project commercetools.NET.Tests > /dev/null 2>&1
+  - dotnet user-secrets set "commercetools:ProjectKey" ${CTP_PROJECT_KEY} --project commercetools.NET.Tests > /dev/null 2>&1
 
 script:
-  - ./build.sh --target=Travis
+  - dotnet build -c Release
+  - dotnet pack -c Release -o pack/
+  - dotnet test commercetools.NET.Tests --no-build -c Release

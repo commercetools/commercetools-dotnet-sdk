@@ -7,20 +7,28 @@ namespace commercetools.Common
     /// </summary>
     public class Configuration
     {
+
         #region Properties
 
-        public string OAuthUrl { get; private set; }
-        public string ApiUrl { get; private set; }
-        public string ProjectKey { get; private set;}
-        public string ClientID { get; private set; }
-        public string ClientSecret { get; private set; }
-        public ProjectScope Scope { get; private set; }
+        public string OAuthUrl { get; set; }
+        public string ApiUrl { get; set; }
+        public string ProjectKey { get; set;}
+        public string ClientID { get; set; }
+        public string ClientSecret { get; set; }
+        public ProjectScope Scope { get; set; }
         public int InternalServerErrorRetries { get; set; }
         public int InternalServerErrorRetryInterval { get; set; }
         public TimeSpan HttpClientPoolItemLifetime { get; set; }
         #endregion
 
         #region Constructors
+
+        public Configuration()
+        {
+            this.InternalServerErrorRetries = 1;
+            this.InternalServerErrorRetryInterval = 100;
+            this.HttpClientPoolItemLifetime = TimeSpan.FromHours(1);
+        }
 
         /// <summary>
         /// Constructor

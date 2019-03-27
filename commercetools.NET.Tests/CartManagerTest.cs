@@ -54,11 +54,11 @@ namespace commercetools.Tests
         [OneTimeSetUp]
         public void Init()
         {
-            _client = new Client(Helper.GetConfiguration());
+            _client = Helper.GetClient();
 
             Task<Response<Project.Project>> projectTask = _client.Project().GetProjectAsync();
             projectTask.Wait();
-            Assert.IsTrue(projectTask.Result.Success);
+            Assert.IsTrue(projectTask.Result.Success, "GetProjectAsync failed");
             _project = projectTask.Result.Result;
 
             Assert.IsTrue(_project.Languages.Count > 0, "No Languages");
@@ -78,7 +78,7 @@ namespace commercetools.Tests
                 customerDraft = Helper.GetTestCustomerDraft();
                 customerTask = _client.Customers().CreateCustomerAsync(customerDraft);
                 customerTask.Wait();
-                Assert.IsTrue(customerTask.Result.Success);
+                Assert.IsTrue(customerTask.Result.Success, "CreateCustomerAsync failed");
 
                 customerCreatedMessage = customerTask.Result.Result;
                 Assert.NotNull(customerCreatedMessage.Customer);
@@ -117,7 +117,7 @@ namespace commercetools.Tests
             customerDraft = Helper.GetTestCustomerDraft();
             customerTask = _client.Customers().CreateCustomerAsync(customerDraft);
             customerTask.Wait();
-            Assert.IsTrue(customerTask.Result.Success);
+            Assert.IsTrue(customerTask.Result.Success, "CreateCustomerAsync failed");
             customerCreatedMessage = customerTask.Result.Result;
             Assert.NotNull(customerCreatedMessage.Customer);
             Assert.NotNull(customerCreatedMessage.Customer.Id);
@@ -153,7 +153,7 @@ namespace commercetools.Tests
 
             Task<Response<ZoneQueryResult>> zoneQueryResultTask = _client.Zones().QueryZonesAsync();
             zoneQueryResultTask.Wait();
-            Assert.IsTrue(zoneQueryResultTask.Result.Success);
+            Assert.IsTrue(zoneQueryResultTask.Result.Success, "QueryZonesAsync failed");
 
             if (zoneQueryResultTask.Result.Result.Results.Count > 0)
             {

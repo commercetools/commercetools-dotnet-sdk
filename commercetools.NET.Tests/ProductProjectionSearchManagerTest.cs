@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using commercetools.Common;
@@ -18,6 +19,7 @@ namespace commercetools.Tests
     /// Test the API methods in the ProductProjectionSearchManager class.
     /// </summary>
     [TestFixture]
+    [NonParallelizable]
     public class ProductProjectionSearchManagerTest
     {
         private Client _client;
@@ -32,7 +34,7 @@ namespace commercetools.Tests
         [OneTimeSetUp]
         public void Init()
         {
-            _client = new Client(Helper.GetConfiguration());
+            _client = Helper.GetClient();
 
             Task<Response<Project.Project>> projectTask = _client.Project().GetProjectAsync();
             projectTask.Wait();
@@ -83,6 +85,18 @@ namespace commercetools.Tests
 
                 _testProducts.Add(product);
             }
+
+            for (int i = 0; i < 12; i++)
+            {
+                var pt = _client.ProductProjectionSearch().SearchProductProjectionsAsync();
+                pt.Wait();
+                if (pt.Result.Result.Count > 4)
+                {
+                    Console.Error.WriteLine("Product search returned " + pt.Result.Result.Count + " products");
+                    break;
+                }
+                Task.Delay(10000).Wait();
+            }
         }
 
         /// <summary>
@@ -128,7 +142,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldGetSearchResultsAsync()
         {
-            Response<ProductProjectionQueryResult> response 
+            Response<ProductProjectionQueryResult> response
                 = await _client.ProductProjectionSearch().SearchProductProjectionsAsync("Test Product 1");
             Assert.IsTrue(response.Success);
 
@@ -148,7 +162,7 @@ namespace commercetools.Tests
                 "variants.price.centAmount:range(* to 50),(50 to 100),(100 to *)"
             };
 
-            Response<ProductProjectionQueryResult> response 
+            Response<ProductProjectionQueryResult> response
                 = await _client.ProductProjectionSearch().SearchProductProjectionsAsync("Test Product 1", facet: facet);
             Assert.IsTrue(response.Success);
 

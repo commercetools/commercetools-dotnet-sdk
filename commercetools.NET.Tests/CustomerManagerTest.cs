@@ -31,9 +31,9 @@ namespace commercetools.Tests
         [OneTimeSetUp]
         public void Init()
         {
-            _client = new Client(Helper.GetConfiguration());
+            _client = Helper.GetClient();
 
-            
+
 
             Task<Response<Project.Project>> projectTask = _client.Project().GetProjectAsync();
             projectTask.Wait();
@@ -150,7 +150,7 @@ namespace commercetools.Tests
             List<UpdateAction> actions = new List<UpdateAction>();
             actions.Add(setExternalIdAction);
             actions.Add(changeEmailAction);
-            
+
             Response<Customer> response = await _client.Customers().UpdateCustomerAsync(_testCustomer, actions);
             Assert.IsTrue(response.Success);
 

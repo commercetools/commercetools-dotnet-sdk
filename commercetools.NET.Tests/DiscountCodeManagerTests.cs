@@ -26,7 +26,7 @@ namespace commercetools.Tests
         [OneTimeSetUp]
         public void Init()
         {
-            _client = new Client(Helper.GetConfiguration());
+            _client = Helper.GetClient();
 
             Task<Response<Project.Project>> projectTask = _client.Project().GetProjectAsync();
             projectTask.Wait();
@@ -132,7 +132,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldDeleteDiscountCodeAsync()
         {
-            // Arrange            
+            // Arrange
             var discountCode = await Helper.CreateTestDiscountCode(this._project, this._client, true, true, true);
 
             // Act

@@ -1,10 +1,43 @@
 image: Visual Studio 2017
 
-build_script:
-  - ps: .\build.ps1 -Target "Appveyor"
+cache:
+  - packages -> **\*.csproj
 
-# disable built-in tests.
-test: off
+install:
+  - ps: .\set_appveyor_version.ps1
+
+before_build:
+  - ps: dotnet restore --packages packages
+  - ps: dotnet user-secrets set "commercetools:ClientId" $env:CTP_CLIENT_ID --project commercetools.NET.Tests >$null 2>&1
+  - ps: dotnet user-secrets set "commercetools:ClientSecret" $env:CTP_CLIENT_SECRET --project commercetools.NET.Tests >$null 2>&1
+  - ps: dotnet user-secrets set "commercetools:ProjectKey" $env:CTP_PROJECT_KEY --project commercetools.NET.Tests >$null 2>&1
+
+build_script:
+  - ps: dotnet build -c Release
+
+after_build:
+  - ps: dotnet pack -c Release -o pack/
+
+test_script:
+  - ps: dotnet test commercetools.NET.Tests --no-build -c Release --logger:Appveyor
+
+artifacts:
+  - path: pack/*.nupkg
+    name: NuGet Package
+
+version: 1.0.0.{build}
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '$(appveyor_build_version)'
+  package_version: '$(appveyor_build_version)'
+  assembly_version: '$(appveyor_build_version)'
+  file_version: '$(appveyor_build_version)'
+  informational_version: '$(appveyor_build_version)'
+
+max_jobs: 1
+nuget:
+  project_feed: true
 
 deploy:
 - provider: NuGet

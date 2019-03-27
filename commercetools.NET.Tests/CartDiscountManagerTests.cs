@@ -26,7 +26,7 @@ namespace commercetools.Tests
         [OneTimeSetUp]
         public void Init()
         {
-            _client = new Client(Helper.GetConfiguration());
+            _client = Helper.GetClient();
 
             Task<Response<Project.Project>> projectTask = _client.Project().GetProjectAsync();
             projectTask.Wait();
@@ -189,7 +189,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldSetValidFromSetValidUntilCartDiscountAsync()
         {
-            // Arrange 
+            // Arrange
             var cartDiscount = await Helper.CreateTestCartDiscount(this._project, this._client);
             var setValidFrom = new SetValidFromAction(DateTime.UtcNow.AddDays(3));
             var setValidUntil = new SetValidUntilAction(setValidFrom.ValidFrom.Value.AddDays(10));
@@ -214,7 +214,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldChangeTargetCartDiscountAsync()
         {
-            // Arrange 
+            // Arrange
             var cartDiscount = await Helper.CreateTestCartDiscount(this._project, this._client);
             var changetarget = new ChangeTargetAction(new CartDiscountTarget(CartDiscountTargetType.CustomLineItems, "money.centAmount > 1000"));
 
@@ -235,7 +235,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldChangeValueCartDiscountAsync()
         {
-            // Arrange 
+            // Arrange
             var moneyList = new List<Money>();
             foreach (var currency in this._project.Currencies)
             {
@@ -261,7 +261,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldChangeSortOrderCartDiscountAsync()
         {
-            // Arrange            
+            // Arrange
             var cartDiscount = await Helper.CreateTestCartDiscount(this._project, this._client);
             var cartDiscountDraft = await Helper.GetTestCartDiscountDraft(this._project, this._client, Helper.GetRandomBoolean(),
                 Helper.GetRandomBoolean(), "lineItemCount(1 = 1) > 0", "1=1", 5000, false);
@@ -285,7 +285,7 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldDeleteCartDiscountAsync()
         {
-            // Arrange            
+            // Arrange
             var cartDiscount = await Helper.CreateTestCartDiscount(this._project, this._client);
 
             // Act

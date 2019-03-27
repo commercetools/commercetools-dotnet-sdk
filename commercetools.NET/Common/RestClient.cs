@@ -32,6 +32,7 @@ namespace commercetools.Common
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -59,7 +60,15 @@ namespace commercetools.Common
             TimeSpan? timeout = null,
             ulong? maxResponseContentBufferSize = null)
         {
-            _client = httpClient == null ? new HttpClient() : httpClient;
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient(new HttpClientHandler()
+                {
+                    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+                });
+                httpClient.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+            }
+            _client = httpClient;
 
             AddDefaultHeaders(defaultRequestHeaders);
             AddRequestTimeout(timeout);

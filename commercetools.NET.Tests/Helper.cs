@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using commercetools.CartDiscounts;
 using commercetools.Carts;
@@ -25,6 +26,7 @@ using commercetools.Channels;
 
 using commercetools.Inventory;
 using commercetools.GeoLocation;
+using Microsoft.Extensions.Configuration;
 
 namespace commercetools.Tests
 {
@@ -35,6 +37,13 @@ namespace commercetools.Tests
     {
         private static Random _random = new Random();
         private static Configuration _configuration = null;
+        private static Client _client = null;
+        private static IConfiguration appsettings =  new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .AddJsonFile("appsettings.Development.json", true)
+            .AddEnvironmentVariables()
+            .AddUserSecrets<Helper>()
+            .Build();
 
         #region Configuration
 
@@ -46,16 +55,21 @@ namespace commercetools.Tests
         {
             if (_configuration == null)
             {
-                _configuration = new Configuration(
-                    Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["commercetools.OAuthUrl"]),
-                    Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["commercetools.ApiUrl"]),
-                    Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["commercetools.ProjectKey"]),
-                    Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["commercetools.ClientID"]),
-                    Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["commercetools.ClientSecret"]),
-                    ProjectScope.ManageProject);
-            }          
+                _configuration = appsettings.GetSection("commercetools").Get<Configuration>();
+            }
 
             return _configuration;
+        }
+
+        public static Client GetClient()
+        {
+            if (_client == null)
+            {
+                var configuration = GetConfiguration();
+                _client = new Client(configuration);
+            }
+
+            return _client;
         }
 
         #endregion
@@ -276,9 +290,9 @@ namespace commercetools.Tests
         #region Cart Discounts
 
         public static async Task<CartDiscountDraft> GetTestCartDiscountDraft(
-            Project.Project project, 
-            Client client, 
-            bool isActive, 
+            Project.Project project,
+            Client client,
+            bool isActive,
             bool requiresDiscountCode,
             string cartPredicate ,
             string lineItemPredicate,
@@ -331,7 +345,7 @@ namespace commercetools.Tests
             {
                 requiresDiscountCode = isActive.Value ? GetRandomBoolean() : false;
             }
-            var cartDiscountDraft = await GetTestCartDiscountDraft(project, client, isActive.Value, requiresDiscountCode.Value, 
+            var cartDiscountDraft = await GetTestCartDiscountDraft(project, client, isActive.Value, requiresDiscountCode.Value,
                 "lineItemCount(1 = 1) > 0", "1=1", 5000, false);
             var cartDiscountResponse = await client.CartDiscounts().CreateCartDiscountAsync(cartDiscountDraft);
 
@@ -339,7 +353,7 @@ namespace commercetools.Tests
         }
 
         public static async Task<CartDiscount> CreateCartDiscountForCustomLineItems(
-            Project.Project project, 
+            Project.Project project,
             Client client,
             bool isActive = true,
             bool requiresDiscountCode = false,
@@ -567,7 +581,7 @@ namespace commercetools.Tests
             return orderFromCartDraft;
         }
 
-        #endregion 
+        #endregion
 
         #region Payments
 
@@ -779,7 +793,7 @@ namespace commercetools.Tests
         }
 
         #endregion
-        #region Subscriptions 
+        #region Subscriptions
         /// <summary>
         /// Gets a list of subscription drafts containing all current subscription destination types.
         /// </summary>
@@ -788,14 +802,14 @@ namespace commercetools.Tests
         {
             List<SubscriptionDraft> testSubscriptions = new List<SubscriptionDraft>();
 
-            string configAWSSQSQueueUrl = ConfigurationManager.AppSettings["AWSSQS.QueueUrl"];
-            string configAWSSQSKey = ConfigurationManager.AppSettings["AWSSQS.Key"];
-            string configAWSSQSSecret = ConfigurationManager.AppSettings["AWSSQS.Secret"];
-            string configAWSSQSRegion = ConfigurationManager.AppSettings["AWSSQS.Region"];
-            string configAWSSNSArn = ConfigurationManager.AppSettings["AWSSNS.Arn"];
-            string configAWSSNSKey = ConfigurationManager.AppSettings["AWSSNS.Key"];
-            string configAWSSNSSecret = ConfigurationManager.AppSettings["AWSSNS.Secret"];
-            string configIronMQUri = ConfigurationManager.AppSettings["IronMQ.Uri"];
+            string configAWSSQSQueueUrl =  appsettings.GetSection("AWSSQS:QueueUrl").Value;
+            string configAWSSQSKey =  appsettings.GetSection("AWSSQS:Key").Value;
+            string configAWSSQSSecret =  appsettings.GetSection("AWSSQS:Secret").Value;
+            string configAWSSQSRegion =  appsettings.GetSection("AWSSQS:Region").Value;
+            string configAWSSNSArn =  appsettings.GetSection("AWSSNS:Arn").Value;
+            string configAWSSNSKey =  appsettings.GetSection("AWSSNS:Key").Value;
+            string configAWSSNSSecret =  appsettings.GetSection("AWSSNS:Secret").Value;
+            string configIronMQUri =  appsettings.GetSection("IronMQ:Uri").Value;
             SubscriptionDraft draftSubscription;
 
             if (!string.IsNullOrEmpty(configAWSSQSQueueUrl) &&
@@ -1015,7 +1029,7 @@ namespace commercetools.Tests
         {
             return GetRandomDouble(0, 2) >= 0.5;
         }
-        #endregion 
+        #endregion
 
         #region Channels
 
@@ -1036,7 +1050,7 @@ namespace commercetools.Tests
             {
                 string randomPostfix = Helper.GetRandomString(10);
                 name.SetValue(language, string.Concat("Test Channel ", language, " ", randomPostfix));
-                description.SetValue(language, string.Concat("Created by commercetools.NET ", language));                
+                description.SetValue(language, string.Concat("Created by commercetools.NET ", language));
             }
 
             ChannelDraft channelDraft = new ChannelDraft(key);
@@ -1048,7 +1062,7 @@ namespace commercetools.Tests
                 ChannelRoleEnum.InventorySupply,
                 ChannelRoleEnum.OrderExport
             };
-            
+
             return channelDraft;
         }
 
@@ -1078,6 +1092,6 @@ namespace commercetools.Tests
 
         #endregion
 
-        
+
     }
 }

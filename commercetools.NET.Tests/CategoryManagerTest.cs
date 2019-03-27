@@ -21,14 +21,14 @@ namespace commercetools.Tests
         private Client _client;
         private Project.Project _project;
         private List<Category> _testCategories;
-        
+
         /// <summary>
         /// Test setup
         /// </summary>
         [OneTimeSetUp]
         public void Init()
         {
-            _client = new Client(Helper.GetConfiguration());
+            _client = Helper.GetClient();
 
             Task<Response<Project.Project>> projectTask = _client.Project().GetProjectAsync();
             projectTask.Wait();
