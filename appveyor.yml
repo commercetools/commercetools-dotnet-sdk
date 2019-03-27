@@ -28,7 +28,7 @@ artifacts:
 version: 1.0.0.{build}
 dotnet_csproj:
   patch: true
-  file: '**\*.csproj'
+  file: 'commercetools.NET\commercetools.NET.csproj;commercetools.NET.Tests\commercetools.NET.Tests.csproj'
   version: '$(appveyor_build_version)'
   package_version: '$(appveyor_build_version)'
   assembly_version: '$(appveyor_build_version)'
