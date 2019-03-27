@@ -22,7 +22,7 @@ test_script:
   - ps: dotnet test commercetools.NET.Tests --no-build -c Release --logger:Appveyor
 
 artifacts:
-  - path: pack/*.nupkg
+  - path: commercetools.NET/**/*.nupkg
     name: NuGet Package
 
 version: 1.0.0.{build}
