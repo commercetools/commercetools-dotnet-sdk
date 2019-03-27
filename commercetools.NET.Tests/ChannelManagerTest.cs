@@ -13,7 +13,6 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the ChannelManager class.
     /// </summary>
-    [NonParallelizable]
     [TestFixture]
     public class ChannelManagerTest
     {

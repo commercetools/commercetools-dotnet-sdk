@@ -17,7 +17,6 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the CustomerManager class.
     /// </summary>
-    [NonParallelizable]
     [TestFixture]
     public class CustomerManagerTest
     {

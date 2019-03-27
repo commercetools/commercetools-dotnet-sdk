@@ -19,7 +19,6 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the PaymentManager class.
     /// </summary>
-    [NonParallelizable]
     [TestFixture]
     public class PaymentManagerTest
     {

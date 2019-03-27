@@ -6,7 +6,6 @@ namespace commercetools.Tests
     /// <summary>
     /// Tests the Update Actions
     /// </summary>
-    [NonParallelizable]
     [TestFixture]
     public class UpdateActionTests
     {

@@ -19,7 +19,6 @@ namespace commercetools.Tests
     /// Test the API methods in the InventoryManager class.
     /// </summary>
     [TestFixture]
-    [NonParallelizable]
     public class InventoryManagerTest
     {
         private Client _client;

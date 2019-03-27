@@ -21,7 +21,6 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the TypeManager class.
     /// </summary>
-    [NonParallelizable]
     [TestFixture]
     public class TypeManagerTest
     {

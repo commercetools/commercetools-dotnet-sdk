@@ -17,7 +17,6 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the ProductProjectionSearchManager class.
     /// </summary>
-    [NonParallelizable]
     [TestFixture]
     public class ProductProjectionSearchManagerTest
     {
@@ -84,6 +83,17 @@ namespace commercetools.Tests
 
                 _testProducts.Add(product);
             }
+
+            for (int i = 0; i < 6; i++)
+            {
+                var pt = _client.ProductProjectionSearch().SearchProductProjectionsAsync("Test Product 1");
+                pt.Wait();
+                if (pt.Result.Result.Count > 0)
+                {
+                    break;
+                }
+                Task.Delay(10000).Wait();
+            }
         }
 
         /// <summary>
@@ -127,7 +137,6 @@ namespace commercetools.Tests
         /// </summary>
         /// <see cref="ProductProjectionSearchManager.SearchProductProjectionsAsync"/>
         [Test]
-        [Ignore("update to EC")]
         public async Task ShouldGetSearchResultsAsync()
         {
             Response<ProductProjectionQueryResult> response
@@ -144,7 +153,6 @@ namespace commercetools.Tests
         /// </summary>
         /// <see cref="ProductProjectionSearchManager.SearchProductProjectionsAsync"/>
         [Test]
-        [Ignore("update to EC")]
         public async Task ShouldGetSearchResultsAndFacetsAsync()
         {
             string[] facet = new string[] {

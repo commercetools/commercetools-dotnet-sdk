@@ -31,7 +31,6 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the CartManager class, along with some of the cart update actions.
     /// </summary>
-    [NonParallelizable]
     [TestFixture]
     public class CartManagerTest
     {

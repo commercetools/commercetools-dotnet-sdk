@@ -26,7 +26,6 @@ namespace commercetools.Tests
     /// <summary>
     /// Test the API methods in the OrderManager class.
     /// </summary>
-    [NonParallelizable]
     [TestFixture]
     public class OrderManagerTest
     {

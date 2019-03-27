@@ -13,7 +13,6 @@ using SetDescriptionAction = commercetools.DiscountCodes.UpdateActions.SetDescri
 
 namespace commercetools.Tests
 {
-    [NonParallelizable]
     public class DiscountCodeManagerTests
     {
         private Client _client;

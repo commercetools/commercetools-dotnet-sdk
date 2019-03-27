@@ -14,7 +14,6 @@ namespace commercetools.Tests
     /// Test the API methods in the CartDiscountManager class, along with some of the cart update actions.
     /// </summary>
     [TestFixture]
-    [NonParallelizable]
     public class CartDiscountManagerTest
     {
         private Client _client;
