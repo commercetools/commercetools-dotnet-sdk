@@ -2,9 +2,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>commercetools</RootNamespace>
-    <AssemblyName>commercetools.NET</AssemblyName>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>commercetools.NET.SDK</AssemblyName>
     <LangVersion>7</LangVersion>
+    <Authors>commercetools</Authors>
+    <Description>The commercetools.NET SDK allows developers to work effectively with the commercetools platform in their .NET applications by providing typesafe access to the commercetools HTTP API.</Description>
+    <Copyright>Copyright (c) 2019 Falcon-Software, commercetools and contributors</Copyright>
+    <PackageProjectUrl>https://github.com/commercetools/commercetools-dotnet-sdk</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIconUrl>https://raw.githubusercontent.com/commercetools/commercetools-dotnet-sdk/master/ct-logo.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/commercetools/commercetools-dotnet-sdk</RepositoryUrl>
+    <PackageTags>commercetools</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />

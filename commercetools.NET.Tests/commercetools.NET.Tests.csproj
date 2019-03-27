@@ -4,6 +4,15 @@
         <TargetFramework>netcoreapp2.1</TargetFramework>
         <UserSecretsId>6e42aa04-1612-4e1c-8bb2-190e5c88343f</UserSecretsId>
         <IsPackable>false</IsPackable>
+        <AssemblyName>commercetools.NET.SDK.Tests</AssemblyName>
+        <Authors>commercetools</Authors>
+        <Description>The commercetools.NET SDK allows developers to work effectively with the commercetools platform in their .NET applications by providing typesafe access to the commercetools HTTP API.</Description>
+        <Copyright>Copyright (c) 2019 Falcon-Software, commercetools and contributors</Copyright>
+        <PackageProjectUrl>https://github.com/commercetools/commercetools-dotnet-sdk</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageIconUrl>https://raw.githubusercontent.com/commercetools/commercetools-dotnet-sdk/master/ct-logo.png</PackageIconUrl>
+        <RepositoryUrl>https://github.com/commercetools/commercetools-dotnet-sdk</RepositoryUrl>
+        <PackageTags>commercetools</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
