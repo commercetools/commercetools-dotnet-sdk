@@ -16,6 +16,9 @@ namespace commercetools.Common
         [JsonProperty(PropertyName = "centAmount")]
         public long? CentAmount { get; set; }
 
+        [JsonProperty(PropertyName = "fractionDigits")]
+        public int FractionDigits { get; set; }
+
         #endregion
 
         #region Constructors
@@ -40,6 +43,7 @@ namespace commercetools.Common
 
             this.CurrencyCode = data.currencyCode;
             this.CentAmount = data.centAmount;
+            this.FractionDigits = data.fractionDigits;
         }
 
         #endregion

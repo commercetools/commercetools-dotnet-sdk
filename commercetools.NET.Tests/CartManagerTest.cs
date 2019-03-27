@@ -438,6 +438,7 @@ namespace commercetools.Tests
             Money totalGross = new Money();
             totalGross.CentAmount = 123;
             totalGross.CurrencyCode = _project.Currencies[0];
+            totalGross.FractionDigits = 2;
             List<SubRate> subRates = new List<SubRate>();
             SubRate subRate = new SubRate();
             subRate.Name = "sub-rate";
@@ -471,6 +472,7 @@ namespace commercetools.Tests
             Money totalNetPlusTax = new Money();
             totalNetPlusTax.CentAmount = cart.TotalPrice.CentAmount + 123;
             totalNetPlusTax.CurrencyCode = _project.Currencies[0];
+            totalNetPlusTax.FractionDigits = 2;
             SetCartTotalTaxAction setCartTotalTaxAction = new SetCartTotalTaxAction(totalNetPlusTax);
             response = await _client.Carts().UpdateCartAsync(cart, setCartTotalTaxAction);
             Assert.IsTrue(response.Success, "SetCartTotalTaxActionResponse Failed");
@@ -537,7 +539,7 @@ namespace commercetools.Tests
                 if (cart.TaxMode != null && cart.TaxMode == TaxMode.External)
                 {
                     addLineItemAction.ExternalTaxRate = new ExternalTaxRateDraft("TestTaxRate", _project.Countries[0]) { Amount = 0.1m };
-                    addLineItemAction.ExternalPrice = new Money() { CentAmount = 5, CurrencyCode = _project.Currencies[0] };
+                    addLineItemAction.ExternalPrice = new Money() { CentAmount = 5, CurrencyCode = _project.Currencies[0], FractionDigits = 2};
                 }
 
                 Response<Cart> response = await _client.Carts().UpdateCartAsync(cart, addLineItemAction);
@@ -559,12 +561,13 @@ namespace commercetools.Tests
                     Assert.AreEqual(cart.LineItems[0].TaxRate.Amount, addLineItemAction.ExternalTaxRate.Amount);
                     Assert.AreEqual(cart.LineItems[0].Price.Value.CentAmount, addLineItemAction.ExternalPrice.CentAmount);
                     Assert.AreEqual(cart.LineItems[0].Price.Value.CurrencyCode, addLineItemAction.ExternalPrice.CurrencyCode);
+                    Assert.AreEqual(cart.LineItems[0].Price.Value.FractionDigits, addLineItemAction.ExternalPrice.FractionDigits);
                 }
                 ChangeLineItemQuantityAction changeLineItemQuantityAction =
                    new ChangeLineItemQuantityAction(cart.LineItems[0].Id, newQuantity);
                 if (cart.TaxMode != null && cart.TaxMode == TaxMode.External)
                 {
-                    changeLineItemQuantityAction.ExternalPrice = new Money() { CentAmount = 10, CurrencyCode = _project.Currencies[0] };
+                    changeLineItemQuantityAction.ExternalPrice = new Money() { CentAmount = 10, CurrencyCode = _project.Currencies[0], FractionDigits = 2};
                 }
 
                 response = await _client.Carts().UpdateCartAsync(cart, changeLineItemQuantityAction);
@@ -866,6 +869,7 @@ namespace commercetools.Tests
             var discountedLineItemPrice = customLineItem.DiscountedPricePerQuantity.First();
             discountedLineItemPrice.DiscountedPrice.Value.CentAmount.Should().BeGreaterThan(1);
             discountedLineItemPrice.DiscountedPrice.Value.CurrencyCode.Should().Be("EUR");
+            discountedLineItemPrice.DiscountedPrice.Value.FractionDigits.Should().Be(2);
             Assert.NotNull(discountedLineItemPrice);
             Assert.NotNull(discountedLineItemPrice.DiscountedPrice);
             Assert.NotNull(discountedLineItemPrice.DiscountedPrice.Value);

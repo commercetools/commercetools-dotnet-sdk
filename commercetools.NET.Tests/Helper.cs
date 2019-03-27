@@ -195,7 +195,8 @@ namespace commercetools.Tests
                 Money = new Money
                 {
                     CentAmount = 30,
-                    CurrencyCode = currency
+                    CurrencyCode = currency,
+                    FractionDigits = 2
                 },
                 Slug = "Test-CustomLineItem-Slug",
             });
@@ -237,7 +238,8 @@ namespace commercetools.Tests
                 Money = new Money
                 {
                     CentAmount = 30,
-                    CurrencyCode = currency
+                    CurrencyCode = currency,
+                    FractionDigits = 2
                 },
                 Slug = "Test-CustomLineItem-Slug",
                 ExternalTaxRate = new ExternalTaxRateDraft("TestExternalTaxRate", project.Countries[0]) { Amount = 0 }
@@ -279,7 +281,8 @@ namespace commercetools.Tests
                 Money = new Money
                 {
                     CentAmount = 30,
-                    CurrencyCode = currency
+                    CurrencyCode = currency,
+                    FractionDigits = 2
                 },
                 Slug = "Test-CustomLineItem-Slug",
             });
@@ -449,7 +452,7 @@ namespace commercetools.Tests
             Money money = new Money();
             money.CentAmount = Helper.GetRandomNumber(100, 999999);
             money.CurrencyCode = project.Currencies[0];
-
+            money.FractionDigits = 2;
             return money;
         }
 
@@ -626,6 +629,7 @@ namespace commercetools.Tests
                 Money value = new Money();
                 value.CurrencyCode = currency;
                 value.CentAmount = Helper.GetRandomNumber(10, 999999);
+                value.FractionDigits = 2;
 
                 priceDrafts.Add(new PriceDraft(value));
             }
@@ -728,6 +732,7 @@ namespace commercetools.Tests
                 Money money = new Money();
                 money.CentAmount = Helper.GetRandomNumber(99, 9999);
                 money.CurrencyCode = currency;
+                money.FractionDigits = 2;
 
                 ShippingRate shippingRate = new ShippingRate();
                 shippingRate.Price = money;
