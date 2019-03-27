@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using commercetools.Common;
@@ -84,11 +85,11 @@ namespace commercetools.Tests
                 _testProducts.Add(product);
             }
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 12; i++)
             {
-                var pt = _client.ProductProjectionSearch().SearchProductProjectionsAsync("Test Product 1");
+                var pt = _client.ProductProjectionSearch().SearchProductProjectionsAsync();
                 pt.Wait();
-                if (pt.Result.Result.Count > 0)
+                if (pt.Result.Result.Count > 4)
                 {
                     break;
                 }
