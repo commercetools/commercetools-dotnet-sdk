@@ -92,7 +92,7 @@ namespace commercetools.Tests
                 pt.Wait();
                 if (pt.Result.Result.Count > 4)
                 {
-                    Console.WriteLine("Product search returned " + pt.Result.Result.Count + " products");
+                    Console.Error.WriteLine("Product search returned " + pt.Result.Result.Count + " products");
                     break;
                 }
                 Task.Delay(10000).Wait();
