@@ -23,7 +23,7 @@ namespace commercetools.Types
         public SetType()
             : base()
         {
-            this.Name = "Set";        
+            this.Name = "Set";
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace commercetools.Types
                 return;
             }
 
-            this.ElementType = FieldTypeFactory.Create(data);
+            this.ElementType = FieldTypeFactory.Create(data.elementType);
         }
 
         #endregion
