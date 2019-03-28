@@ -34,7 +34,7 @@ namespace commercetools.Carts
             }
 
             this.Discount = new Reference(data.discount);
-            this.DiscountedAmount = new Money(data.discountedAmount);
+            this.DiscountedAmount = Helper.GetMoneyBasedOnType(data.discountedAmount);
         }
 
         #endregion

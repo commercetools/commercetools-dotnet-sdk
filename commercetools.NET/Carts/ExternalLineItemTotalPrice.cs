@@ -40,7 +40,7 @@ namespace commercetools.Carts
                 return;
             }
 
-            this.Price = new Money(data.price);
+            this.Price = Helper.GetMoneyBasedOnType(data.price);
             this.TotalPrice = new Money(data.totalPrice);
         }
 

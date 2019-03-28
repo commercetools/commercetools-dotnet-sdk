@@ -57,7 +57,8 @@ namespace commercetools.Products
             }
 
             this.Id = data.id;
-            this.Value = new Money(data.value);
+            //this.Value = new Money(data.value);
+            this.Value = Helper.GetMoneyBasedOnType(data.value);
             this.Country = data.country;
             this.CustomerGroup = new Reference(data.customerGroup);
             this.Channel = new Reference(data.channel);
@@ -95,7 +96,7 @@ namespace commercetools.Products
         public override int GetHashCode()
         {
             return this.Id.GetHashCode();
-        }  
+        }
 
         #endregion
     }

@@ -1,29 +1,24 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace commercetools.Common
 {
-    /// <summary>
-    /// Money
-    /// </summary>
-    /// <see href="http://dev.commercetools.com/http-api-types.html#money"/>
-    public class Money
+    public class CentPrecisionMoney : Money
     {
         #region Properties
 
-        [JsonProperty(PropertyName = "currencyCode")]
-        public string CurrencyCode { get; set; }
+        [JsonProperty(PropertyName = "fractionDigits")]
+        public int FractionDigits { get; set; }
 
-        [JsonProperty(PropertyName = "centAmount")]
-        public long? CentAmount { get; set; }
+        [JsonProperty(PropertyName = "type")]
+        public string Type { get; set; } = "centPrecision";
 
         #endregion
 
-        #region Constructors
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public Money()
+        public CentPrecisionMoney()
         {
         }
 
@@ -31,7 +26,7 @@ namespace commercetools.Common
         /// Initializes this instance with JSON data from an API response.
         /// </summary>
         /// <param name="data">JSON object</param>
-        public Money(dynamic data)
+        public CentPrecisionMoney(dynamic data)
         {
             if (data == null)
             {
@@ -40,8 +35,7 @@ namespace commercetools.Common
 
             this.CurrencyCode = data.currencyCode;
             this.CentAmount = data.centAmount;
+            this.FractionDigits = data.fractionDigits;
         }
-
-        #endregion
     }
 }

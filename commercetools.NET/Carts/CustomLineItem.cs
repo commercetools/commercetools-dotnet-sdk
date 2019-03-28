@@ -77,7 +77,7 @@ namespace commercetools.Carts
         public Reference TaxCategory { get; private set; }
 
         /// <summary>
-        /// Will be set automatically in the Platform TaxMode once the shipping address is set is set. 
+        /// Will be set automatically in the Platform TaxMode once the shipping address is set is set.
         /// </summary>
         /// <remarks>
         /// For the External tax mode the tax rate has to be set explicitly with the ExternalTaxRateDraft.
@@ -114,7 +114,7 @@ namespace commercetools.Carts
 
             this.Id = data.id;
             this.Name = new LocalizedString(data.name);
-            this.Money = new Money(data.money);
+            this.Money = Helper.GetMoneyBasedOnType(data.money);
             this.TotalPrice = new Money(data.totalPrice);
             this.TaxedPrice = new TaxedItemPrice(data.taxedPrice);
             this.Slug = data.slug;

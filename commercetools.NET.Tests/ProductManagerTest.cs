@@ -26,6 +26,9 @@ namespace commercetools.Tests
         private ProductType _testProductType;
         private TaxCategory _testTaxCategory;
 
+        private string _productIdWithHighPrecisionPrice;
+        private string _productIdWithCentPrecisionPrice;
+
         /// <summary>
         /// Test setup
         /// </summary>
@@ -57,7 +60,7 @@ namespace commercetools.Tests
 
             _testProducts = new List<Product>();
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++) // Default Money
             {
                 ProductDraft productDraft = Helper.GetTestProductDraft(_project, _testProductType.Id, _testTaxCategory.Id);
 
@@ -70,6 +73,10 @@ namespace commercetools.Tests
 
                 _testProducts.Add(product);
             }
+            //Add Product with Money Price => CentPrecision Money Type
+            _productIdWithCentPrecisionPrice = AddProductWithSpecificMoneyType(MoneyTestTypes.CentPrecision);
+            //Add Product with Money Price => HighPrecision Money Type
+            _productIdWithHighPrecisionPrice = AddProductWithSpecificMoneyType(MoneyTestTypes.HighPrecision);
         }
 
         /// <summary>
@@ -272,6 +279,68 @@ namespace commercetools.Tests
                 Assert.AreEqual(_testProducts[1].MasterData.Staged.Name[language], newName[language]);
                 Assert.AreEqual(_testProducts[1].MasterData.Staged.Slug[language], newSlug[language]);
             }
+        }
+
+
+        [Test]
+        public async Task ShouldGetProductWithHighPrecisionPriceAsync()
+        {
+            Response<Product> response = await _client.Products().GetProductByIdAsync(_productIdWithHighPrecisionPrice);
+            Assert.IsTrue(response.Success);
+
+            Product product = response.Result;
+            Assert.NotNull(product.Id);
+            Assert.AreEqual(product.Id, _productIdWithHighPrecisionPrice);
+
+            Assert.NotNull(product.MasterData.Staged.MasterVariant);
+            Assert.IsNotEmpty(product.MasterData.Staged.MasterVariant.Prices);
+            Assert.IsNotNull(product.MasterData.Staged.MasterVariant.Prices[0].Value);
+
+            Assert.IsInstanceOf(typeof(HighPrecisionMoney), product.MasterData.Staged.MasterVariant.Prices[0].Value);
+
+            var highPrecisionMoney = product.MasterData.Staged.MasterVariant.Prices[0].Value as HighPrecisionMoney;
+
+            Assert.NotNull(highPrecisionMoney);
+            Assert.AreEqual(3, highPrecisionMoney.FractionDigits);
+            Assert.AreEqual(1000, highPrecisionMoney.PreciseAmount);
+
+        }
+
+        [Test]
+        public async Task ShouldGetProductWithCentPrecisionPriceAsync()
+        {
+            Response<Product> response = await _client.Products().GetProductByIdAsync(_productIdWithCentPrecisionPrice);
+            Assert.IsTrue(response.Success);
+
+            Product product = response.Result;
+            Assert.NotNull(product.Id);
+            Assert.AreEqual(product.Id, _productIdWithCentPrecisionPrice);
+
+            Assert.NotNull(product.MasterData.Staged.MasterVariant);
+            Assert.IsNotEmpty(product.MasterData.Staged.MasterVariant.Prices);
+            Assert.IsNotNull(product.MasterData.Staged.MasterVariant.Prices[0].Value);
+
+            Assert.IsInstanceOf(typeof(CentPrecisionMoney), product.MasterData.Staged.MasterVariant.Prices[0].Value);
+
+            var centPrecisionMoney = product.MasterData.Staged.MasterVariant.Prices[0].Value as CentPrecisionMoney;
+
+            Assert.NotNull(centPrecisionMoney);
+            Assert.AreEqual(2, centPrecisionMoney.FractionDigits);
+        }
+
+        private string AddProductWithSpecificMoneyType(MoneyTestTypes moneyTestTypes)
+        {
+            ProductDraft productDraft = Helper.GetTestProductDraft(_project, _testProductType.Id, _testTaxCategory.Id, moneyTestTypes);
+
+            Task<Response<Product>> productTask = _client.Products().CreateProductAsync(productDraft);
+            productTask.Wait();
+            Assert.IsTrue(productTask.Result.Success);
+
+            Product product = productTask.Result.Result;
+            Assert.NotNull(product.Id);
+
+            _testProducts.Add(product);
+            return product.Id;
         }
     }
 }

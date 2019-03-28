@@ -35,7 +35,7 @@ namespace commercetools.Carts
                 return;
             }
 
-            this.Value = new Money(data.value);
+            this.Value = Helper.GetMoneyBasedOnType(data.value);
             this.IncludedDiscounts = Helper.GetListFromJsonArray<DiscountedLineItemPortion>(data.includedDiscounts);
         }
 

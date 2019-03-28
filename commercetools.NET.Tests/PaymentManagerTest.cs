@@ -174,7 +174,6 @@ namespace commercetools.Tests
             Assert.NotNull(_testPayments[2].Id);
             Assert.AreEqual(_testPayments[2].ExternalId, newExternalId);
             Assert.AreEqual(_testPayments[2].AmountPlanned.CentAmount, newAmountPlanned.CentAmount);
-            Assert.AreEqual(_testPayments[2].AmountPlanned.FractionDigits, newAmountPlanned.FractionDigits);
         }
     }
 }
