@@ -43,7 +43,7 @@ function getVersion() {
             }
 
             # Nuget limits "special version part" to 20 chars. Add one for the hyphen.
-            if ($suffix.Length > 21)
+            if ($suffix.Length -gt 21)
             {
                 $suffix = $suffix.Substring(0, 21);
             }
