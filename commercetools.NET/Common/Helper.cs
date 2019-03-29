@@ -193,23 +193,32 @@ namespace commercetools.Common
         public static Money GetMoneyBasedOnType(dynamic data)
         {
             Money money = null;
-            if (data != null && data.type!=null)
+            if (data != null)
             {
-                string type = data.type.ToString();
-
-                if (!Enum.TryParse(type, true, out MoneyTypesEnum moneyType)) return new Money(data);
-
-                switch (moneyType)
+                if (data.type != null)
                 {
-                    case MoneyTypesEnum.CentPrecision:
-                        money = new CentPrecisionMoney(data);
-                        break;
-                    case MoneyTypesEnum.HighPrecision:
-                        money = new HighPrecisionMoney(data);
-                        break;
-                    default:
+                    string type = data.type.ToString();
+                    if (!Enum.TryParse(type, true, out MoneyTypesEnum moneyType)) return new Money(data);
+
+                    switch (moneyType)
+                    {
+                        case MoneyTypesEnum.CentPrecision:
+                            money = new CentPrecisionMoney(data);
+                            break;
+                        case MoneyTypesEnum.HighPrecision:
+                            money = new HighPrecisionMoney(data);
+                            break;
+                        default:
+                            money = new Money(data);
+                            break;
+                    }
+                }
+                else //if there is not type in the json, and still have currency and centAmount
+                {
+                    if (data.currencyCode != null && data.centAmount != null)
+                    {
                         money = new Money(data);
-                        break;
+                    }
                 }
             }
             return money;
