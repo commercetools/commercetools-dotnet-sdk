@@ -37,7 +37,7 @@ namespace commercetools.Common
         }
 
         /// <summary>
-        /// Gets a query string from a NameValueCollection, with the values 
+        /// Gets a query string from a NameValueCollection, with the values
         /// properly encoded.
         /// </summary>
         /// <param name="val">Values</param>
@@ -53,7 +53,17 @@ namespace commercetools.Common
 
             foreach (string name in val)
             {
-                items.Add(string.Concat(name, "=", Helper.UrlEncode(val[name])));
+                if (val.GetValues(name).Length > 0)
+                {
+                    foreach (var value in val.GetValues(name))
+                    {
+                        if (value != string.Empty)
+                        {
+                            items.Add(string.Concat(name, "=", Helper.UrlEncode(value)));
+                        }
+                    }
+
+                }
             }
 
             return string.Concat("?", string.Join("&", items.ToArray()));
