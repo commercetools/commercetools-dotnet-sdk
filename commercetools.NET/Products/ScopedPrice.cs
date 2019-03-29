@@ -60,8 +60,8 @@ namespace commercetools.Products
             }
 
             this.Id = data.id;
-            this.Value = new Money(data.value);
-            this.CurrentValue = new Money(data.currentValue);
+            this.Value = Helper.GetMoneyBasedOnType(data.value);
+            this.CurrentValue = Helper.GetMoneyBasedOnType(data.currentValue);
             this.Country = data.country;
             this.CustomerGroup = new Reference(data.customerGroup);
             this.Channel = new Reference(data.channel);

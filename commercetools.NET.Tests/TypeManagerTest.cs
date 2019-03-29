@@ -100,7 +100,7 @@ namespace commercetools.Tests
         /// </summary>
         /// <see cref="TypeManager.QueryTypesAsync"/>
         [Test]
-        public async Task ShouldQueryShippingMethodsAsync()
+        public async Task ShouldQueryTypesAsync()
         {
             Response<TypeQueryResult> response = await _client.Types().QueryTypesAsync();
             Assert.IsTrue(response.Success);

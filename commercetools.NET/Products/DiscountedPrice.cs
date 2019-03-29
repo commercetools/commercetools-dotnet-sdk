@@ -35,7 +35,7 @@ namespace commercetools.Products
                 return;
             }
 
-            this.Value = data.value != null ? new Money(data.value) : null;
+            this.Value = data.value != null ? Helper.GetMoneyBasedOnType(data.value) : null;
             this.Discount = data.discount != null ? new Reference(data.discount) : null;
         }
 

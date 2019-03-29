@@ -16,7 +16,7 @@ namespace commercetools.Types
         public string Key { get; set; }
 
         [JsonProperty(PropertyName = "label")]
-        public LocalizedString Label { get; set; }
+        public string Label { get; set; }
 
         #endregion
 
@@ -41,7 +41,7 @@ namespace commercetools.Types
             }
 
             this.Key = data.key;
-            this.Label = new LocalizedString(data.label);
+            this.Label = data.label;
         }
 
         #endregion

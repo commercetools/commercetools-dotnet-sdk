@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using commercetools.CartDiscounts;
 using commercetools.Carts;
@@ -195,7 +196,7 @@ namespace commercetools.Tests
                 Money = new Money
                 {
                     CentAmount = 30,
-                    CurrencyCode = currency
+                    CurrencyCode = currency,
                 },
                 Slug = "Test-CustomLineItem-Slug",
             });
@@ -449,7 +450,6 @@ namespace commercetools.Tests
             Money money = new Money();
             money.CentAmount = Helper.GetRandomNumber(100, 999999);
             money.CurrencyCode = project.Currencies[0];
-
             return money;
         }
 
@@ -616,19 +616,11 @@ namespace commercetools.Tests
         /// <param name="project">Project</param>
         /// <param name="productTypeId">Product type ID</param>
         /// <param name="taxCategoryId">Tax category ID</param>
+        /// <param name="moneyTestType">pass type to identify money type (either CentPrecision or HighPrecisionMoney or Default Money)</param>
         /// <returns></returns>
-        public static ProductDraft GetTestProductDraft(Project.Project project, string productTypeId, string taxCategoryId)
+        public static ProductDraft GetTestProductDraft(Project.Project project, string productTypeId, string taxCategoryId, MoneyTestTypes moneyTestType = MoneyTestTypes.Money)
         {
-            List<PriceDraft> priceDrafts = new List<PriceDraft>();
-
-            foreach (string currency in project.Currencies)
-            {
-                Money value = new Money();
-                value.CurrencyCode = currency;
-                value.CentAmount = Helper.GetRandomNumber(10, 999999);
-
-                priceDrafts.Add(new PriceDraft(value));
-            }
+            List<PriceDraft> priceDrafts = GetListOfPriceDraft(project, moneyTestType);
 
             string randomSku = Helper.GetRandomString(10);
             ProductVariantDraft productVariantDraft = new ProductVariantDraft();
@@ -669,6 +661,51 @@ namespace commercetools.Tests
             productDraft.MasterVariant = productVariantDraft;
 
             return productDraft;
+        }
+        /// <summary>
+        /// Get List of Price Drafts Based on project Currencies
+        /// </summary>
+        /// <param name="project"></param>
+        /// <param name="moneyTestType">pass type to identify money type (either CentPrecision or HighPrecisionMoney or Default Money)</param>
+        /// <returns></returns>
+        private static List<PriceDraft> GetListOfPriceDraft(Project.Project project, MoneyTestTypes moneyTestType)
+        {
+            List<PriceDraft> priceDrafts = new List<PriceDraft>();
+            Money value = null;
+            long centAmount = Helper.GetRandomNumber(10, 999999);
+            switch (moneyTestType)
+            {
+                case MoneyTestTypes.HighPrecision:
+                    value = new HighPrecisionMoney()
+                    {
+                        CentAmount = 100,
+                        FractionDigits = 3,
+                        PreciseAmount = 1000
+                    };
+                    break;
+
+                case MoneyTestTypes.CentPrecision:
+                    value = new CentPrecisionMoney()
+                    {
+                        CentAmount = centAmount,
+                        FractionDigits = 2
+                    };
+                    break;
+                default:
+                    value = new Money()
+                    {
+                        CentAmount = centAmount
+                    };
+                    break;
+            }
+
+            foreach (string currency in project.Currencies)
+            {
+                value.CurrencyCode = currency;
+                priceDrafts.Add(new PriceDraft(value));
+            }
+
+            return priceDrafts;
         }
 
         #endregion
@@ -1093,5 +1130,11 @@ namespace commercetools.Tests
         #endregion
 
 
+    }
+    public enum MoneyTestTypes
+    {
+        CentPrecision,
+        HighPrecision,
+        Money
     }
 }

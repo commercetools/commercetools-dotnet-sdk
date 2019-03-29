@@ -89,11 +89,11 @@ namespace commercetools.Payments
             this.Customer = new Reference(data.customer);
             this.ExternalId = data.externalId;
             this.InterfaceId = data.interfaceId;
-            this.AmountPlanned = new Money(data.amountPlanned);
-            this.AmountAuthorized = new Money(data.amountAuthorized);
+            this.AmountPlanned = Helper.GetMoneyBasedOnType(data.amountPlanned);
+            this.AmountAuthorized = Helper.GetMoneyBasedOnType(data.amountAuthorized);
             this.AuthorizedUntil = data.authorizedUntil;
-            this.AmountPaid = new Money(data.amountPaid);
-            this.AmountRefunded = new Money(data.amountRefunded);
+            this.AmountPaid = Helper.GetMoneyBasedOnType(data.amountPaid);
+            this.AmountRefunded = Helper.GetMoneyBasedOnType(data.amountRefunded);
             this.PaymentMethodInfo = new PaymentMethodInfo(data.paymentMethodInfo);
             this.PaymentStatus = new PaymentStatus(data.paymentStatus);
             this.Transactions = Helper.GetListFromJsonArray<Transaction>(data.transactions);

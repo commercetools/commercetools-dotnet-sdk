@@ -69,7 +69,7 @@ namespace commercetools.Payments
             this.Id = data.id;
             this.Type = Enum.TryParse(typeStr, out type) ? (TransactionType?)type : null;
             this.Timestamp = data.timestamp;
-            this.Amount = new Money(data.amount);
+            this.Amount = Helper.GetMoneyBasedOnType(data.amount);
             this.InteractionId = data.interactionId;
             this.State = Enum.TryParse(stateStr, out state) ? (TransactionState?)state : null;
         }

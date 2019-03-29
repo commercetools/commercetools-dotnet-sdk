@@ -43,7 +43,7 @@ namespace commercetools.Carts
 
             this.Name = data.name;
             this.Rate = data.rate;
-            this.Amount = new Money(data.amount);
+            this.Amount = Helper.GetMoneyBasedOnType(data.amount);
         }
 
         #endregion
