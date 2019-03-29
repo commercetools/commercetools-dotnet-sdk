@@ -21,7 +21,7 @@ namespace commercetools.ShippingMethods.Tiers
             }
 
             this.Type = data.type;
-            this.Price = new Money(data.price);
+            this.Price = Helper.GetMoneyBasedOnType(data.price);
             this.Score = data.score;
         }
     }

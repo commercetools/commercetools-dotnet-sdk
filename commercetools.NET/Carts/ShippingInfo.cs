@@ -59,7 +59,7 @@ namespace commercetools.Carts
             }
 
             this.ShippingMethodName = data.shippingMethodName;
-            this.Price = new Money(data.price);
+            this.Price = Helper.GetMoneyBasedOnType(data.price);
             this.ShippingRate = new ShippingRate(data.shippingRate);
             this.TaxRate = new TaxRate(data.taxRate);
             this.TaxCategory = new Reference(data.taxCategory);

@@ -38,8 +38,8 @@ namespace commercetools.Carts
                 return;
             }
 
-            this.TotalNet = new Money(data.totalNet);
-            this.TotalGross = new Money(data.totalGross);
+            this.TotalNet = Helper.GetMoneyBasedOnType(data.totalNet);
+            this.TotalGross = Helper.GetMoneyBasedOnType(data.totalGross);
             this.TaxPortions = Helper.GetListFromJsonArray<TaxPortion>(data.taxPortions);
         }
 

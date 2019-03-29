@@ -115,7 +115,7 @@ namespace commercetools.Carts
             this.Id = data.id;
             this.Name = new LocalizedString(data.name);
             this.Money = Helper.GetMoneyBasedOnType(data.money);
-            this.TotalPrice = new Money(data.totalPrice);
+            this.TotalPrice = Helper.GetMoneyBasedOnType(data.totalPrice);
             this.TaxedPrice = new TaxedItemPrice(data.taxedPrice);
             this.Slug = data.slug;
             this.Quantity = data.quantity;

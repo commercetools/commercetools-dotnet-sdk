@@ -99,7 +99,7 @@ namespace commercetools.Carts
             this.Variant = new ProductVariant(data.variant);
             this.Price = new Price(data.price);
             this.TaxedPrice = new TaxedItemPrice(data.taxedPrice);
-            this.TotalPrice = new Money(data.totalPrice);
+            this.TotalPrice = Helper.GetMoneyBasedOnType(data.totalPrice);
             this.Quantity = data.quantity;
             this.State = Helper.GetListFromJsonArray<ItemState>(data.State);
             this.TaxRate = new TaxRate(data.taxRate);

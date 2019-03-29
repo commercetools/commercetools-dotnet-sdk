@@ -41,7 +41,7 @@ namespace commercetools.Carts
             }
 
             this.Price = Helper.GetMoneyBasedOnType(data.price);
-            this.TotalPrice = new Money(data.totalPrice);
+            this.TotalPrice = Helper.GetMoneyBasedOnType(data.totalPrice);
         }
 
         #endregion

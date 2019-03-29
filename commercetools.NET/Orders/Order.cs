@@ -264,7 +264,7 @@ namespace commercetools.Orders
             this.AnonymousId = data.anonymousId;
             this.LineItems = Helper.GetListFromJsonArray<LineItem>(data.lineItems);
             this.CustomLineItems = Helper.GetListFromJsonArray<CustomLineItem>(data.customLineItems);
-            this.TotalPrice = new Money(data.totalPrice);
+            this.TotalPrice = Helper.GetMoneyBasedOnType(data.totalPrice);
             this.TaxedPrice = new TaxedPrice(data.taxedPrice);
             this.ShippingAddress = new Address(data.shippingAddress);
             this.BillingAddress = new Address(data.billingAddress);

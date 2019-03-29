@@ -169,7 +169,7 @@ namespace commercetools.Carts
         public string Locale { get; private set; }
 
         /// <summary>
-        /// The cart will be deleted automatically if it hasn’t been modified 
+        /// The cart will be deleted automatically if it hasn’t been modified
         /// for the specified amount of days and it is in the Active CartState.
         /// </summary>
         [JsonProperty(PropertyName = "deleteDaysAfterLastModification")]
@@ -219,7 +219,7 @@ namespace commercetools.Carts
             this.AnonymousId = data.anonymousId;
             this.LineItems = Helper.GetListFromJsonArray<LineItem>(data.lineItems);
             this.CustomLineItems = Helper.GetListFromJsonArray<CustomLineItem>(data.customLineItems);
-            this.TotalPrice = new Money(data.totalPrice);
+            this.TotalPrice = Helper.GetMoneyBasedOnType(data.totalPrice);
             this.TaxedPrice = new TaxedPrice(data.taxedPrice);
             this.CartState = Enum.TryParse(cartStateStr, out cartState) ? (CartState?)cartState : null;
             this.ShippingAddress = new Address(data.shippingAddress);
