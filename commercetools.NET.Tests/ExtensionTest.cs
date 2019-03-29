@@ -27,6 +27,13 @@ namespace commercetools.Tests
                 "?",
                 new NameValueCollection()
                 {
+                    {"expand", " "}
+                }
+            },
+            new object[] {
+                "?",
+                new NameValueCollection()
+                {
                     {"expand", ""}
                 }
             },

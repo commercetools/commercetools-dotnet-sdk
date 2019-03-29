@@ -57,7 +57,7 @@ namespace commercetools.Common
                 {
                     foreach (var value in val.GetValues(name))
                     {
-                        if (value != string.Empty)
+                        if (!string.IsNullOrWhiteSpace(value))
                         {
                             items.Add(string.Concat(name, "=", Helper.UrlEncode(value)));
                         }
