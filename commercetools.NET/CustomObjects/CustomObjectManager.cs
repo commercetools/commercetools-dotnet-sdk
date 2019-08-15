@@ -45,7 +45,7 @@ namespace commercetools.CustomObjects
         /// <param name="customObjectId">ID of the custom object</param>
         /// <returns>CustomObject</returns>
         /// <see href="https://docs.commercetools.com/http-api-projects-custom-objects.html#get-customobject-by-id"/>
-        public Task<Response<CustomObject>> GetCustomObjectByIdAsync(string customObjectId)
+        public Task<Response<CustomObject<T>>> GetCustomObjectByIdAsync<T>(string customObjectId)
         {
             if (string.IsNullOrWhiteSpace(customObjectId))
             {
@@ -53,7 +53,7 @@ namespace commercetools.CustomObjects
             }
 
             string endpoint = string.Concat(ENDPOINT_PREFIX, "/", customObjectId);
-            return _client.GetAsync<CustomObject>(endpoint);
+            return _client.GetAsync<CustomObject<T>>(endpoint);
         }
         
         /// <summary>
@@ -63,7 +63,7 @@ namespace commercetools.CustomObjects
         /// <param name="key">CustomObject key</param>
         /// <returns>CustomObject</returns>
         /// <see href="https://docs.commercetools.com/http-api-projects-custom-objects.html#get-customobject-by-container-and-key" />
-        public Task<Response<CustomObject>> GetCustomObjectByContainerAndKeyAsync(string container, string key)
+        public Task<Response<CustomObject<T>>> GetCustomObjectByContainerAndKeyAsync<T>(string container, string key)
         {
             if (string.IsNullOrWhiteSpace(container))
             {
@@ -76,7 +76,7 @@ namespace commercetools.CustomObjects
             }
 
             string endpoint = string.Concat(ENDPOINT_PREFIX, "/", container, "/", key);
-            return _client.GetAsync<CustomObject>(endpoint);
+            return _client.GetAsync<CustomObject<T>>(endpoint);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace commercetools.CustomObjects
         /// <param name="offset">Offset</param>
         /// <returns>CustomObjectQueryResult</returns>
         /// <see href="https://docs.commercetools.com/http-api-projects-custom-objects.html#query-customobjects" />
-        public Task<Response<CustomObjectQueryResult>> QueryCustomObjectsAsync(string where = null, string sort = null, int limit = -1, int offset = -1)
+        public Task<Response<CustomObjectQueryResult<T>>> QueryCustomObjectsAsync<T>(string where = null, string sort = null, int limit = -1, int offset = -1)
         {
             NameValueCollection values = new NameValueCollection();
 
@@ -112,7 +112,7 @@ namespace commercetools.CustomObjects
                 values.Add("offset", offset.ToString());
             }
 
-            return _client.GetAsync<CustomObjectQueryResult>(ENDPOINT_PREFIX, values);
+            return _client.GetAsync<CustomObjectQueryResult<T>>(ENDPOINT_PREFIX, values);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace commercetools.CustomObjects
         /// <param name="customObjectDraft">CustomObjectDraft</param>
         /// <returns>CustomObject</returns>
         /// <see href="https://docs.commercetools.com/http-api-projects-custom-objects.html#create-or-update-a-customobject" />
-        public Task<Response<CustomObject>> CreateOrUpdateCustomObjectAsync(CustomObjectDraft customObjectDraft)
+        public Task<Response<CustomObject<T>>> CreateOrUpdateCustomObjectAsync<T>(CustomObjectDraft<T> customObjectDraft)
         {
             if (string.IsNullOrWhiteSpace(customObjectDraft.Container))
             {
@@ -139,7 +139,7 @@ namespace commercetools.CustomObjects
             }
             
             string payload = JsonConvert.SerializeObject(customObjectDraft, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-            return _client.PostAsync<CustomObject>(ENDPOINT_PREFIX, payload);
+            return _client.PostAsync<CustomObject<T>>(ENDPOINT_PREFIX, payload);
         }
 
         /// <summary>
@@ -149,9 +149,9 @@ namespace commercetools.CustomObjects
         /// <param name="dataErasure">Whether or not to erase data</param>
         /// <returns>CustomObject</returns>
         /// <see href="https://docs.commercetools.com/http-api-projects-custom-objects.html#delete-customobject-by-id" />
-        public Task<Response<CustomObject>> DeleteCustomObjectAsync(CustomObject customObject, bool dataErasure = false)
+        public Task<Response<CustomObject<T>>> DeleteCustomObjectAsync<T>(CustomObject<T> customObject, bool dataErasure = false)
         {
-            return DeleteCustomObjectAsync(customObject.Id, customObject.Version, dataErasure);
+            return DeleteCustomObjectAsync<T>(customObject.Id, customObject.Version, dataErasure);
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace commercetools.CustomObjects
         /// <param name="dataErasure">Whether or not to erase data</param>
         /// <returns>CustomObject</returns>
         /// <see href="https://docs.commercetools.com/http-api-projects-custom-objects.html#delete-customobject-by-id" />
-        public Task<Response<CustomObject>> DeleteCustomObjectAsync(string customObjectId, int? version = null, bool dataErasure = false)
+        public Task<Response<CustomObject<T>>> DeleteCustomObjectAsync<T>(string customObjectId, int? version = null, bool dataErasure = false)
         {
             if (string.IsNullOrWhiteSpace(customObjectId))
             {
@@ -182,7 +182,7 @@ namespace commercetools.CustomObjects
             }
             
             string endpoint = string.Concat(ENDPOINT_PREFIX, "/", customObjectId);
-            return _client.DeleteAsync<CustomObject>(endpoint, values);
+            return _client.DeleteAsync<CustomObject<T>>(endpoint, values);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace commercetools.CustomObjects
         /// <param name="dataErasure">Whether or not to erase data</param>
         /// <returns>CustomObject</returns>
         /// <see href="https://docs.commercetools.com/http-api-projects-custom-objects.html#delete-customobject-by-container-and-key" />
-        public Task<Response<CustomObject>> DeleteCustomObjectByContainerAndKeyAsync(string container, string key, bool dataErasure = false)
+        public Task<Response<CustomObject<T>>> DeleteCustomObjectByContainerAndKeyAsync<T>(string container, string key, bool dataErasure = false)
         {
             if (string.IsNullOrWhiteSpace(container))
             {
@@ -212,7 +212,7 @@ namespace commercetools.CustomObjects
             }
             
             string endpoint = string.Concat(ENDPOINT_PREFIX, "/", container, "/", key);
-            return _client.DeleteAsync<CustomObject>(endpoint, values);
+            return _client.DeleteAsync<CustomObject<T>>(endpoint, values);
         }
         
         #endregion

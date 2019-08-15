@@ -13,7 +13,7 @@ namespace commercetools.Tests
     public class CustomObjectManagerTest
     {
         private Client _client;
-        private CustomObject _testCustomObject;
+        private CustomObject<string> _testCustomObject;
 
         /// <summary>
         /// Test setup
@@ -27,12 +27,12 @@ namespace commercetools.Tests
             projectTask.Wait();
             Assert.IsTrue(projectTask.Result.Success);
 
-            CustomObjectDraft customObjectDraft = Helper.GetTestCustomObjectDraft();
-            Task<Response<CustomObject>> customObjectTask = _client.CustomObjects().CreateOrUpdateCustomObjectAsync(customObjectDraft);
+            CustomObjectDraft<string> customObjectDraft = Helper.GetTestCustomObjectDraft();
+            Task<Response<CustomObject<string>>> customObjectTask = _client.CustomObjects().CreateOrUpdateCustomObjectAsync(customObjectDraft);
             customObjectTask.Wait();
             Assert.IsTrue(customObjectTask.Result.Success);
 
-            CustomObject customObject = customObjectTask.Result.Result;
+            CustomObject<string> customObject = customObjectTask.Result.Result;
             Assert.NotNull(customObject.Id);
 
             _testCustomObject = customObject;
@@ -44,7 +44,7 @@ namespace commercetools.Tests
         [OneTimeTearDown]
         public void Dispose()
         {
-            Task<Response<CustomObject>> customObjectTask = _client.CustomObjects().DeleteCustomObjectAsync(_testCustomObject);
+            Task<Response<CustomObject<string>>> customObjectTask = _client.CustomObjects().DeleteCustomObjectAsync(_testCustomObject);
             customObjectTask.Wait();
         }
 
@@ -55,10 +55,10 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldGetCustomObjectByIdAsync()
         {
-            Response<CustomObject> response = await _client.CustomObjects().GetCustomObjectByIdAsync(_testCustomObject.Id);
+            Response<CustomObject<string>> response = await _client.CustomObjects().GetCustomObjectByIdAsync<string>(_testCustomObject.Id);
             Assert.IsTrue(response.Success);
 
-            CustomObject customObject = response.Result;
+            CustomObject<string> customObject = response.Result;
             Assert.NotNull(customObject.Id);
             Assert.AreEqual(customObject.Id, _testCustomObject.Id);
         }
@@ -70,10 +70,10 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldQueryCustomObjectsAsync()
         {
-            Response<CustomObjectQueryResult> response = await _client.CustomObjects().QueryCustomObjectsAsync();
+            Response<CustomObjectQueryResult<string>> response = await _client.CustomObjects().QueryCustomObjectsAsync<string>();
             Assert.IsTrue(response.Success);
 
-            CustomObjectQueryResult customObjectQueryResult = response.Result;
+            CustomObjectQueryResult<string> customObjectQueryResult = response.Result;
             Assert.NotNull(customObjectQueryResult.Results);
             Assert.GreaterOrEqual(customObjectQueryResult.Results.Count, 1);
         }
@@ -86,18 +86,18 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldCreateAndDeleteCustomObjectAsync()
         {
-            CustomObjectDraft customObjectDraft = Helper.GetTestCustomObjectDraft();
-            Response<CustomObject> customObjectCreatedResponse = await _client.CustomObjects().CreateOrUpdateCustomObjectAsync(customObjectDraft);
+            CustomObjectDraft<string> customObjectDraft = Helper.GetTestCustomObjectDraft();
+            Response<CustomObject<string>> customObjectCreatedResponse = await _client.CustomObjects().CreateOrUpdateCustomObjectAsync(customObjectDraft);
             Assert.IsTrue(customObjectCreatedResponse.Success);
 
-            CustomObject customObject = customObjectCreatedResponse.Result;
+            CustomObject<string> customObject = customObjectCreatedResponse.Result;
             Assert.NotNull(customObject.Id);
             
             string deletedCustomObjectId = customObject.Id;
-            Response<CustomObject> customObjectResponse = await _client.CustomObjects().DeleteCustomObjectAsync(customObject);
+            Response<CustomObject<string>> customObjectResponse = await _client.CustomObjects().DeleteCustomObjectAsync(customObject);
             Assert.IsTrue(customObjectResponse.Success);
 
-            customObjectResponse = await _client.CustomObjects().GetCustomObjectByIdAsync(deletedCustomObjectId);
+            customObjectResponse = await _client.CustomObjects().GetCustomObjectByIdAsync<string>(deletedCustomObjectId);
             Assert.IsFalse(customObjectResponse.Success);
         }
 
@@ -108,17 +108,19 @@ namespace commercetools.Tests
         [Test]
         public async Task ShouldUpdateCustomObjectAsync()
         {
-            CustomObjectDraft customObjectDraft = Helper.GetTestCustomObjectDraft();
+            CustomObjectDraft<string> customObjectDraft = Helper.GetTestCustomObjectDraft();
             customObjectDraft.Container = _testCustomObject.Container;
             customObjectDraft.Key = _testCustomObject.Key;
             customObjectDraft.Version = _testCustomObject.Version + 1;
+            customObjectDraft.Value = "newValue";
             
-            Response<CustomObject> response = await _client.CustomObjects().CreateOrUpdateCustomObjectAsync(customObjectDraft);
+            Response<CustomObject<string>> response = await _client.CustomObjects().CreateOrUpdateCustomObjectAsync(customObjectDraft);
             Assert.IsTrue(response.Success);
 
-            CustomObject updatedObject = response.Result;
+            CustomObject<string> updatedObject = response.Result;
             Assert.NotNull(updatedObject.Id);
             Assert.AreEqual(_testCustomObject.Id, updatedObject.Id);
+            Assert.AreEqual("newValue", updatedObject.Value);
         }
     }
 }

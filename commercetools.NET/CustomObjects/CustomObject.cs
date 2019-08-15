@@ -1,4 +1,6 @@
 using System;
+using System.Reflection;
+using commercetools.Common;
 using Newtonsoft.Json;
 
 namespace commercetools.CustomObjects
@@ -7,7 +9,7 @@ namespace commercetools.CustomObjects
     /// Custom objects are a way to store arbitrary JSON-formatted data on the commercetools platform.
     /// <see href="https://docs.commercetools.com/http-api-projects-custom-objects.html#customobject"/>
     /// </summary>
-    public class CustomObject
+    public class CustomObject<T>
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; private set; }
@@ -28,7 +30,7 @@ namespace commercetools.CustomObjects
         public DateTime LastModifiedAt { get; private set; }
         
         [JsonProperty(PropertyName = "value")]
-        public object Value { get; private set; }
+        public T Value { get; private set; }
 
         public CustomObject(dynamic data)
         {
@@ -38,7 +40,13 @@ namespace commercetools.CustomObjects
             this.Key = data.key;
             this.CreatedAt = data.createdAt;
             this.LastModifiedAt = data.lastModifiedAt;
-            this.Value = data.value;
+            
+            ConstructorInfo constructor = Helper.GetConstructorWithDataParameter(typeof(T));
+            if (constructor != null)
+            {
+                Helper.ObjectActivator<T> activator = Helper.GetActivator<T>(constructor);
+                this.Value = activator(data);
+            }
         }
     }
 }

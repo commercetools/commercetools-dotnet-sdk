@@ -6,7 +6,7 @@ namespace commercetools.CustomObjects
     /// API representation for creating a new Customer.
     /// </summary>
     /// <see href="https://docs.commercetools.com/http-api-projects-custom-objects.html#customobjectdraft"/>
-    public class CustomObjectDraft
+    public class CustomObjectDraft<T>
     {
         /// <summary>
         /// Container serves as a namespace for related custom objects
@@ -24,7 +24,7 @@ namespace commercetools.CustomObjects
         /// Value of the custom object. Can be any supported JSON value.
         /// </summary>
         [JsonProperty(PropertyName = "value")]
-        public object Value { get; set; }
+        public T Value { get; set; }
         
         /// <summary>
         /// The optional version of the custom object. 
@@ -32,7 +32,7 @@ namespace commercetools.CustomObjects
         [JsonProperty(PropertyName = "version")]
         public int? Version { get; set; }
 
-        public CustomObjectDraft(string container, string key, object value)
+        public CustomObjectDraft(string container, string key, T value)
         {
             this.Container = container;
             this.Key = key;

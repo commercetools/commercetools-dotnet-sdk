@@ -479,9 +479,9 @@ namespace commercetools.Tests
         
         #region CustomObjects
 
-        public static CustomObjectDraft GetTestCustomObjectDraft()
+        public static CustomObjectDraft<string> GetTestCustomObjectDraft()
         {
-            return new CustomObjectDraft("Container", "CustomObjectKey", "CustomObjectValue");    
+            return new CustomObjectDraft<string>("Container", "CustomObjectKey", "CustomObjectValue");    
         }
         
         #endregion

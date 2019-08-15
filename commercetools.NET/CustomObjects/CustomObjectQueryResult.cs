@@ -8,7 +8,7 @@ namespace commercetools.CustomObjects
     /// An implementation of PagedQueryResult that provides access to the results as a List of CustomObject objects.
     /// </summary>
     /// <see href="https://dev.commercetools.com/http-api.html#pagedqueryresult"/>
-    public class CustomObjectQueryResult : PagedQueryResult
+    public class CustomObjectQueryResult<T> : PagedQueryResult
     {
         #region Properties
 
@@ -16,7 +16,7 @@ namespace commercetools.CustomObjects
         /// Results
         /// </summary>
         [JsonProperty(PropertyName = "results")]
-        public List<CustomObject> Results { get; set; }
+        public List<CustomObject<T>> Results { get; set; }
 
         #endregion
 
@@ -34,7 +34,7 @@ namespace commercetools.CustomObjects
                 return;
             }
 
-            this.Results = Helper.GetListFromJsonArray<CustomObject>(data.results);
+            this.Results = Helper.GetListFromJsonArray<CustomObject<T>>(data.results);
         }
 
         #endregion
