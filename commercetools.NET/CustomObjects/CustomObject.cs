@@ -45,7 +45,7 @@ namespace commercetools.CustomObjects
             if (constructor != null)
             {
                 Helper.ObjectActivator<T> activator = Helper.GetActivator<T>(constructor);
-                this.Value = activator(data);
+                this.Value = activator(data.value);
             }
         }
     }
