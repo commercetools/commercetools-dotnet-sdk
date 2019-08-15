@@ -24,7 +24,7 @@ using Configuration = commercetools.Common.Configuration;
 using ReferenceType = commercetools.Common.ReferenceType;
 using commercetools.Subscriptions;
 using commercetools.Channels;
-
+using commercetools.CustomObjects;
 using commercetools.Inventory;
 using commercetools.GeoLocation;
 using Microsoft.Extensions.Configuration;
@@ -475,6 +475,15 @@ namespace commercetools.Tests
             return customerDraft;
         }
 
+        #endregion
+        
+        #region CustomObjects
+
+        public static CustomObjectDraft GetTestCustomObjectDraft()
+        {
+            return new CustomObjectDraft("Container", "CustomObjectKey", "CustomObjectValue");    
+        }
+        
         #endregion
 
         #region Discount Codes
