@@ -476,14 +476,14 @@ namespace commercetools.Tests
         }
 
         #endregion
-        
+
         #region CustomObjects
 
         public static CustomObjectDraft<string> GetTestCustomObjectDraft()
         {
-            return new CustomObjectDraft<string>("Container", "CustomObjectKey", "CustomObjectValue");    
+            return new CustomObjectDraft<string>("Container", "CustomObjectKey" + GetRandomNumber(1, 10000), "CustomObjectValue");
         }
-        
+
         #endregion
 
         #region Discount Codes

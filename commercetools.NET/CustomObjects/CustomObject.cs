@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using commercetools.Common;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace commercetools.CustomObjects
 {
@@ -13,22 +14,22 @@ namespace commercetools.CustomObjects
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; private set; }
-        
+
         [JsonProperty(PropertyName = "version")]
         public int Version { get; private set; }
-        
+
         [JsonProperty(PropertyName = "container")]
         public string Container { get; private set; }
-        
+
         [JsonProperty(PropertyName = "key")]
         public string Key { get; private set; }
-        
+
         [JsonProperty(PropertyName = "createdAt")]
         public DateTime CreatedAt { get; private set; }
-        
+
         [JsonProperty(PropertyName = "lastModifiedAt")]
         public DateTime LastModifiedAt { get; private set; }
-        
+
         [JsonProperty(PropertyName = "value")]
         public T Value { get; private set; }
 
@@ -40,12 +41,16 @@ namespace commercetools.CustomObjects
             this.Key = data.key;
             this.CreatedAt = data.createdAt;
             this.LastModifiedAt = data.lastModifiedAt;
-            
+
             ConstructorInfo constructor = Helper.GetConstructorWithDataParameter(typeof(T));
             if (constructor != null)
             {
                 Helper.ObjectActivator<T> activator = Helper.GetActivator<T>(constructor);
                 this.Value = activator(data.value);
+            }
+            else if (data.value is JValue jValue)
+            {
+                this.Value = jValue.ToObject<T>();
             }
         }
     }
