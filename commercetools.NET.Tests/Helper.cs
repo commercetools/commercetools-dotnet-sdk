@@ -750,11 +750,13 @@ namespace commercetools.Tests
             taxCategoryReference.ReferenceType = Common.ReferenceType.TaxCategory;
 
             string name = string.Concat("Test Shipping Method ", Helper.GetRandomString(10));
+            string key = Helper.GetRandomString(10);
 
             ZoneRate zoneRate = Helper.GetTestZoneRate(project, zone);
 
             ShippingMethodDraft shippingMethodDraft = new ShippingMethodDraft(name, taxCategoryReference, new List<ZoneRate>() { zoneRate });
             shippingMethodDraft.Description = "Created by commercetools.NET";
+            shippingMethodDraft.Key = key;
 
             return shippingMethodDraft;
         }

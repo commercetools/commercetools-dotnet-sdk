@@ -21,6 +21,9 @@ namespace commercetools.ShippingMethods
         [JsonProperty(PropertyName = "id")]
         public string Id { get; private set; }
 
+        [JsonProperty(PropertyName = "key")]
+        public string Key { get; set; }
+
         [JsonProperty(PropertyName = "version")]
         public int Version { get; private set; }
 
@@ -65,6 +68,7 @@ namespace commercetools.ShippingMethods
             this.CreatedAt = data.createdAt;
             this.LastModifiedAt = data.lastModifiedAt;
             this.Name = data.name;
+            this.Key = data.key;
             this.Description = data.description;
             this.TaxCategory = data.taxCategory != null ? new Reference(data.taxCategory) : null;
             this.ZoneRates = Helper.GetListFromJsonArray<ZoneRate>(data.zoneRates);
