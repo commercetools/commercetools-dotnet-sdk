@@ -7,6 +7,7 @@ using commercetools.Common;
 using commercetools.Common.UpdateActions;
 using commercetools.Project;
 using commercetools.ShippingMethods;
+using commercetools.ShippingMethods.UpdateActions;
 using commercetools.TaxCategories;
 using commercetools.Zones;
 using commercetools.Zones.UpdateActions;
@@ -187,6 +188,7 @@ namespace commercetools.Tests
 
             ShippingMethod shippingMethod = response.Result;
             Assert.NotNull(shippingMethod.Id);
+            Assert.AreEqual(shippingMethodDraft.Key, shippingMethod.Key);
 
             string deletedShippingMethodId = shippingMethod.Id;
 
@@ -206,22 +208,28 @@ namespace commercetools.Tests
         {
             string newName = string.Concat("Test Shipping Method ", Helper.GetRandomString(10));
             string newDescription = string.Concat("Test Description ", Helper.GetRandomString(10));
+            string newKey = Helper.GetRandomString(15);
 
             GenericAction changeNameAction = new GenericAction("changeName");
             changeNameAction.SetProperty("name", newName);
 
             GenericAction setDescriptionAction = new GenericAction("setDescription");
             setDescriptionAction.SetProperty("description", newDescription);
+            
+            GenericAction setKeyAction = new GenericAction("setKey");
+            setKeyAction.SetProperty("key", newKey);
 
             List<UpdateAction> actions = new List<UpdateAction>();
             actions.Add(changeNameAction);
             actions.Add(setDescriptionAction);
+            actions.Add(setKeyAction);
 
             Response<ShippingMethod> response = await _client.ShippingMethods().UpdateShippingMethodAsync(_testShippingMethods[0], actions);
             Assert.IsTrue(response.Success);
 
             _testShippingMethods[0] = response.Result;
             Assert.NotNull(_testShippingMethods[0].Id);
+            Assert.AreEqual(newKey, _testShippingMethods[0].Key);
 
             foreach (string language in _project.Languages)
             {

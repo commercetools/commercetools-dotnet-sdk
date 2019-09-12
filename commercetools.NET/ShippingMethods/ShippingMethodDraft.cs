@@ -16,6 +16,9 @@ namespace commercetools.ShippingMethods
 
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
+        
+        [JsonProperty(PropertyName = "key")]
+        public string Key { get; set; }
 
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
