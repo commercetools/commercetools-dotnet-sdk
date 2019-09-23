@@ -420,6 +420,7 @@ namespace commercetools.Tests
             Address address = new Address();
 
             address.Title = "Title";
+            address.Key = Helper.GetRandomString(10);
             address.Salutation = "Salutation";
             address.FirstName = "First Name";
             address.LastName = "Last Name";

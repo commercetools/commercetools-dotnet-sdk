@@ -618,6 +618,7 @@ namespace commercetools.Tests
             Assert.AreEqual(_testCarts[1].ShippingAddress.StreetNumber, newShippingAddress.StreetNumber);
             Assert.AreEqual(_testCarts[1].ShippingAddress.Country, newShippingAddress.Country);
             Assert.AreEqual(_testCarts[1].ShippingAddress.PostalCode, newShippingAddress.PostalCode);
+            Assert.AreEqual(_testCarts[1].ShippingAddress.Key, newShippingAddress.Key);
         }
 
         /// <summary>

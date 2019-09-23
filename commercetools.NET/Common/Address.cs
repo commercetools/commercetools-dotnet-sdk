@@ -15,6 +15,9 @@ namespace commercetools.Common
 
         [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
+        
+        [JsonProperty(PropertyName = "key")]
+        public string Key { get; set; }
 
         [JsonProperty(PropertyName = "salutation")]
         public string Salutation { get; set; }
@@ -100,6 +103,7 @@ namespace commercetools.Common
 
             this.Id = data.id;
             this.Title = data.title;
+            this.Key = data.key;
             this.Salutation = data.salutation;
             this.FirstName = data.firstName;
             this.LastName = data.lastName;
