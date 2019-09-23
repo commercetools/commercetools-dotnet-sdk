@@ -9,7 +9,7 @@ namespace commercetools.Common
     /// </summary>
     public class Configuration
     {
-        private ProjectScope _projectScope;
+        private HashSet<ProjectScope> _projectScope;
         private string _projectKey;
 
         #region Properties
@@ -22,31 +22,28 @@ namespace commercetools.Common
             get => _projectKey;
             set {
                 _projectKey = value;
-                if (ScopeString == null)
-                {
-                    ScopeString = ToScopeString(_projectScope, value);
-                }
+                if (ScopeString == null ) ScopeString = ToScopeString(value);
             }
         }
 
         public string ClientID { get; set; }
         public string ClientSecret { get; set; }
+
+        [Obsolete("use ScopeString instead")]
         public ProjectScope Scope
         {
-            get { return _projectScope; }
+            get { return _projectScope.FirstOrDefault(); }
             set
             {
-                _projectScope = value;
-                if (_projectKey != null)
-                {
-                    ScopeString = ToScopeString(value, _projectKey);
-                }
+                _projectScope.Clear();
+                _projectScope.Add(value);
+                if (_projectKey != null && ScopeString != null) ScopeString = ToScopeString(_projectKey);
             }
         }
 
-        public static string ToScopeString(ProjectScope value, string projectKey)
+        public string ToScopeString(string projectKey)
         {
-            return string.Concat(value.ToEnumMemberString(), ":", projectKey);
+            return string.Join(" ", _projectScope.Select(scope => string.Concat(scope.ToEnumMemberString(), ":", projectKey)));
         }
 
         public string ScopeString { get; set; }
@@ -63,6 +60,7 @@ namespace commercetools.Common
             this.InternalServerErrorRetries = 1;
             this.InternalServerErrorRetryInterval = 100;
             this.HttpClientPoolItemLifetime = TimeSpan.FromHours(1);
+            this._projectScope = new HashSet<ProjectScope>() { ProjectScope.ManageProject };
         }
 
         /// <summary>
@@ -79,12 +77,13 @@ namespace commercetools.Common
         /// <param name="httpClientPoolItemLifetime">Used to specify the timespan to wait before disposing an HttpClient LimitedPoolItem</param>
         public Configuration(string oAuthUrl, string apiUrl, string projectKey, string clientID, string clientSecret, ProjectScope scope, int internalServerErrorRetries = 1, int internalServerErrorRetryInterval = 100, TimeSpan? httpClientPoolItemLifetime = null)
         {
+            this._projectScope = new HashSet<ProjectScope>() { scope };
             this.OAuthUrl = oAuthUrl;
             this.ApiUrl = apiUrl;
             this.ProjectKey = projectKey;
             this.ClientID = clientID;
             this.ClientSecret = clientSecret;
-            this.Scope = scope;
+            this.ScopeString = ToScopeString(projectKey);
             this.InternalServerErrorRetries = internalServerErrorRetries;
             this.InternalServerErrorRetryInterval = internalServerErrorRetryInterval;
             this.HttpClientPoolItemLifetime = httpClientPoolItemLifetime ?? TimeSpan.FromHours(1);
@@ -114,6 +113,7 @@ namespace commercetools.Common
         /// <param name="httpClientPoolItemLifetime">Used to specify the timespan to wait before disposing an HttpClient LimitedPoolItem</param>
         public Configuration(string oAuthUrl, string apiUrl, string projectKey, string clientID, string clientSecret, string scope, int internalServerErrorRetries = 1, int internalServerErrorRetryInterval = 100, TimeSpan? httpClientPoolItemLifetime = null)
         {
+            this._projectScope = new HashSet<ProjectScope>();
             this.OAuthUrl = oAuthUrl;
             this.ApiUrl = apiUrl;
             this.ProjectKey = projectKey;
@@ -147,14 +147,15 @@ namespace commercetools.Common
         /// <param name="internalServerErrorRetries">Used to specify amount of retries when an internal server error occurs</param>
         /// <param name="internalServerErrorRetryInterval">Used to specify the amount of time in milliseconds to wait between retries when an internal server error occurs</param>
         /// <param name="httpClientPoolItemLifetime">Used to specify the timespan to wait before disposing an HttpClient LimitedPoolItem</param>
-        public Configuration(string oAuthUrl, string apiUrl, string projectKey, string clientID, string clientSecret, List<ProjectScope> scopes, int internalServerErrorRetries = 1, int internalServerErrorRetryInterval = 100, TimeSpan? httpClientPoolItemLifetime = null)
+        public Configuration(string oAuthUrl, string apiUrl, string projectKey, string clientID, string clientSecret, HashSet<ProjectScope> scopes, int internalServerErrorRetries = 1, int internalServerErrorRetryInterval = 100, TimeSpan? httpClientPoolItemLifetime = null)
         {
+            this._projectScope = scopes;
             this.OAuthUrl = oAuthUrl;
             this.ApiUrl = apiUrl;
             this.ProjectKey = projectKey;
             this.ClientID = clientID;
             this.ClientSecret = clientSecret;
-            this.ScopeString = string.Join(" ",scopes.Select(scope => ToScopeString(scope, projectKey)));
+            this.ScopeString = ToScopeString(projectKey);
             this.InternalServerErrorRetries = internalServerErrorRetries;
             this.InternalServerErrorRetryInterval = internalServerErrorRetryInterval;
             this.HttpClientPoolItemLifetime = httpClientPoolItemLifetime ?? TimeSpan.FromHours(1);

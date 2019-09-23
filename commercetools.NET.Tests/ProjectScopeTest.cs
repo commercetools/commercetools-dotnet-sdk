@@ -42,20 +42,6 @@ namespace commercetools.Tests
         }
 
         [Test]
-        public async Task ProjectScopeStringSet()
-        {
-            var c = new Configuration()
-            {
-                ScopeString = "manage_customers:foo manage_products:foo",
-                ProjectKey =  "foo"
-            };
-
-            Assert.AreEqual("foo", c.ProjectKey);
-            Assert.AreEqual("manage_customers:foo manage_products:foo", c.ScopeString);
-            Assert.AreEqual(ProjectScope.ManageProject, c.Scope);
-        }
-
-        [Test]
         public async Task ProjectScopeInit()
         {
             var c = new Configuration()
@@ -92,11 +78,41 @@ namespace commercetools.Tests
                 "foo",
                 "[your client ID]",
                 "[your client secret]",
-                ProjectScope.ManageProject);
+                ProjectScope.ManageProducts);
 
             Assert.AreEqual("foo", c.ProjectKey);
-            Assert.AreEqual("manage_project:foo", c.ScopeString);
+            Assert.AreEqual("manage_products:foo", c.ScopeString);
+            Assert.AreEqual(ProjectScope.ManageProducts, c.Scope);
+        }
+
+        [Test]
+        public async Task ProjectScopeStringSet()
+        {
+            var c = new Configuration()
+            {
+                ScopeString = "manage_customers:foo manage_products:foo",
+                ProjectKey =  "foo"
+            };
+
+            Assert.AreEqual("foo", c.ProjectKey);
+            Assert.AreEqual("manage_customers:foo manage_products:foo", c.ScopeString);
             Assert.AreEqual(ProjectScope.ManageProject, c.Scope);
+        }
+
+
+        [Test]
+        public async Task ProjectScopeStringScope()
+        {
+            var c = new Configuration()
+            {
+                ScopeString = "manage_customers:foo manage_products:foo",
+                Scope =  ProjectScope.ManageOrders,
+                ProjectKey = "foo"
+            };
+
+            Assert.AreEqual("foo", c.ProjectKey);
+            Assert.AreEqual("manage_customers:foo manage_products:foo", c.ScopeString);
+            Assert.AreEqual(ProjectScope.ManageOrders, c.Scope);
         }
 
         [Test]
@@ -142,12 +158,12 @@ namespace commercetools.Tests
                 "foo",
                 "[your client ID]",
                 "[your client secret]",
-                new List<ProjectScope>() { ProjectScope.ManageCustomers, ProjectScope.ManageProducts });
+                new HashSet<ProjectScope>() { ProjectScope.ManageCustomers, ProjectScope.ManageProducts });
 
 
             Assert.AreEqual("foo", c.ProjectKey);
             Assert.AreEqual("manage_customers:foo manage_products:foo", c.ScopeString);
-            Assert.AreEqual(ProjectScope.ManageProject, c.Scope);
+            Assert.AreEqual(ProjectScope.ManageCustomers, c.Scope);
         }
     }
 }
