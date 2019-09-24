@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using commercetools.Common;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace commercetools.Products
 {
@@ -19,6 +22,9 @@ namespace commercetools.Products
         [JsonProperty(PropertyName = "availableQuantity")]
         public int? AvailableQuantity { get; private set; }
 
+        [JsonProperty(PropertyName = "channels")]
+        public Dictionary<string, ProductVariantAvailability> Channels { get; private set; }
+
         #endregion
 
         #region Constructors
@@ -37,6 +43,17 @@ namespace commercetools.Products
             this.IsOnStock = data.isOnStock;
             this.RestockableInDays = data.restockableInDays;
             this.AvailableQuantity = data.availableQuantity;
+            this.Channels = new Dictionary<string, ProductVariantAvailability>();
+
+            if (data.channels != null)
+            {
+                foreach (JProperty item in data.channels)
+                {
+                    var value = new ProductVariantAvailability(item.Value);
+                    Channels.Add(item.Name, value);
+                }
+
+            }
         }
 
         #endregion

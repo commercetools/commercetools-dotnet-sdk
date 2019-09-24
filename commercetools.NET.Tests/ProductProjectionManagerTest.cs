@@ -7,7 +7,7 @@ using commercetools.ProductProjections;
 using commercetools.ProductTypes;
 using commercetools.Project;
 using commercetools.TaxCategories;
-
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace commercetools.Tests
@@ -140,6 +140,16 @@ namespace commercetools.Tests
             productProjectionQueryResult = response.Result;
             Assert.NotNull(productProjectionQueryResult.Results);
             Assert.LessOrEqual(productProjectionQueryResult.Results.Count, limit);
+        }
+
+        [Test]
+        public async Task TestProductVariantAvailabilityDeserialize()
+        {
+            dynamic data = JsonConvert.DeserializeObject("{ \"isOnStock\": true, \"restockableInDays\": 3, \"availableQuantity\": 3, \"channels\": { \"foo\": { \"isOnStock\": true, \"restockableInDays\": 3, \"availableQuantity\": 4 } } }");
+            var availability = new ProductVariantAvailability(data);
+
+            Assert.IsInstanceOf<ProductVariantAvailability>(availability.Channels["foo"]);
+            Assert.AreEqual(4, availability.Channels["foo"].AvailableQuantity);
         }
     }
 }
