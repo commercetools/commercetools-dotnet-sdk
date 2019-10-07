@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using commercetools.Common;
 using commercetools.ShippingMethods.Tiers;
 using Newtonsoft.Json;
@@ -21,6 +22,9 @@ namespace commercetools.ShippingMethods
 
         [JsonProperty(PropertyName = "tiers")]
         public List<Tier> Tiers { get; set; }
+
+        [JsonProperty(PropertyName = "isMatching")]
+        public Boolean IsMatching { get; set; }
 
         #endregion
 
@@ -50,6 +54,7 @@ namespace commercetools.ShippingMethods
             // We do not use Helper.GetListFromJsonArray here, due to the JsonConverter property on Tier class.
             // Using GetListFromJsonArray ignores the JsonConverter property and fails to deserialize properly.
             this.Tiers = JsonConvert.DeserializeObject<List<Tier>>(data.tiers.ToString());
+            this.IsMatching = data.isMatching;
         }
 
         #endregion
