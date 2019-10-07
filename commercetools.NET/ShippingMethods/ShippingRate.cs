@@ -24,7 +24,7 @@ namespace commercetools.ShippingMethods
         public List<Tier> Tiers { get; set; }
 
         [JsonProperty(PropertyName = "isMatching")]
-        public Boolean IsMatching { get; set; }
+        public Boolean? IsMatching { get; set; }
 
         #endregion
 
