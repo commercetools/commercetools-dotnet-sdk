@@ -101,7 +101,7 @@ namespace commercetools.Carts
             this.TaxedPrice = new TaxedItemPrice(data.taxedPrice);
             this.TotalPrice = Helper.GetMoneyBasedOnType(data.totalPrice);
             this.Quantity = data.quantity;
-            this.State = Helper.GetListFromJsonArray<ItemState>(data.State);
+            this.State = Helper.GetListFromJsonArray<ItemState>(data.state);
             this.TaxRate = new TaxRate(data.taxRate);
             this.SupplyChannel = new Reference(data.supplyChannel);
             this.DistributionChannel = new Reference(data.distributionChannel);

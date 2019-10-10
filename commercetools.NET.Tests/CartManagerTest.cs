@@ -23,7 +23,7 @@ using NUnit.Framework;
 
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-
+using ReferenceType = commercetools.Common.ReferenceType;
 using Type = commercetools.Types.Type;
 
 namespace commercetools.Tests
@@ -698,6 +698,16 @@ namespace commercetools.Tests
             Assert.NotNull(cart.DiscountCodes[0].State);
             Assert.AreEqual(DiscountCodeState.NotActive, cart.DiscountCodes[0].State);
             Console.Error.WriteLine(string.Format("CartManagerTest - Information Only - Deserialize DiscountCodeInfo: {0}", cart.DiscountCodes[0].State));
+        }
+
+        [Test]
+        public async Task ShouldGetLineItemState()
+        {
+            string data =
+                "{\"lineItems\": [{ \"state\": [ { \"state\": { \"typeId\": \"state\", \"id\": \"123456\" }} ] }]}";
+            Cart cart = JsonConvert.DeserializeObject<Cart>(data);
+            Assert.NotNull(cart.LineItems[0].State);
+            Assert.AreEqual(ReferenceType.State, cart.LineItems[0].State[0].State.ReferenceType);
         }
 
         /// <summary>
