@@ -31,6 +31,12 @@ namespace commercetools.Customers
         public string Email { get; set; }
 
         /// <summary>
+        /// Key
+        /// </summary>
+        [JsonProperty(PropertyName = "key")]
+        public string Key { get; set; }
+        
+        /// <summary>
         /// Password
         /// </summary>
         [JsonProperty(PropertyName = "password")]

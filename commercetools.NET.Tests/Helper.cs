@@ -467,11 +467,13 @@ namespace commercetools.Tests
             string email = string.Concat(Helper.GetRandomString(20), "@example.com");
             string password = Helper.GetRandomString(20);
 
+            string key = GetRandomString(10);
             CustomerDraft customerDraft = new CustomerDraft(email, password);
             customerDraft.ExternalId = Helper.GetRandomNumber(10000, 99999).ToString();
             customerDraft.Title = "API";
             customerDraft.FirstName = "Test";
             customerDraft.LastName = "Customer";
+            customerDraft.Key = key;
 
             return customerDraft;
         }
