@@ -86,6 +86,7 @@ namespace commercetools.Tests
 
             Customer customer = response.Result;
             Assert.NotNull(customer.Id);
+            Assert.NotNull(customer.Key);
             Assert.AreEqual(customer.Id, _testCustomer.Id);
         }
 
@@ -140,16 +141,21 @@ namespace commercetools.Tests
         {
             string newEmail = string.Concat(Helper.GetRandomString(10), "@example.com");
             string newExternalId = Helper.GetRandomNumber(10000, 99999).ToString();
+            string newKey = Helper.GetRandomString(10);
 
             SetExternalIdAction setExternalIdAction = new SetExternalIdAction();
             setExternalIdAction.ExternalId = newExternalId;
 
             GenericAction changeEmailAction = new GenericAction("changeEmail");
             changeEmailAction.SetProperty("email", newEmail);
+            
+            SetKeyAction setKeyAction = new SetKeyAction();
+            setKeyAction.Key = newKey;
 
             List<UpdateAction> actions = new List<UpdateAction>();
             actions.Add(setExternalIdAction);
             actions.Add(changeEmailAction);
+            actions.Add(setKeyAction);
 
             Response<Customer> response = await _client.Customers().UpdateCustomerAsync(_testCustomer, actions);
             Assert.IsTrue(response.Success);
@@ -158,6 +164,7 @@ namespace commercetools.Tests
             Assert.NotNull(_testCustomer.Id);
             Assert.AreEqual(_testCustomer.Email, newEmail);
             Assert.AreEqual(_testCustomer.ExternalId, newExternalId);
+            Assert.AreEqual(_testCustomer.Key, newKey);
         }
 
         /// <summary>

@@ -33,6 +33,9 @@ namespace commercetools.Customers
         [JsonProperty(PropertyName = "email")]
         public string Email { get; private set; }
 
+        [JsonProperty(PropertyName = "key")]
+        public string Key { get; private set; }
+        
         [JsonProperty(PropertyName = "password")]
         public string Password { get; private set; }
 
@@ -126,6 +129,7 @@ namespace commercetools.Customers
             this.CustomerGroup = new Reference(data.customerGroup);
             this.Custom = new CustomFields.CustomFields(data.custom);
             this.Locale = data.locale;
+            this.Key = data.key;
         }
 
         /// <summary>
