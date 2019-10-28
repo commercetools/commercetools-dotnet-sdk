@@ -89,6 +89,12 @@ namespace commercetools.Customers
 
         [JsonProperty(PropertyName = "locale")]
         public string Locale { get; private set; }
+        
+        /// <summary>
+        /// The salutation of the customer.
+        /// </summary>
+        [JsonProperty(PropertyName = "salutation")]
+        public string Salutation { get; private set; }
 
         #endregion
 

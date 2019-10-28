@@ -142,6 +142,7 @@ namespace commercetools.Tests
             string newEmail = string.Concat(Helper.GetRandomString(10), "@example.com");
             string newExternalId = Helper.GetRandomNumber(10000, 99999).ToString();
             string newKey = Helper.GetRandomString(10);
+            string newSalutation = Helper.GetRandomString(10);
 
             SetExternalIdAction setExternalIdAction = new SetExternalIdAction();
             setExternalIdAction.ExternalId = newExternalId;
@@ -151,11 +152,15 @@ namespace commercetools.Tests
             
             SetKeyAction setKeyAction = new SetKeyAction();
             setKeyAction.Key = newKey;
+            
+            SetSalutationAction setSalutationAction = new SetSalutationAction();
+            setSalutationAction.Salutation = newSalutation;
 
             List<UpdateAction> actions = new List<UpdateAction>();
             actions.Add(setExternalIdAction);
             actions.Add(changeEmailAction);
             actions.Add(setKeyAction);
+            actions.Add(setSalutationAction);
 
             Response<Customer> response = await _client.Customers().UpdateCustomerAsync(_testCustomer, actions);
             Assert.IsTrue(response.Success);
@@ -165,6 +170,7 @@ namespace commercetools.Tests
             Assert.AreEqual(_testCustomer.Email, newEmail);
             Assert.AreEqual(_testCustomer.ExternalId, newExternalId);
             Assert.AreEqual(_testCustomer.Key, newKey);
+            Assert.AreEqual(_testCustomer.Salutation, newSalutation);
         }
 
         /// <summary>
