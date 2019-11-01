@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace commercetools.Customers
 {
     /// <summary>
-    /// A customer is a person purchasing products. Carts, Orders and Reviews can be associated to a customer. 
+    /// A customer is a person purchasing products. Carts, Orders and Reviews can be associated to a customer.
     /// </summary>
     /// <see href="http://dev.commercetools.com/http-api-projects-customers.html#customer"/>
     public class Customer
@@ -35,7 +35,7 @@ namespace commercetools.Customers
 
         [JsonProperty(PropertyName = "key")]
         public string Key { get; private set; }
-        
+
         [JsonProperty(PropertyName = "password")]
         public string Password { get; private set; }
 
@@ -89,7 +89,7 @@ namespace commercetools.Customers
 
         [JsonProperty(PropertyName = "locale")]
         public string Locale { get; private set; }
-        
+
         /// <summary>
         /// The salutation of the customer.
         /// </summary>
@@ -136,6 +136,7 @@ namespace commercetools.Customers
             this.Custom = new CustomFields.CustomFields(data.custom);
             this.Locale = data.locale;
             this.Key = data.key;
+            this.Salutation = data.salutation;
         }
 
         /// <summary>
