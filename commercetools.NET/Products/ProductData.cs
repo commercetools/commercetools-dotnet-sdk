@@ -22,7 +22,7 @@ namespace commercetools.Products
         public List<Reference> Categories { get; private set; }
 
         [JsonProperty(PropertyName = "categoryOrderHints")]
-        public JObject CategoryOrderHints { get; private set; }
+        public Dictionary<string, string> CategoryOrderHints { get; private set; }
 
         [JsonProperty(PropertyName = "description")]
         public LocalizedString Description { get; private set; }
@@ -65,7 +65,6 @@ namespace commercetools.Products
 
             this.Name = new LocalizedString(data.name);
             this.Categories = Helper.GetListFromJsonArray<Reference>(data.categories);
-            this.CategoryOrderHints = new JObject(data.categoryOrderHints);
             this.Description = new LocalizedString(data.description);
             this.Slug = new LocalizedString(data.slug);
             this.MetaTitle = new LocalizedString(data.metaTitle);
@@ -74,6 +73,15 @@ namespace commercetools.Products
             this.MasterVariant = new ProductVariant(data.masterVariant);
             this.Variants = Helper.GetListFromJsonArray<ProductVariant>(data.variants);
             this.SearchKeywords = new SearchKeywords(data.searchKeywords);
+            this.CategoryOrderHints = new Dictionary<string, string>();
+
+            if (data.categoryOrderHints != null)
+            {
+                foreach (JProperty item in data.categoryOrderHints)
+                {
+                    CategoryOrderHints.Add(item.Name, (string)item.Value);
+                }
+            }
         }
 
         #endregion

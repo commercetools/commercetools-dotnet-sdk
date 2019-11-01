@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -26,7 +26,7 @@ namespace commercetools.Reviews
         public int? Count { get; private set; }
 
         [JsonProperty(PropertyName = "ratingsDistribution")]
-        public JObject RatingsDistribution { get; private set; }
+        public Dictionary<string, long> RatingsDistribution { get; private set; }
 
         #endregion
 
@@ -54,7 +54,15 @@ namespace commercetools.Reviews
             this.HighestRating = data.highestRating;
             this.LowestRating = data.lowestRating;
             this.Count = data.count;
-            this.RatingsDistribution = data.ratingsDistribution != null ? new JObject(data.ratingsDistribution) : null;
+            this.RatingsDistribution = new Dictionary<string, long>();
+
+            if (data.ratingsDistribution != null)
+            {
+                foreach (JProperty item in data.ratingsDistribution)
+                {
+                    RatingsDistribution.Add(item.Name, (long)item.Value);
+                }
+            }
         }
 
         #endregion

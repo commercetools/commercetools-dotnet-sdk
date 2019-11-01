@@ -9,6 +9,7 @@ using commercetools.Project;
 using commercetools.TaxCategories;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace commercetools.Tests
 {
@@ -60,6 +61,7 @@ namespace commercetools.Tests
                 ProductDraft productDraft = Helper.GetTestProductDraft(_project, _testProductType.Id, _testTaxCategory.Id);
                 Task<Response<Product>> productTask = _client.Products().CreateProductAsync(productDraft);
                 productTask.Wait();
+                var errors = productTask.Result.Errors;
                 Assert.IsTrue(productTask.Result.Success);
 
                 Product product = productTask.Result.Result;
@@ -151,5 +153,18 @@ namespace commercetools.Tests
             Assert.IsInstanceOf<ProductVariantAvailability>(availability.Channels["foo"]);
             Assert.AreEqual(4, availability.Channels["foo"].AvailableQuantity);
         }
+
+        [Test]
+        public async Task TestSystemTextJson()
+        {
+            dynamic data = JsonConvert.DeserializeObject("{ \"id\": \"fe9e6c47-0f6f-4c97-bcd0-4bd6de0d1120\", \"version\": 3, \"lastMessageSequenceNumber\": 1, \"createdAt\": \"2019-10-15T12:00:03.197Z\", \"lastModifiedAt\": \"2019-10-15T12:00:03.717Z\", \"lastModifiedBy\": {   \"clientId\": \"h-QvaF3NpsjPBWeXa6TUOnq0\",   \"isPlatformClient\": false }, \"createdBy\": {   \"clientId\": \"h-QvaF3NpsjPBWeXa6TUOnq0\",   \"isPlatformClient\": false }, \"productType\": {   \"typeId\": \"product-type\",   \"id\": \"2245e83c-7b0b-467b-b634-57563e695f90\" }, \"catalogs\": [], \"masterData\": {   \"current\": {\"name\": {  \"en\": \"GZFGKIENKT\"},\"description\": {  \"en\": \"V3DBJ5TGL1FO0YW7H9FG\"},\"categories\": [  {\"typeId\": \"category\",\"id\": \"9e4a0d7a-35f3-4613-a9a8-64fe8df4dfc0\"  }],\"categoryOrderHints\": {},\"slug\": {  \"en\": \"PU17FSMHXD\"},\"masterVariant\": {  \"id\": 1,  \"sku\": \"X6E7VQE5FC\",  \"key\": \"X6E7VQE5FC\",  \"prices\": [],  \"images\": [],  \"attributes\": [],  \"assets\": []},\"variants\": [],\"searchKeywords\": {  \"en\": [{ \"text\": \"jeans\"}  ]}   },   \"staged\": {\"name\": {  \"en\": \"GZFGKIENKT\"},\"description\": {  \"en\": \"V3DBJ5TGL1FO0YW7H9FG\"},\"categories\": [  {\"typeId\": \"category\",\"id\": \"9e4a0d7a-35f3-4613-a9a8-64fe8df4dfc0\"  }],\"categoryOrderHints\": {},\"slug\": {  \"en\": \"PU17FSMHXD\"},\"masterVariant\": {  \"id\": 1,  \"sku\": \"X6E7VQE5FC\",  \"key\": \"X6E7VQE5FC\",  \"prices\": [],  \"images\": [],  \"attributes\": [],  \"assets\": []},\"variants\": [],\"searchKeywords\": {  \"en\": [{ \"text\": \"jeans\"}  ]}   },   \"published\": false,   \"hasStagedChanges\": false }, \"key\": \"X6E7VQE5FC\", \"catalogData\": {}, \"reviewRatingStatistics\": {   \"averageRating\": 2,   \"highestRating\": 3,   \"lowestRating\": 1,   \"count\": 2,   \"ratingsDistribution\": {\"1\": 1,\"3\": 1   } }, \"taxCategory\": {   \"typeId\": \"tax-category\",   \"id\": \"4bcd7728-0990-4a0b-b662-db5d97f8d5d1\" }, \"state\": {   \"typeId\": \"state\",   \"id\": \"2e1af2e0-4d5f-42fa-8c7e-2c56bc328c89\" }, \"lastVariantId\": 1}");
+            var product = new Product(data);
+
+            Assert.IsInstanceOf<Product>(product);
+
+            var productJson = JsonSerializer.Serialize(product);
+            Assert.IsNotEmpty(productJson);
+        }
+
     }
 }
