@@ -681,12 +681,12 @@ namespace commercetools.Tests
         private static List<PriceDraft> GetListOfPriceDraft(Project.Project project, MoneyTestTypes moneyTestType)
         {
             List<PriceDraft> priceDrafts = new List<PriceDraft>();
-            Money value = null;
+            Func<Money> valueFunc = null;
             long centAmount = Helper.GetRandomNumber(10, 999999);
             switch (moneyTestType)
             {
                 case MoneyTestTypes.HighPrecision:
-                    value = new HighPrecisionMoney()
+                    valueFunc = () => new HighPrecisionMoney()
                     {
                         CentAmount = 100,
                         FractionDigits = 3,
@@ -695,14 +695,14 @@ namespace commercetools.Tests
                     break;
 
                 case MoneyTestTypes.CentPrecision:
-                    value = new CentPrecisionMoney()
+                    valueFunc = () => new CentPrecisionMoney()
                     {
                         CentAmount = centAmount,
                         FractionDigits = 2
                     };
                     break;
                 default:
-                    value = new Money()
+                    valueFunc = () => new Money()
                     {
                         CentAmount = centAmount
                     };
@@ -711,6 +711,7 @@ namespace commercetools.Tests
 
             foreach (string currency in project.Currencies)
             {
+                var value = valueFunc();
                 value.CurrencyCode = currency;
                 priceDrafts.Add(new PriceDraft(value));
             }
