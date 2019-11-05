@@ -160,7 +160,7 @@ namespace commercetools.Customers
         /// The salutation of the customer.
         /// </summary>
         [JsonProperty(PropertyName = "salutation")]
-        public string Salutation { get; private set; }
+        public string Salutation { get; set; }
 
         #endregion
 
