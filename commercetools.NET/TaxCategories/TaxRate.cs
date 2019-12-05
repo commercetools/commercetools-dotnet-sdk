@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using commercetools.Common;
+using Newtonsoft.Json;
 
 namespace commercetools.TaxCategories
 {
@@ -27,6 +29,9 @@ namespace commercetools.TaxCategories
 
         [JsonProperty(PropertyName = "state")]
         public string State { get; private set; }
+        
+        [JsonProperty(PropertyName = "subRates")]
+        public List<SubRate> SubRates { get; private set; }
 
         #endregion
 
@@ -49,6 +54,7 @@ namespace commercetools.TaxCategories
             this.IncludedInPrice = data.includedInPrice;
             this.Country = data.country;
             this.State = data.state;
+            this.SubRates = Helper.GetListFromJsonArray<SubRate>(data.subRates);
         }
 
         #endregion
