@@ -24,6 +24,7 @@ using Configuration = commercetools.Common.Configuration;
 using ReferenceType = commercetools.Common.ReferenceType;
 using commercetools.Subscriptions;
 using commercetools.Channels;
+using commercetools.CustomerGroups;
 using commercetools.CustomObjects;
 using commercetools.Inventory;
 using commercetools.GeoLocation;
@@ -476,6 +477,22 @@ namespace commercetools.Tests
             customerDraft.Key = key;
 
             return customerDraft;
+        }
+
+        #endregion
+        
+        #region CustomerGroups
+
+        /// <summary>
+        /// Gets a test customerGroup draft.
+        /// </summary>
+        /// <returns>CustomerGroupDraft</returns>
+        public static CustomerGroupDraft GetTestCustomerGroupDraft()
+        {
+            string key = GetRandomString(10);
+            var groupName = $"CustomerGroup_{key}";
+            var customerGroupDraft = new CustomerGroupDraft(groupName, key);
+            return customerGroupDraft;
         }
 
         #endregion
