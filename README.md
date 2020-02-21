@@ -45,15 +45,15 @@ class Program
     private async Task Run()
     {
         Configuration config = new Configuration(
-            "https://auth.sphere.io/oauth/token",
-            "https://api.sphere.io",
+            "https://auth.europe-west1.gcp.commercetools.com/oauth/token",
+            "https://api.europe-west1.gcp.commercetools.com",
             "[your project key]",
             "[your client ID]",
             "[your client secret]",
             ProjectScope.ManageProject);
 
         Client client = new Client(config);
-        
+
         Response<ProductQueryResult> response = await client.Products().QueryProductsAsync();
 
         if (response.Success)
@@ -79,7 +79,7 @@ class Program
 
 ```
 
-Not all API sections and representations have been implemented in the SDK. If you need to work with areas of the API that have not yet been covered, you can use the Client to make JSON requests directly. Ask the client for a JObject and you will get the entire JSON response that is returned from the API.  
+Not all API sections and representations have been implemented in the SDK. If you need to work with areas of the API that have not yet been covered, you can use the Client to make JSON requests directly. Ask the client for a JObject and you will get the entire JSON response that is returned from the API.
 
 This code snippet will have the same output as the code snippet above:
 
@@ -113,14 +113,14 @@ else
 This software is licenses under the MIT License, which allows commercial use and modification as well as open source collaboration.
 
 We are warmly welcoming contributors and are happy to help out.
-To contribute changes or improvements, please fork the repository into your account on GitHub and create a pull request.  
+To contribute changes or improvements, please fork the repository into your account on GitHub and create a pull request.
 
 ## Contribution Guidelines
 
-* The namespaces and directory names in the SDK should match up exactly with the project name in the documentation. For your contributions. 
+* The namespaces and directory names in the SDK should match up exactly with the project name in the documentation. For your contributions.
     > For Example: The namespace should be commercetools.CartDiscounts (plural) should be used rather than commercetools.CartDiscount (singular).
 
-* Only the required properties for an API entity should be used as constructor parameters in the corresponding SDK class. Parameters marked as optional in the documentation should not be required for creating a new instance of the class. 
+* Only the required properties for an API entity should be used as constructor parameters in the corresponding SDK class. Parameters marked as optional in the documentation should not be required for creating a new instance of the class.
     > For Example: In the commercetools.CartDiscounts.CartDiscountDraft class, description, target, isActive, validFrom and validUntil should not be used as constructor parameters as they are not required.
 
 * Wherever applicable, try to treat objects as groups of entities and use a factory to create these groups of entities when response is being parsed.
@@ -131,5 +131,5 @@ To contribute changes or improvements, please fork the repository into your acco
 
 The Visual Studio IDE [is available for Mac OS](https://www.visualstudio.com/vs/visual-studio-mac/) (preview version as of 2016)
 
-A more lightweight Coding Environment that also manages the .NET setup automatically for you is [Microsoft Visual Studio Code](https://code.visualstudio.com/) (free). 
+A more lightweight Coding Environment that also manages the .NET setup automatically for you is [Microsoft Visual Studio Code](https://code.visualstudio.com/) (free).
 

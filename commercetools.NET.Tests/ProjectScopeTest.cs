@@ -73,8 +73,8 @@ namespace commercetools.Tests
         public async Task ProjectScopeConstructor()
         {
             var c = new Configuration(
-                "https://auth.sphere.io/oauth/token",
-                "https://api.sphere.io",
+                "https://auth.europe-west1.gcp.commercetools.com/oauth/token",
+                "https://api.europe-west1.gcp.commercetools.com",
                 "foo",
                 "[your client ID]",
                 "[your client secret]",
@@ -119,8 +119,8 @@ namespace commercetools.Tests
         public async Task ProjectScopeStringSingleConstructor()
         {
             var c = new Configuration(
-                "https://auth.sphere.io/oauth/token",
-                "https://api.sphere.io",
+                "https://auth.europe-west1.gcp.commercetools.com/oauth/token",
+                "https://api.europe-west1.gcp.commercetools.com",
                 "foo",
                 "[your client ID]",
                 "[your client secret]",
@@ -136,8 +136,8 @@ namespace commercetools.Tests
         public async Task ProjectScopeStringConstructor()
         {
             var c = new Configuration(
-                "https://auth.sphere.io/oauth/token",
-                "https://api.sphere.io",
+                "https://auth.europe-west1.gcp.commercetools.com/oauth/token",
+                "https://api.europe-west1.gcp.commercetools.com",
                 "foo",
                 "[your client ID]",
                 "[your client secret]",
@@ -153,8 +153,8 @@ namespace commercetools.Tests
         public async Task ProjectScopeListConstructor()
         {
             var c = new Configuration(
-                "https://auth.sphere.io/oauth/token",
-                "https://api.sphere.io",
+                "https://auth.europe-west1.gcp.commercetools.com/oauth/token",
+                "https://api.europe-west1.gcp.commercetools.com",
                 "foo",
                 "[your client ID]",
                 "[your client secret]",
