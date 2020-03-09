@@ -56,15 +56,6 @@ namespace commercetools.Carts
         public Reference DistributionChannel { get; set; }
 
         /// <summary>
-        /// Reference to a ProductType
-        /// </summary>
-        /// <remarks>
-        /// The ProductType of this LineItem
-        /// </remarks>
-        [JsonProperty(PropertyName = "productType")]
-        public Reference ProductType { get; private set; }
-
-        /// <summary>
         /// An external tax rate can be set if the cart has the External TaxMode.
         /// </summary>
         [JsonProperty(PropertyName = "externalTaxRate")]
