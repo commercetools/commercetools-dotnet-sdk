@@ -58,6 +58,9 @@ namespace commercetools.Carts
         [JsonProperty(PropertyName = "distributionChannel")]
         public Reference DistributionChannel { get; private set; }
 
+        [JsonProperty(PropertyName = "productType")]
+        public Reference ProductType { get; private set; }
+
         [JsonProperty(PropertyName = "discountedPricePerQuantity")]
         public List<DiscountedLineItemPriceForQuantity> DiscountedPricePerQuantity { get; private set; }
 
@@ -105,6 +108,7 @@ namespace commercetools.Carts
             this.TaxRate = new TaxRate(data.taxRate);
             this.SupplyChannel = new Reference(data.supplyChannel);
             this.DistributionChannel = new Reference(data.distributionChannel);
+            this.ProductType = new Reference(data.productType);
             this.DiscountedPricePerQuantity = Helper.GetListFromJsonArray<DiscountedLineItemPriceForQuantity>(data.discountedPricePerQuantity);
             this.PriceMode = Enum.TryParse(priceModeStr, out priceMode) ? (LineItemPriceMode?)priceMode : null;
             this.LineItemMode = Enum.TryParse(lineItemModeStr, out lineItemMode) ? (LineItemMode?)lineItemMode : null;
