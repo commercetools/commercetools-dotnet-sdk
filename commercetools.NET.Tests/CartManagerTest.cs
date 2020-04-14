@@ -8,6 +8,7 @@ using commercetools.Common.UpdateActions;
 using commercetools.Carts;
 using commercetools.Carts.UpdateActions;
 using commercetools.Customers;
+using commercetools.DiscountCodes;
 using commercetools.Messages;
 using commercetools.Payments;
 using commercetools.Products;
@@ -39,6 +40,7 @@ namespace commercetools.Tests
         private List<Cart> _testCarts;
         private List<Cart> _testCartsExternalAmountTaxMode;
         private List<Customer> _testCustomers;
+        private List<DiscountCode> _testDiscountCodes;
         private Payment _testPayment;
         private Product _testProduct;
         private ProductType _testProductType;
@@ -65,6 +67,7 @@ namespace commercetools.Tests
             Assert.IsTrue(_project.Currencies.Count > 0, "No Currencies");
 
             _testCustomers = new List<Customer>();
+            _testDiscountCodes = new List<DiscountCode>();
             _testCarts = new List<Cart>();
             _testCartsExternalAmountTaxMode = new List<Cart>();
             CustomerDraft customerDraft;
@@ -255,6 +258,12 @@ namespace commercetools.Tests
             foreach (Customer customer in _testCustomers)
             {
                 task = _client.Customers().DeleteCustomerAsync(customer);
+                task.Wait();
+            }
+
+            foreach (var discountCode in _testDiscountCodes)
+            {
+                task = _client.DiscountCodes().DeleteDiscountCodeAsync(discountCode);
                 task.Wait();
             }
 
@@ -698,6 +707,36 @@ namespace commercetools.Tests
             Assert.NotNull(cart.DiscountCodes[0].State);
             Assert.AreEqual(DiscountCodeState.NotActive, cart.DiscountCodes[0].State);
             Console.Error.WriteLine(string.Format("CartManagerTest - Information Only - Deserialize DiscountCodeInfo: {0}", cart.DiscountCodes[0].State));
+        }
+        
+        [Test]
+        public async Task ShouldGetDiscountCodes()
+        {
+            //adding discountCode to the cart
+            var discountCodeDraft = Helper.GetDiscountCodeDraft(_project, _client, true, true).Result;
+            var discountCodeTask = _client.DiscountCodes().CreateDiscountCodeAsync(discountCodeDraft);
+            discountCodeTask.Wait();
+            Assert.IsTrue(discountCodeTask.Result.Success);
+
+            var discountCode = discountCodeTask.Result.Result;
+            _testDiscountCodes.Add(discountCode);
+
+            var cart = _testCarts.FirstOrDefault();
+            if (cart != null)
+            {
+                var addDiscountCodes = new AddDiscountCodeAction(discountCode.Code);
+                var response = await _client.Carts().UpdateCartAsync(cart, addDiscountCodes);
+                Assert.IsTrue(response.Success);
+                var cartWithDiscountCode = response.Result;
+                _testCarts[0] = cartWithDiscountCode;
+                 
+                Assert.True(cartWithDiscountCode.DiscountCodes.Count == 1);
+                var retrievedDiscountCode = cartWithDiscountCode.DiscountCodes.FirstOrDefault();
+                Assert.NotNull(retrievedDiscountCode);
+                Assert.NotNull(retrievedDiscountCode.State);
+                Assert.AreEqual(discountCode.Id, retrievedDiscountCode.DiscountCode.Id);
+                Assert.AreEqual(DiscountCodeState.DoesNotMatchCart, retrievedDiscountCode.State);
+            }
         }
 
         [Test]

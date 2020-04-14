@@ -45,6 +45,13 @@ namespace commercetools.Common
                     found = true;
                     break;
                 }
+
+                if(memberInfo.Name.Equals(value))
+                {
+                    t = (T)Enum.Parse(type, memberInfo.Name);
+                    found = true;
+                    break;
+                }
             }
 
             return found;
