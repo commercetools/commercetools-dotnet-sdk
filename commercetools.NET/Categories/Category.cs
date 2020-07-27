@@ -57,6 +57,9 @@ namespace commercetools.Categories
         [JsonProperty(PropertyName = "metaKeywords")]
         public LocalizedString MetaKeywords { get; private set; }
 
+        [JsonProperty(PropertyName = "custom")]
+        public CustomFields.CustomFields Custom { get; private set; }
+
         #endregion
 
         #region Constructors
@@ -86,6 +89,7 @@ namespace commercetools.Categories
             this.MetaTitle = new LocalizedString(data.metaTitle);
             this.MetaDescription = new LocalizedString(data.metaDescription);
             this.MetaKeywords = new LocalizedString(data.metaKeywords);
+            this.Custom = new CustomFields.CustomFields(data.custom);
         }
 
         #endregion
@@ -116,7 +120,7 @@ namespace commercetools.Categories
         public override int GetHashCode()
         {
             return this.Id.GetHashCode();
-        }    
+        }
 
         #endregion
     }
