@@ -1,4 +1,5 @@
-﻿using commercetools.Common;
+﻿using System;
+using commercetools.Common;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -35,7 +36,17 @@ namespace commercetools.Categories.UpdateActions
         /// <summary>
         /// Constructor.
         /// </summary>
+        [Obsolete("This constructor is incorrect and will be removed, use the other overload instead")]
         public SetCustomTypeAction(LocalizedString name)
+            : this()
+        {
+
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public SetCustomTypeAction()
         {
             this.Action = "setCustomType";
         }
