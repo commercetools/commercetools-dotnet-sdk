@@ -21,6 +21,12 @@ namespace commercetools.Common
         [JsonProperty(PropertyName = "message")]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Detailed error message
+        /// </summary>
+        [JsonProperty(PropertyName = "detailedErrorMessage")]
+        public string DetailedErrorMessage { get; set; }
+
         #endregion
 
         #region Construtors
@@ -39,6 +45,16 @@ namespace commercetools.Common
         {
             this.Code = code;
             this.Message = message;
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public ErrorMessage(string code, string message, string detailedErrorMessage)
+        {
+            this.Code = code;
+            this.Message = message;
+            this.DetailedErrorMessage = detailedErrorMessage;
         }
 
         #endregion

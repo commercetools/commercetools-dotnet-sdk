@@ -331,7 +331,8 @@ namespace commercetools.Common
                         {
                             string code = error.Value<string>("code");
                             string message = error.Value<string>("message");
-                            response.Errors.Add(new ErrorMessage(code, message));
+                            string detailedErrorMessage = error.Value<string>("detailedErrorMessage");
+                            response.Errors.Add(new ErrorMessage(code, message, detailedErrorMessage));
                         }
                     }
                 }
