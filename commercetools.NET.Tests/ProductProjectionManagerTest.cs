@@ -147,11 +147,12 @@ namespace commercetools.Tests
         [Test]
         public async Task TestProductVariantAvailabilityDeserialize()
         {
-            dynamic data = JsonConvert.DeserializeObject("{ \"isOnStock\": true, \"restockableInDays\": 3, \"availableQuantity\": 3, \"channels\": { \"foo\": { \"isOnStock\": true, \"restockableInDays\": 3, \"availableQuantity\": 4 } } }");
+            dynamic data = JsonConvert.DeserializeObject("{ \"isOnStock\": true, \"restockableInDays\": 3, \"availableQuantity\": 5615615616, \"channels\": { \"foo\": { \"isOnStock\": true, \"restockableInDays\": 3, \"availableQuantity\": 5615615616 } } }");
             var availability = new ProductVariantAvailability(data);
 
+            Assert.AreEqual(5615615616, availability.AvailableQuantity);
             Assert.IsInstanceOf<ProductVariantAvailability>(availability.Channels["foo"]);
-            Assert.AreEqual(4, availability.Channels["foo"].AvailableQuantity);
+            Assert.AreEqual(5615615616, availability.Channels["foo"].AvailableQuantity);
         }
 
         [Test]
