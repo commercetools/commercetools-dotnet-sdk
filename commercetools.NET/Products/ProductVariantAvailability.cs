@@ -20,7 +20,7 @@ namespace commercetools.Products
         public int? RestockableInDays { get; private set; }
 
         [JsonProperty(PropertyName = "availableQuantity")]
-        public int? AvailableQuantity { get; private set; }
+        public long? AvailableQuantity { get; private set; }
 
         [JsonProperty(PropertyName = "channels")]
         public Dictionary<string, ProductVariantAvailability> Channels { get; private set; }
