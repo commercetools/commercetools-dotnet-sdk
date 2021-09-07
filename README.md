@@ -1,6 +1,6 @@
 # commercetools-dotnet-sdk
 
-:warning: **This commercetools .NET SDK is deprecated and will be decommissioned within 2020.** We provide for this repository maintenance support only, which means that new features are not actively developed. Pull requests will be reviewed and added. Issues with the SDK in using the API like serializing/deserializing will be fixed. For new projects we recommend to use our [.NET Core SDK](https://github.com/commercetools/commercetools-dotnet-core-sdk).
+:warning: **This commercetools .NET SDK is deprecated effective `1st September 2021.`, We recommend to use our [.NET Core SDK V2](https://docs.commercetools.com/sdk/dotnet-sdk#net-core-sdk-v2).
 
 [![Travis Build Status](https://travis-ci.org/commercetools/commercetools-dotnet-sdk.svg?branch=master)](https://travis-ci.org/commercetools/commercetools-dotnet-sdk)
 [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/commercetools/commercetools-dotnet-sdk.svg)](https://ci.appveyor.com/project/commercetools/commercetools-dotnet-sdk)
