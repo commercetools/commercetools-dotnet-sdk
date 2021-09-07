@@ -1,7 +1,6 @@
 # commercetools-dotnet-sdk
 
-:warning: **This commercetools .NET SDK is deprecated and its end of life is effective from 1st September 2021. 
-We recommend to use our [.NET Core SDK V2](https://docs.commercetools.com/sdk/dotnet-sdk#net-core-sdk-v2).
+:warning: **This commercetools .NET SDK is deprecated effective `1st September 2021.`, We recommend to use our [.NET Core SDK V2](https://docs.commercetools.com/sdk/dotnet-sdk#net-core-sdk-v2).
 
 [![Travis Build Status](https://travis-ci.org/commercetools/commercetools-dotnet-sdk.svg?branch=master)](https://travis-ci.org/commercetools/commercetools-dotnet-sdk)
 [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/commercetools/commercetools-dotnet-sdk.svg)](https://ci.appveyor.com/project/commercetools/commercetools-dotnet-sdk)
