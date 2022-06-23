@@ -6,7 +6,7 @@
     <LangVersion>7</LangVersion>
     <Version>1.0.0.0</Version>
     <Authors>commercetools</Authors>
-    <Description>The commercetools.NET SDK allows developers to work effectively with the commercetools platform in their .NET applications by providing typesafe access to the commercetools HTTP API.</Description>
+    <Description>The Composable Commerce SDK allows developers to work effectively by providing typesafe access to commercetools Composable Commerce in their .NET applications.</Description>
     <Copyright>Copyright (c) 2019 Falcon-Software, commercetools and contributors</Copyright>
     <PackageProjectUrl>https://github.com/commercetools/commercetools-dotnet-sdk</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

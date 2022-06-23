@@ -27,7 +27,7 @@ namespace commercetools.Common
 
         [JsonProperty(PropertyName = "token_type")]
         public string TokenType { get; private set; }
-        
+
         #endregion
 
         #region Constructors
@@ -51,7 +51,7 @@ namespace commercetools.Common
 
             if (expiresIn.HasValue)
             {
-                // Offset slightly as per commercetools recommendation
+                // Offset slightly as per Composable Commerce recommendation
                 this.ExpiryDate = DateTime.UtcNow.AddSeconds(expiresIn.Value - 60);
             }
 
@@ -60,7 +60,7 @@ namespace commercetools.Common
                 string description = scope.Split(':')[0];
 
                 ProjectScope? projectScope;
-                this.ProjectScope = Helper.TryGetEnumByEnumMemberAttribute<ProjectScope?>(description, out projectScope) ? projectScope : null; 
+                this.ProjectScope = Helper.TryGetEnumByEnumMemberAttribute<ProjectScope?>(description, out projectScope) ? projectScope : null;
             }
         }
 
@@ -81,6 +81,6 @@ namespace commercetools.Common
             return true;
         }
 
-        #endregion 
+        #endregion
     }
 }

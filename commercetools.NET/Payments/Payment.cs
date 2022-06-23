@@ -11,7 +11,7 @@ namespace commercetools.Payments
     /// Payments hold information about the current state of receiving and/or refunding money.
     /// </summary>
     /// <remarks>
-    /// A payment represents one or a logically connected series of financial transactions like reserving money, charging money or refunding money. They serve as a representation of the current state of the payment and can also be used to trigger new transactions. The actual financial process is not done by the commercetools™ platform but usually by a PSP (Payment Service Provider), which is connected via PSP-specific integration implementation. The Payment representation does not contain payment method-specific fields. These are added as CustomFields via a payment method-specific payment type.
+    /// A payment represents one or a logically connected series of financial transactions like reserving money, charging money or refunding money. They serve as a representation of the current state of the payment and can also be used to trigger new transactions. The actual financial process is not done by Composable Commerce but usually by a PSP (Payment Service Provider), which is connected via PSP-specific integration implementation. The Payment representation does not contain payment method-specific fields. These are added as CustomFields via a payment method-specific payment type.
     /// </remarks>
     /// <see href="http://dev.commercetools.com/http-api-projects-payments.html#payment"/>
     public class Payment

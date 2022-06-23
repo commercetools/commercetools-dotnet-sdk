@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 namespace commercetools.CustomObjects
 {
     /// <summary>
-    /// Custom objects are a way to store arbitrary JSON-formatted data on the commercetools platform.
+    /// Custom objects are a way to store arbitrary JSON-formatted data on Composable Commerce.
     /// <see href="https://docs.commercetools.com/http-api-projects-custom-objects.html#customobject"/>
     /// </summary>
     public class CustomObject<T>

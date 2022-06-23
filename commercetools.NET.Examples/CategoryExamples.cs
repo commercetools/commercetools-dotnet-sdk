@@ -83,10 +83,10 @@ namespace commercetools.Examples
 
             /*  UPDATE A CATEGORY
              *  ===================================================================================
-             *  Each change is made using its own update action object which maps to an update 
+             *  Each change is made using its own update action object which maps to an update
              *  action call in the API. The list of update action objects are sent to the API using
-             *  a single request. If there is an update action in the API that has not yet been 
-             *  implemented in the SDK, you can use the GenericAction class to make any request you 
+             *  a single request. If there is an update action in the API that has not yet been
+             *  implemented in the SDK, you can use the GenericAction class to make any request you
              *  want (as long as it is a valid update action supported by the API).
              */
             categoryName[language] = "Updated Category";
@@ -94,7 +94,7 @@ namespace commercetools.Examples
 
             // Here is how you would make the setDescription request using a GenericAction object.
             LocalizedString categoryDescription = new LocalizedString();
-            categoryDescription[language] = "This is a new category created by the commercetools.NET SDK.";
+            categoryDescription[language] = "This is a new category created by the Composable Commerce .NET SDK.";
 
             GenericAction setDescriptionAction = new GenericAction("setDescription");
             setDescriptionAction["description"] = categoryDescription;
@@ -117,7 +117,7 @@ namespace commercetools.Examples
 
             /*  DELETE A CATEGORY
              *  ===================================================================================
-             *  Delete API requests return a generic response, but some return the object that was 
+             *  Delete API requests return a generic response, but some return the object that was
              *  deleted. The Categories delete request returns the full representation.
              */
             categoryResponse = await client.Categories().DeleteCategoryAsync(category);

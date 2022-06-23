@@ -15,7 +15,7 @@ using System.Threading;
 namespace commercetools.Common
 {
     /// <summary>
-    /// A client for executing requests against the commercetools web service.
+    /// A client for executing requests against the Composable Commerce web service.
     /// </summary>
     public class Client : IClient
     {

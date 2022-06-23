@@ -1,12 +1,12 @@
 # commercetools-dotnet-sdk
 
-:warning: **This commercetools .NET SDK is deprecated effective `1st September 2021.`, We recommend to use our [.NET Core SDK V2](https://docs.commercetools.com/sdk/dotnet-sdk#net-core-sdk-v2).
+:warning: **This Composable Commerce .NET SDK is deprecated effective `1st September 2021.`, We recommend to use our [.NET Core SDK V2](https://docs.commercetools.com/sdk/dotnet-sdk#net-core-sdk-v2).
 
 [![Travis Build Status](https://travis-ci.org/commercetools/commercetools-dotnet-sdk.svg?branch=master)](https://travis-ci.org/commercetools/commercetools-dotnet-sdk)
 [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/commercetools/commercetools-dotnet-sdk.svg)](https://ci.appveyor.com/project/commercetools/commercetools-dotnet-sdk)
 [![NuGet Version and Downloads count](https://buildstats.info/nuget/commercetools.NET.SDK?includePreReleases=true)](https://www.nuget.org/packages/commercetools.NET.SDK)
 
-The commercetools.NET SDK allows developers to work effectively with the commercetools platform in their .NET applications by providing typesafe access to the commercetools HTTP API.
+The Composable Commerce SDK allows developers to work effectively by providing typesafe access to commercetools Composable Commerce in their .NET applications.
 
 For more documentation please see [the wiki](//github.com/commercetools/commercetools-dotnet-sdk/wiki/commercetools-.NET-SDK-documentation)
 
@@ -16,13 +16,13 @@ For more documentation please see [the wiki](//github.com/commercetools/commerce
 
 ## Using the SDK
 
-You will need a commercetools project to use the SDK.
-If you don't already have one, you can [create a free trial project](http://dev.commercetools.com/getting-started.html) on the commercetools platform and configure the API credentials.
+You will need a Composable Commerce Project to use the SDK.
+If you don't already have one, you can [create a free trial project](http://dev.commercetools.com/getting-started.html) on Composable Commerce and configure the API credentials.
 
 The namespaces in the SDK mirror the sections of the [commercetools HTTP API](http://dev.commercetools.com/http-api.html).
 Access to these namespaces is provided by a fluent interface on the Client class.
 
-Responses from the client are wrapped in a Reponse object so you can determine if the request was successful and view the error(s) returned from the API if it was not.
+Responses from the client are wrapped in a Response object so you can determine if the request was successful and view the error(s) returned from the API if it was not.
 
 ```cs
 
@@ -124,7 +124,7 @@ To contribute changes or improvements, please fork the repository into your acco
     > For Example: In the commercetools.CartDiscounts.CartDiscountDraft class, description, target, isActive, validFrom and validUntil should not be used as constructor parameters as they are not required.
 
 * Wherever applicable, try to treat objects as groups of entities and use a factory to create these groups of entities when response is being parsed.
-    > For Example: The CartDiscountValue entities (AbsoluteCartDiscountValue/RelativeCartDiscountValue/GiftLineItemCartDiscountValue) are treated as a group of entities that share a common type property, Type (Relative/Absolute/GiftLineItem). These entities are created by a CartDiscountValueFactory when we parse the response from the CommerceTools API.
+    > For Example: The CartDiscountValue entities (AbsoluteCartDiscountValue/RelativeCartDiscountValue/GiftLineItemCartDiscountValue) are treated as a group of entities that share a common type property, Type (Relative/Absolute/GiftLineItem). These entities are created by a CartDiscountValueFactory when we parse the response from the Composable Commerce API.
 
 
 ### Mac Users
