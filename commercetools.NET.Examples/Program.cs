@@ -10,12 +10,11 @@ using Configuration = commercetools.Common.Configuration;
 namespace commercetools.Examples
 {
     /// <summary>
-    /// These examples are meant to run against a commercetools project that contains some data;
+    /// These examples are meant to run against a Project that contains some data;
     /// at minimum, the sample data that is included by default when creating a new project should
-    /// be present so that there are at least one currency, language, and product type to work 
+    /// be present so that there are at least one currency, language, and product type to work
     /// with, along with a few products and categories.  All of these examples should successfully
-    /// run against the sample data set that is included when you create a new commercetools 
-    /// project.
+    /// run against the sample data set that is included when you create a new Project.
     /// </summary>
     public class Program
     {
@@ -46,8 +45,8 @@ namespace commercetools.Examples
                 Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["commercetools.ClientID"]),
                 Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["commercetools.ClientSecret"]),
                 ProjectScope.ManageProject);
-            
-            Client client = new Client(configuration);            
+
+            Client client = new Client(configuration);
 
 
             /*  GET PROJECT
@@ -72,9 +71,9 @@ namespace commercetools.Examples
             await CategoryExamples.Run(client, project);
             await OrderExamples.Run(client, project);
             await ProductExamples.Run(client, project);
-                        
 
-           
+
+
         }
     }
 }

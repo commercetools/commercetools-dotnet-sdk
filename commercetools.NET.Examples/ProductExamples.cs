@@ -60,9 +60,9 @@ namespace commercetools.Examples
 
             /*  CREATE PRODUCT
              *  ===================================================================================
-             *  You will need to specify the type of product you are creating using a 
-             *  resource identifier that references an existing product type in your commercetools 
-             *  project. So before creating the product, we will retrieve a ProductType from the
+             *  You will need to specify the type of product you are creating using a
+             *  resource identifier that references an existing product type in your Project.
+             *  So before creating the product, we will retrieve a ProductType from the
              *  API and use it to create a ResourceIdentifier object.
              */
             Response<ProductTypeQueryResult> productTypeResponse = await client.ProductTypes().QueryProductTypesAsync();
@@ -107,10 +107,10 @@ namespace commercetools.Examples
 
             /*  UPDATE A PRODUCT
              *  ===================================================================================
-             *  Each change is made using its own update action object which maps to an update 
+             *  Each change is made using its own update action object which maps to an update
              *  action call in the API. The list of update action objects are sent to the API using
-             *  a single request. If there is an update action in the API that has not yet been 
-             *  implemented in the SDK, you can use the GenericAction class to make any request you 
+             *  a single request. If there is an update action in the API that has not yet been
+             *  implemented in the SDK, you can use the GenericAction class to make any request you
              *  want (as long as it is a valid update action supported by the API).
              */
             SetKeyAction setKeyAction = new SetKeyAction();
@@ -141,7 +141,7 @@ namespace commercetools.Examples
 
             /*  DELETE A PRODUCT
              *  ===================================================================================
-             *  Delete API requests return a generic response, but some return the object that was 
+             *  Delete API requests return a generic response, but some return the object that was
              *  deleted. The Products delete request returns the full representation.
              */
             productResponse = await client.Products().DeleteProductAsync(product);

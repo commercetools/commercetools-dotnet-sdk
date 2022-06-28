@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 namespace commercetools.Common
 {
     /// <summary>
-    /// A JSON object representing a (loose) reference to another resource on the commercetools platform.
+    /// A JSON object representing a (loose) reference to another resource on Composable Commerce
     /// </summary>
     /// <see href="http://dev.commercetools.com/http-api-types.html#reference"/>
     public class Reference
